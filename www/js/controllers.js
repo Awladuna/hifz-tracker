@@ -28,6 +28,7 @@ angular.module('starter.controllers', [])
 }])
 
 .controller('HomeCtrl', function($scope, $localstorage) {
+  $scope.view = {};
   $scope.defaultSurahs = [
     { title: 'Al-Ghashiyah', id: 1 },
     { title: 'Al-Fajr', id: 2 },
@@ -100,5 +101,22 @@ angular.module('starter.controllers', [])
     $localstorage.setArray('surahs',$scope.surahs);
   };
 
+  $scope.addSurah = function(title) {
+    var newId = $scope.surahs
+        .map(function(s) { return s.id; })
+        .sort()[$scope.surahs.length -1] + 1;
+
+    $scope.surahs.unshift({ title: title, id: newId });
+
+    // Save back to localStorage
+    $localstorage.setArray('surahs',$scope.surahs);
+  };
+
+  $scope.removeSurah = function(index) {
+    $scope.surahs.splice(index, 1);
+
+    // Save back to localStorage
+    $localstorage.setArray('surahs',$scope.surahs);
+  };
 })
 
