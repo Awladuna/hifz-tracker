@@ -27,7 +27,7 @@ angular.module('starter.controllers', [])
   }
 }])
 
-.controller('HomeCtrl', function($scope, $localstorage) {
+.controller('HomeCtrl', function($scope, $localstorage, $ionicPopup) {
   $scope.view = {};
   $scope.defaultSurahs = [
     { title: 'Al-Ghashiyah', id: 1 },
@@ -110,13 +110,23 @@ angular.module('starter.controllers', [])
 
     // Save back to localStorage
     $localstorage.setArray('surahs',$scope.surahs);
+    $scope.view.addingSurah = false;
   };
 
   $scope.removeSurah = function(index) {
-    $scope.surahs.splice(index, 1);
+    var surah = $scope.surahs[index];
+    var confirmPopup = $ionicPopup.confirm({
+        title: 'Delete confirmation',
+        template: 'Are you sure you want to delete <b>' + surah.title + '</b>?'
+    });
 
-    // Save back to localStorage
-    $localstorage.setArray('surahs',$scope.surahs);
+    confirmPopup.then(function(res) {
+        if(res) {
+            $scope.surahs.splice(index, 1);
+            // Save back to localStorage
+            $localstorage.setArray('surahs',$scope.surahs);
+        }
+    });
   };
 })
 
