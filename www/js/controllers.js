@@ -85,15 +85,19 @@ angular.module('starter.controllers', [])
     // Determine next location based on rating
     switch(rating) {
         case 'poor':
+            surah.rating = 'Poor';
             $scope.surahs.splice(5, 0, surah);
             break;
         case 'weak':
+            surah.rating = 'Weak';
             $scope.surahs.splice(10, 0, surah);
             break;
         case 'okay':
+            surah.rating = 'Okay';
             $scope.surahs.splice(15, 0, surah);
             break;
         default:
+            surah.rating = 'Perfect';
             $scope.surahs.push(surah);
     }
 
