@@ -1,21 +1,10 @@
 <ion-view view-title="Surahs">
   <ion-nav-buttons side="secondary">
-    <button class="button" ng-click="view.addingSurah = true">
+    <button class="button" ng-click="addWirdDialog()">
       <i class="icon ion-plus-circled"></i> Add
     </button>
   </ion-nav-buttons>
   <ion-content>
-    <div class="list" ng-show="view.addingSurah">
-        <div class="item item-input-inset">
-            <label class="item-input-wrapper">
-                <input type="text" ng-model="surahName" placeholder="Surah Name">
-            </label>
-            <button class="button button-small" ng-click="addSurah(surahName)">
-                Add
-            </button>
-        </div>
-    </div>
-
     <div ng-repeat="surah in surahs track by $index" class="card">
         <div class="item item-divider">
             {{ surah.title }}
