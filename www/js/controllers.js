@@ -1,31 +1,8 @@
-angular.module('starter.controllers', [])
+angular.module('hifzTracker.controllers', [])
 
 .controller('AppCtrl', function($scope, $ionicModal, $timeout) {
 
 })
-
-.factory('$localstorage', ['$window', function($window) {
-  return {
-    set: function(key, value) {
-      $window.localStorage[key] = value;
-    },
-    get: function(key, defaultValue) {
-      return $window.localStorage[key] || defaultValue;
-    },
-    setObject: function(key, value) {
-      $window.localStorage[key] = JSON.stringify(value);
-    },
-    getObject: function(key) {
-      return JSON.parse($window.localStorage[key] || '{}');
-    },
-    getArray: function(key) {
-      return JSON.parse($window.localStorage[key] || '[]');
-    },
-    setArray: function(key, value) {
-      this.setObject(key, value);
-    }
-  }
-}])
 
 .controller('HomeCtrl', function($scope, $localstorage, $ionicPopup, $ionicModal) {
   $scope.view = {};
@@ -159,5 +136,4 @@ angular.module('starter.controllers', [])
   $scope.$on('modal.removed', function() {
     // Execute action
   });
-})
-
+});
