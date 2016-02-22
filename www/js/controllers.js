@@ -6,12 +6,15 @@ angular.module('hifzTracker.controllers', [])
 
 .controller('HomeCtrl', function($scope, $localstorage, $ionicPopup, $ionicModal, Surahs) {
   $scope.view = {};
-  
-  // Get the array from localStorage
-  $scope.surahs = $localstorage.getArray('surahs');
-  
+
+  // Get the array of users from localStorage
+  $scope.users = $localstorage.getArray('users');
+
+	// Select the first user if exists
+	$scope.currentUser = $scope.users[0];
+
   $scope.markRead = function(index, rating) {
-    var surah = $scope.surahs[index];
+    var surah = $scope.currentUser.wirds[index];
 
     // Set reading time
     var today = new Date();
@@ -22,41 +25,52 @@ angular.module('hifzTracker.controllers', [])
     surah.lastRead = mm + '/' + dd + '/' + yyyy;
 
     // Remove from current location
-    $scope.surahs.splice(index, 1);
+    $scope.currentUser.wirds.splice(index, 1);
 
     // Determine next location based on rating
     switch(rating) {
         case 'poor':
             surah.rating = 'Poor';
-            $scope.surahs.splice(5, 0, surah);
+            $scope.currentUser.wirds.splice(5, 0, surah);
             break;
         case 'weak':
             surah.rating = 'Weak';
-            $scope.surahs.splice(10, 0, surah);
+            $scope.currentUser.wirds.splice(10, 0, surah);
             break;
         case 'okay':
             surah.rating = 'Okay';
-            $scope.surahs.splice(15, 0, surah);
+            $scope.currentUser.wirds.splice(15, 0, surah);
             break;
         default:
             surah.rating = 'Perfect';
-            $scope.surahs.push(surah);
+            $scope.currentUser.wirds.push(surah);
     }
 
     // Save back to localStorage
-    $localstorage.setArray('surahs',$scope.surahs);
+    $localstorage.setArray('users',$scope.users);
+  };
+
+  $scope.addUser = function(newUser) {
+    if (!newUser) return;
+    newUser.wirds = [];
+    $scope.users.push(newUser);
+
+    // If this is the first user, set it as current
+    if (!$scope.currentUser) { $scope.currentUser = newUser; }
+
+    // Save back to localStorage
+    $localstorage.setArray('users',$scope.users);
+    $scope.modal.hide();
   };
 
   $scope.addWird = function(wird) {
-    $scope.surahs.unshift(wird);
-
+    $scope.currentUser.wirds.unshift(wird);
     // Save back to localStorage
-    $localstorage.setArray('surahs',$scope.surahs);
-    $scope.view.addingSurah = false;
+    $localstorage.setArray('users',$scope.users);
   };
 
-  $scope.removeSurah = function(index) {
-    var surah = $scope.surahs[index];
+  $scope.removeWird = function(index) {
+    var surah = $scope.currentUser.wirds[index];
     var confirmPopup = $ionicPopup.confirm({
         title: 'Delete confirmation',
         template: 'Are you sure you want to delete <b>' + surah.title + '</b>?'
@@ -64,10 +78,21 @@ angular.module('hifzTracker.controllers', [])
 
     confirmPopup.then(function(res) {
         if(res) {
-            $scope.surahs.splice(index, 1);
+            $scope.currentUser.wirds.splice(index, 1);
             // Save back to localStorage
-            $localstorage.setArray('surahs',$scope.surahs);
+            $localstorage.setArray('users',$scope.users);
         }
+    });
+  };
+
+  // Add User modal
+  $scope.addUserDialog = function() {
+    $ionicModal.fromTemplateUrl('templates/add-user.html', {
+      scope: $scope,
+      animation: 'slide-in-up'
+    }).then(function(modal) {
+      $scope.modal = modal;
+      $scope.modal.show();
     });
   };
 
@@ -85,13 +110,13 @@ angular.module('hifzTracker.controllers', [])
 
 
 	// Read Wird modal
-  $scope.openSurah = function(surah) {
-	  $ionicModal.fromTemplateUrl('templates/quran-page.html', {
+  $scope.openWird = function(wird) {
+	  $ionicModal.fromTemplateUrl('templates/wird-page.html', {
 	    scope: $scope,
 	    animation: 'slide-in-up'
 	  }).then(function(modal) {
 	    $scope.modal = modal;
-	    $scope.surah = surah;
+	    $scope.wird = wird;
 	    $scope.modal.show();
 	  });
   };

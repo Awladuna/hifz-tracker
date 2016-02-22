@@ -1,0 +1,18 @@
+<ion-modal-view>
+  <ion-header-bar>
+    <h1 class="title">Add User</h1>
+    <button class="button" ng-click="closeModal()">
+      <i class="icon ion-ios-close"></i>
+    </button>
+  </ion-header-bar>
+  <ion-content>
+      <div class="list">
+        <label class="item item-input">
+          <input type="text" placeholder="Name" ng-model="newUser.name">
+        </label>
+      </div>
+      <div class="padding">
+        <button class="button button-block button-positive" ng-click="addUser(newUser)">Submit</button>
+      </div>
+  </ion-content>
+</ion-modal-view>
