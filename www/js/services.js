@@ -34,9 +34,10 @@ angular.module('hifzTracker.services', [])
   }
 }])
 
-.factory('UserService', [ '$localstorage', 'User', function($localstorage, User) {
+.factory('UserService', [ '$rootScope', '$localstorage', 'User', function($rootScope, $localstorage, User) {
   return {
   	_pool: [],
+  	_current: null,
 	_retrieveInstance: function(user) {
 		if (!user.id) {
 			console.error("UserService was passed an invalid user object");
@@ -62,6 +63,14 @@ angular.module('hifzTracker.services', [])
   		});
 
   		return this._pool;
+  	},
+  	getCurrentUser: function() {
+  		this._current = this._current || this._pool[0];
+  		return this._current;
+  	},
+  	setCurrentUser: function(user) {
+  		this._current = this._retrieveInstance(user);
+		$rootScope.$emit('currentUserChanged', this._current);
   	},
     saveUser: function(user) {
     	this._retrieveInstance(user);

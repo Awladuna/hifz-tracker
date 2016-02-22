@@ -1,17 +1,49 @@
 angular.module('hifzTracker.controllers', [])
 
-.controller('AppCtrl', function($scope, UserService) {
-  $scope.users = UserService.getAllUsers();
-})
+.controller('AppCtrl', [ '$scope', '$ionicModal', 'UserService',
+  function($scope, $ionicModal, UserService) {
 
-.controller('HomeCtrl', function($scope, $ionicPopup, $ionicModal, Surahs, UserService) {
+  $scope.users = UserService.getAllUsers();
+
+  $scope.setCurrentUser = function(user) {
+    UserService.setCurrentUser(user);
+  };
+
+  $scope.addUser = function(newUser) {
+    if (!newUser) return;
+
+    UserService.addUser(newUser);
+    // If this is the first user, set it as current
+    if (!$scope.currentUser) { $scope.currentUser = newUser; }
+
+    // Close modal
+    $scope.modal.hide();
+  };
+
+  // Add User modal
+  $scope.addUserDialog = function() {
+    $ionicModal.fromTemplateUrl('templates/add-user.html', {
+      scope: $scope,
+      animation: 'slide-in-up'
+    }).then(function(modal) {
+      $scope.modal = modal;
+      $scope.modal.show();
+    });
+  };
+
+}])
+
+.controller('HomeCtrl', [ '$rootScope', '$scope', '$ionicPopup', '$ionicModal', 'Surahs', 'UserService',
+  function($rootScope, $scope, $ionicPopup, $ionicModal, Surahs, UserService) {
+
   $scope.view = {};
 
-  // Get the array of users from localStorage
+  // Get the array of users and currentUser from UserService
   $scope.users = UserService.getAllUsers();
-
-	// Select the first user if exists
-	$scope.currentUser = $scope.users[0];
+	$scope.currentUser = UserService.getCurrentUser();
+  $rootScope.$on('currentUserChanged', function(event, newCurrentUser){
+    $scope.currentUser = newCurrentUser;
+  });
 
   $scope.markRead = function(index, rating) {
     var surah = $scope.currentUser.wirds[index];
@@ -126,4 +158,4 @@ angular.module('hifzTracker.controllers', [])
   $scope.$on('$destroy', function() {
     $scope.modal.remove();
   });
-});
+}]);

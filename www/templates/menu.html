@@ -18,8 +18,11 @@
     </ion-header-bar>
     <ion-content>
       <ion-list>
-        <ion-item menu-close ng-repeat="user in users track by $index" ng-href="#/app/home/{{ user.id }}">
+        <ion-item menu-close ng-repeat="user in users track by $index" ng-click="setCurrentUser(user)">
           {{ user.name }}
+        </ion-item>
+        <ion-item menu-close ng-click="addUserDialog()">
+          <i class="icon ion-plus-circled"></i> Add New User
         </ion-item>
       </ion-list>
     </ion-content>
