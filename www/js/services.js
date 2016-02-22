@@ -34,6 +34,53 @@ angular.module('hifzTracker.services', [])
   }
 }])
 
+.factory('UserService', [ '$localstorage', 'User', function($localstorage, User) {
+  return {
+  	_pool: [],
+	_retrieveInstance: function(user) {
+		if (!user.id) {
+			console.error("UserService was passed an invalid user object");
+			return;
+		}
+
+		var instance = _array_findById(this._pool, user.id);
+
+		if (instance) {
+			instance.setData(user);
+		} else {
+			instance = new User(user);
+			this._pool.push(instance);
+		}
+
+		return instance;
+	},
+ 	getAllUsers: function() {
+ 		var scope = this;
+
+  		$localstorage.getArray('users').forEach( function(user) {
+  			scope._retrieveInstance(user);
+  		});
+
+  		return this._pool;
+  	},
+    saveUser: function(user) {
+    	this._retrieveInstance(user);
+    	$localstorage.setArray('users', this._pool);
+    },
+    addUser: function(user) {
+    	// Get all user ids and sort them
+    	var ids = this._pool.map( function(u) {
+    		return u.id;
+    	}).sort();
+    	// Set the new user Id to the next number
+    	user.id = ids[ids.length - 1] + 1 || 1;
+    	user.wirds = [];
+
+    	this.saveUser(user);
+    }
+  }
+}])
+
 .factory('Surahs', [function() {
   var allSurahs = [
 		{ id: 1, title: "Al-Fatihah", startPage: 1, endPage: 1},

@@ -1,14 +1,14 @@
 angular.module('hifzTracker.controllers', [])
 
-.controller('AppCtrl', function($scope, $ionicModal, $timeout) {
-
+.controller('AppCtrl', function($scope, UserService) {
+  $scope.users = UserService.getAllUsers();
 })
 
-.controller('HomeCtrl', function($scope, $localstorage, $ionicPopup, $ionicModal, Surahs) {
+.controller('HomeCtrl', function($scope, $ionicPopup, $ionicModal, Surahs, UserService) {
   $scope.view = {};
 
   // Get the array of users from localStorage
-  $scope.users = $localstorage.getArray('users');
+  $scope.users = UserService.getAllUsers();
 
 	// Select the first user if exists
 	$scope.currentUser = $scope.users[0];
@@ -46,27 +46,25 @@ angular.module('hifzTracker.controllers', [])
             $scope.currentUser.wirds.push(surah);
     }
 
-    // Save back to localStorage
-    $localstorage.setArray('users',$scope.users);
+    // Save user
+    UserService.saveUser($scope.currentUser);
   };
 
   $scope.addUser = function(newUser) {
     if (!newUser) return;
-    newUser.wirds = [];
-    $scope.users.push(newUser);
 
+    UserService.addUser(newUser);
     // If this is the first user, set it as current
     if (!$scope.currentUser) { $scope.currentUser = newUser; }
 
-    // Save back to localStorage
-    $localstorage.setArray('users',$scope.users);
+    // Close modal
     $scope.modal.hide();
   };
 
   $scope.addWird = function(wird) {
     $scope.currentUser.wirds.unshift(wird);
-    // Save back to localStorage
-    $localstorage.setArray('users',$scope.users);
+    // Save user
+    UserService.saveUser($scope.currentUser);
   };
 
   $scope.removeWird = function(index) {
@@ -79,8 +77,8 @@ angular.module('hifzTracker.controllers', [])
     confirmPopup.then(function(res) {
         if(res) {
             $scope.currentUser.wirds.splice(index, 1);
-            // Save back to localStorage
-            $localstorage.setArray('users',$scope.users);
+            // Save user
+            UserService.saveUser($scope.currentUser);
         }
     });
   };
