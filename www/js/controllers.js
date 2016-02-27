@@ -31,6 +31,12 @@ angular.module('hifzTracker.controllers', [])
 				});
 			};
 
+			$scope.moveItem = function (user, fromIndex, toIndex) {
+				$scope.users.splice(fromIndex, 1);
+				$scope.users.splice(toIndex, 0, user);
+				UserService.saveAllUsers($scope.users);
+			};
+
 		}])
 
 	.controller('HomeCtrl', ['$rootScope', '$scope', '$ionicPopup', '$ionicModal', 'Surahs', 'UserService',
