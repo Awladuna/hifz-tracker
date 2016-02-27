@@ -23,7 +23,7 @@
 		</ion-header-bar>
 		<ion-content>
 			<ion-list show-reorder="ordering">
-				<ion-item menu-close ng-repeat="user in users track by $index" ng-click="setCurrentUser(user)">
+				<ion-item menu-close ng-repeat="user in users track by $index" ng-click="setCurrentUser(user)" ng-class="{ 'active': user === currentUser }">
 					{{ user.name }}
 					<ion-reorder-button class="ion-navicon" on-reorder="moveItem(user, $fromIndex, $toIndex)">
 					</ion-reorder-button>

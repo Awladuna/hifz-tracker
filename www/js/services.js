@@ -71,6 +71,7 @@ angular.module('hifzTracker.services', [])
 			setCurrentUser: function (user) {
 				this._current = this._retrieveInstance(user);
 				$rootScope.$emit('currentUserChanged', this._current);
+				return this._current;
 			},
 			saveUser: function (user) {
 				this._retrieveInstance(user);

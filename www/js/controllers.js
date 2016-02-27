@@ -4,9 +4,10 @@ angular.module('hifzTracker.controllers', [])
 		function ($scope, $ionicModal, UserService) {
 
 			$scope.users = UserService.getAllUsers();
+			$scope.currentUser = UserService.getCurrentUser();
 
 			$scope.setCurrentUser = function (user) {
-				UserService.setCurrentUser(user);
+				$scope.currentUser = UserService.setCurrentUser(user);
 			};
 
 			$scope.addUser = function (newUser) {
@@ -16,6 +17,8 @@ angular.module('hifzTracker.controllers', [])
 				// If this is the first user, set it as current
 				if (!$scope.currentUser) { $scope.currentUser = newUser; }
 
+				// Set the user as the currentUser
+				$scope.currentUser = UserService.setCurrentUser(newUser);
 				// Close modal
 				$scope.modal.hide();
 			};
