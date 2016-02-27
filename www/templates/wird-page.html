@@ -1,13 +1,18 @@
 <ion-modal-view>
-  <div ng-if="wird">
-    <ion-header-bar>
-      <h1 class="title">{{ wird.title }}</h1>
-      <button class="button" ng-click="closeModal()">
-        <i class="icon ion-ios-close"></i>
-      </button>
-    </ion-header-bar>
-    <ion-content>
-      <img ng-src="img/quran/{{ ('00000' + wird.startPage).slice(-5) }}.png" style="max-width:100%; max-height:100%;" />
-    </ion-content>
-  </div>
+	<div ng-if="wird">
+		<ion-header-bar>
+			<h1 class="title">{{ wird.title }}</h1>
+			<button class="button" ng-click="closeModal()">
+				<i class="icon ion-ios-close"></i>
+			</button>
+		</ion-header-bar>
+		<ion-content>
+			<ion-slide-box active-slide="activePage" show-pager="false">
+				<ion-slide ng-repeat="page in newArray(wird.endPage - wird.startPage + 1) track by $index">
+					<img ng-src="img/quran/{{ ('0000' + (wird.endPage - $index)).slice(-5) }}.png" style="max-width:100%; max-height:100%; display:block; margin: auto;"
+					/>
+				</ion-slide>
+			</ion-slide-box>
+		</ion-content>
+	</div>
 </ion-modal-view>
