@@ -20,7 +20,7 @@ angular.module('hifzTracker.controllers', [])
 				// Set the user as the currentUser
 				$scope.currentUser = UserService.setCurrentUser(user);
 				// Close modal
-				$scope.modal.hide();
+				if ($scope.modal) { $scope.modal.hide(); }
 			};
 
 			// Add User modal
@@ -36,7 +36,7 @@ angular.module('hifzTracker.controllers', [])
 			};
 
 			$scope.closeModal = function () {
-				$scope.modal.hide();
+				if ($scope.modal) { $scope.modal.hide(); }
 			};
 			//Cleanup the modal when we're done with it!
 			$scope.$on('$destroy', function () {
@@ -115,7 +115,7 @@ angular.module('hifzTracker.controllers', [])
 				UserService.saveUser($scope.currentUser);
 			};
 
-			$scope.addUser = function (newUser) {
+			$scope.saveUser = function (newUser) {
 				if (!newUser) return;
 
 				UserService.saveUser(newUser);
@@ -123,7 +123,7 @@ angular.module('hifzTracker.controllers', [])
 				if (!$scope.currentUser) { $scope.currentUser = newUser; }
 
 				// Close modal
-				$scope.modal.hide();
+				if ($scope.modal) { $scope.modal.hide(); }
 			};
 
 			$scope.addWird = function (wird) {
@@ -150,7 +150,7 @@ angular.module('hifzTracker.controllers', [])
 
 			// Add User modal
 			$scope.addUserDialog = function () {
-				$ionicModal.fromTemplateUrl('template/user-dialog.html', {
+				$ionicModal.fromTemplateUrl('templates/user-dialog.html', {
 					scope: $scope,
 					animation: 'slide-in-up'
 				}).then(function (modal) {
@@ -189,7 +189,7 @@ angular.module('hifzTracker.controllers', [])
 			};
 
 			$scope.closeModal = function () {
-				$scope.modal.hide();
+				if ($scope.modal) { $scope.modal.hide(); }
 			};
 			//Cleanup the modal when we're done with it!
 			$scope.$on('$destroy', function () {

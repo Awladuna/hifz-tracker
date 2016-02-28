@@ -17,7 +17,9 @@
 			<h1 class="title">
 				Users
 			</h1>
-			<button class="button" ng-click="ordering = !ordering" ng-class="{ 'button-assertive button-outline': ordering }">
+			<button class="button" ng-click="ordering = !ordering"
+				ng-if="users.length > 1"
+				ng-class="{ 'button-assertive button-outline': ordering }">
 				<i class="icon ion-arrow-move"></i> Reorder
 			</button>
 		</ion-header-bar>
