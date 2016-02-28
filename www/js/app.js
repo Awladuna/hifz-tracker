@@ -1,4 +1,4 @@
-angular.module('hifzTracker', ['ionic', 'hifzTracker.entities', 'hifzTracker.controllers', 'hifzTracker.services'])
+angular.module('hifzTracker', ['ionic', 'hifzTracker.entities', 'hifzTracker.controllers', 'hifzTracker.services', 'ionic-toast'])
 
 .run(function($ionicPlatform) {
   $ionicPlatform.ready(function() {

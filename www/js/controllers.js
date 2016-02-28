@@ -66,8 +66,8 @@ angular.module('hifzTracker.controllers', [])
 
 		}])
 
-	.controller('HomeCtrl', ['$rootScope', '$scope', '$ionicPopup', '$ionicModal', 'Surahs', 'UserService',
-		function ($rootScope, $scope, $ionicPopup, $ionicModal, Surahs, UserService) {
+	.controller('HomeCtrl', ['$rootScope', '$scope', '$ionicPopup', '$ionicModal', '$ionicPopover', 'ionicToast', 'Surahs', 'UserService',
+		function ($rootScope, $scope, $ionicPopup, $ionicModal, $ionicPopover, ionicToast, Surahs, UserService) {
 
 			$scope.view = {};
 
@@ -130,6 +130,7 @@ angular.module('hifzTracker.controllers', [])
 				$scope.currentUser.wirds.unshift(wird);
 				// Save user
 				UserService.saveUser($scope.currentUser);
+				ionicToast.show('Added "' + wird.title + '"', 'bottom', false, 2500);
 			};
 
 			$scope.removeWird = function (index) {
@@ -159,19 +160,6 @@ angular.module('hifzTracker.controllers', [])
 				});
 			};
 
-			// Add Wird modal
-			$scope.addWirdDialog = function () {
-				$ionicModal.fromTemplateUrl('templates/add-wird.html', {
-					scope: $scope,
-					animation: 'slide-in-up'
-				}).then(function (modal) {
-					$scope.modal = modal;
-					$scope.allSurahs = Surahs.getAllSurahs();
-					$scope.modal.show();
-				});
-			};
-
-
 			// Read Wird modal
 			$scope.openWird = function (wird) {
 				$ionicModal.fromTemplateUrl('templates/wird-page.html', {
@@ -195,4 +183,17 @@ angular.module('hifzTracker.controllers', [])
 			$scope.$on('$destroy', function () {
 				$scope.modal.remove();
 			});
+
+			// Add Wird popover
+			$scope.addWirdDialog = function ($event) {
+				$ionicPopover.fromTemplateUrl('templates/add-wird.html', {
+					scope: $scope,
+					animation: 'slide-in-up'
+				}).then(function (modal) {
+					$scope.modal = modal;
+					$scope.allSurahs = Surahs.getAllSurahs();
+					$scope.modal.show($event);
+				});
+			};
+
 		}]);

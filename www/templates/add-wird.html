@@ -1,15 +1,12 @@
-<ion-modal-view>
-  <ion-header-bar>
-    <h1 class="title">Select Wird</h1>
-    <button class="button" ng-click="closeModal()">
-      <i class="icon ion-ios-close"></i>
-    </button>
-  </ion-header-bar>
-  <ion-content>
+<ion-popover-view>
+	<ion-header-bar>
+		<h1 class="title">Select Wird</h1>
+	</ion-header-bar>
+	<ion-content>
 		<ul class="list">
-		    <li class="item" ng-repeat="surah in allSurahs track by surah.id" ng-click="addWird(surah)">
-		      {{ surah.title }}
-		    </li>
+			<li class="item" ng-repeat="surah in allSurahs track by surah.id" ng-click="addWird(surah)">
+				{{ surah.title }}
+			</li>
 		</ul>
-  </ion-content>
-</ion-modal-view>
+	</ion-content>
+</ion-popover-view>
