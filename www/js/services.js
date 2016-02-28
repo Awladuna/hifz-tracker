@@ -65,7 +65,10 @@ angular.module('hifzTracker.services', [])
 				return this._pool;
 			},
 			getCurrentUser: function () {
-				this._current = this._current || this._pool[0];
+				var currentId = this._current ? this._current.id : 0;
+				var instance = _array_findById(this._pool, currentId);
+				this._current = instance || this._pool[0];
+				$rootScope.$emit('currentUserChanged', this._current);
 				return this._current;
 			},
 			setCurrentUser: function (user) {
@@ -74,8 +77,13 @@ angular.module('hifzTracker.services', [])
 				return this._current;
 			},
 			saveUser: function (user) {
-				this._retrieveInstance(user);
-				$localstorage.setArray('users', this._pool);
+				var instance = _array_findById(this._pool, user.id);
+				if (instance) {
+					this._retrieveInstance(user);
+					$localstorage.setArray('users', this._pool);
+				} else {
+					this.addUser(user);
+				}
 			},
 			addUser: function (user) {
 				// Get all user ids and sort them
@@ -86,13 +94,20 @@ angular.module('hifzTracker.services', [])
 				user.id = ids[ids.length - 1] + 1 || 1;
 				user.wirds = [];
 
-				this.saveUser(user);
+				this._retrieveInstance(user);
+				$localstorage.setArray('users', this._pool);
 			},
 			saveAllUsers: function (users) {
 				var scope = this;
 				users.forEach(function (user) {
 					scope.saveUser(user);
 				});
+			},
+			deleteUser: function (user) {
+				var instance = this._retrieveInstance(user);
+				var index = this._pool.indexOf(instance);
+				this._pool.splice(index, 1);
+				$localstorage.setArray('users', this._pool);
 			}
 		}
 	}])

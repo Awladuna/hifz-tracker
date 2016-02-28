@@ -1,7 +1,7 @@
 angular.module('hifzTracker.controllers', [])
 
-	.controller('AppCtrl', ['$scope', '$ionicModal', 'UserService',
-		function ($scope, $ionicModal, UserService) {
+	.controller('AppCtrl', ['$scope', '$ionicModal', '$ionicPopup', 'UserService',
+		function ($scope, $ionicModal, $ionicPopup, UserService) {
 
 			$scope.users = UserService.getAllUsers();
 			$scope.currentUser = UserService.getCurrentUser();
@@ -10,22 +10,23 @@ angular.module('hifzTracker.controllers', [])
 				$scope.currentUser = UserService.setCurrentUser(user);
 			};
 
-			$scope.addUser = function (newUser) {
-				if (!newUser) return;
+			$scope.saveUser = function (user) {
+				if (!user) return;
 
-				UserService.addUser(newUser);
+				UserService.saveUser(user);
 				// If this is the first user, set it as current
-				if (!$scope.currentUser) { $scope.currentUser = newUser; }
+				if (!$scope.currentUser) { $scope.currentUser = user; }
 
 				// Set the user as the currentUser
-				$scope.currentUser = UserService.setCurrentUser(newUser);
+				$scope.currentUser = UserService.setCurrentUser(user);
 				// Close modal
 				$scope.modal.hide();
 			};
 
 			// Add User modal
-			$scope.addUserDialog = function () {
-				$ionicModal.fromTemplateUrl('templates/add-user.html', {
+			$scope.userDialog = function (user) {
+				$scope.editUser = user;
+				$ionicModal.fromTemplateUrl('templates/user-dialog.html', {
 					scope: $scope,
 					animation: 'slide-in-up'
 				}).then(function (modal) {
@@ -34,10 +35,33 @@ angular.module('hifzTracker.controllers', [])
 				});
 			};
 
+			$scope.closeModal = function () {
+				$scope.modal.hide();
+			};
+			//Cleanup the modal when we're done with it!
+			$scope.$on('$destroy', function () {
+				$scope.modal.remove();
+			});
+
 			$scope.moveItem = function (user, fromIndex, toIndex) {
 				$scope.users.splice(fromIndex, 1);
 				$scope.users.splice(toIndex, 0, user);
 				UserService.saveAllUsers($scope.users);
+			};
+
+			$scope.deleteUser = function () {
+				var confirmPopup = $ionicPopup.confirm({
+					title: 'Delete confirmation',
+					template: 'Are you sure you want to delete <b>' + $scope.editUser.name + '</b>?'
+				});
+
+				confirmPopup.then(function (res) {
+					if (res) {
+						UserService.deleteUser($scope.editUser);
+						$scope.currentUser = UserService.getCurrentUser();
+						$scope.closeModal();
+					}
+				});
 			};
 
 		}])
@@ -94,7 +118,7 @@ angular.module('hifzTracker.controllers', [])
 			$scope.addUser = function (newUser) {
 				if (!newUser) return;
 
-				UserService.addUser(newUser);
+				UserService.saveUser(newUser);
 				// If this is the first user, set it as current
 				if (!$scope.currentUser) { $scope.currentUser = newUser; }
 
@@ -126,7 +150,7 @@ angular.module('hifzTracker.controllers', [])
 
 			// Add User modal
 			$scope.addUserDialog = function () {
-				$ionicModal.fromTemplateUrl('templates/add-user.html', {
+				$ionicModal.fromTemplateUrl('template/user-dialog.html', {
 					scope: $scope,
 					animation: 'slide-in-up'
 				}).then(function (modal) {

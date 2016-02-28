@@ -17,19 +17,19 @@
 			<h1 class="title">
 				Users
 			</h1>
-			<button class="button" ng-click="ordering = !ordering">
-				<i class="icon" ng-class="{ 'ion-ios-list': ordering, 'ion-ios-list-outline': !ordering }"></i>
+			<button class="button" ng-click="ordering = !ordering" ng-class="{ 'button-assertive button-outline': ordering }">
+				<i class="icon ion-arrow-move"></i> Reorder
 			</button>
 		</ion-header-bar>
 		<ion-content>
 			<ion-list show-reorder="ordering">
 				<ion-item menu-close ng-repeat="user in users track by $index" ng-click="setCurrentUser(user)" ng-class="{ 'active': user === currentUser }">
-					{{ user.name }}
+					<i class="icon ion-edit" ng-click="userDialog(user)"></i> &nbsp; {{ user.name }}
 					<ion-reorder-button class="ion-navicon" on-reorder="moveItem(user, $fromIndex, $toIndex)">
 					</ion-reorder-button>
 				</ion-item>
-				<ion-item menu-close ng-click="addUserDialog()">
-					<i class="icon ion-plus-circled"></i> Add New User
+				<ion-item menu-close ng-click="userDialog()">
+					<i class="icon ion-plus-circled"></i> &nbsp; Add New User
 				</ion-item>
 			</ion-list>
 		</ion-content>

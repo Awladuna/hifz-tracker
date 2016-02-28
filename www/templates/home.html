@@ -1,45 +1,45 @@
 <ion-view view-title="{{ currentUser.name }}">
-  <ion-nav-buttons side="secondary">
-    <button class="button" ng-if="currentUser" ng-click="addWirdDialog()">
-      <i class="icon ion-plus-circled"></i> Add
-    </button>
-  </ion-nav-buttons>
-  <ion-content>
+	<ion-nav-buttons side="secondary">
+		<button class="button" ng-if="currentUser" ng-click="addWirdDialog()">
+			<i class="icon ion-plus-circled"></i> Add
+		</button>
+	</ion-nav-buttons>
+	<ion-content>
 		<div ng-hide="currentUser" class="center">
-            <div class="row">
-                <div class="col col-33 col-offset-33">
-                    <button class="button button-block button-calm" ng-click="addUserDialog()">
-                        <i class="icon ion-plus-circled"></i> Add New User
-                    </button>
-                </div>
-            </div>
-        </div>
-    <div ng-repeat="wird in currentUser.wirds track by $index" class="card">
-        <div class="item item-divider">
-            {{ wird.title }}
-            <span class="item-note">
-                Last read: {{ wird.lastRead || 'Never' }}
-                <span ng-if="wird.rating">({{ wird.rating }})</span>
-            </span>
-        </div>
-        <div class="item item-text-wrap" ng-show="$index === 0">
-            <div class="button-bar">
-                <a class="button button-outline button-small button-assertive" ng-click="markRead($index, 'poor')">Poor</a>
-                <a class="button button-outline button-small button-energized" ng-click="markRead($index, 'weak')">Weak</a>
-                <a class="button button-outline button-small button-positive" ng-click="markRead($index, 'okay')">Okay</a>
-                <a class="button button-outline button-small button-balanced" ng-click="markRead($index, 'perfect')">Perfect</a>
-            </div>
-        </div>
-        <div class="item item-divider" ng-show="$index === 0">
-            <button class="button button-small" ng-click="openWird(wird)">
-                <i class="icon ion-ios-book-outline"></i> Read
-            </button>
-            <span class="item-note">
-                <button class="button button-small" ng-click="removeWird($index)">
-                    <i class="icon ion-minus-circled"></i> Delete
-                </button>
-            </span>
-        </div>
-    </div>
-  </ion-content>
+			<div class="row">
+				<div class="col col-33 col-offset-33">
+					<button class="button button-block button-calm" ng-click="addUserDialog()">
+						<i class="icon ion-plus-circled"></i> Add New User
+					</button>
+				</div>
+			</div>
+		</div>
+		<div ng-repeat="wird in currentUser.wirds track by $index" class="card">
+			<div class="item item-divider">
+				{{ wird.title }}
+				<span class="item-note">
+					Last read: {{ wird.lastRead || 'Never' }}
+					<span ng-if="wird.rating">({{ wird.rating }})</span>
+				</span>
+			</div>
+			<div class="item item-text-wrap" ng-show="$index === 0">
+				<div class="button-bar">
+					<a class="button button-outline button-small button-assertive" ng-click="markRead($index, 'poor')">Poor</a>
+					<a class="button button-outline button-small button-energized" ng-click="markRead($index, 'weak')">Weak</a>
+					<a class="button button-outline button-small button-positive" ng-click="markRead($index, 'okay')">Okay</a>
+					<a class="button button-outline button-small button-balanced" ng-click="markRead($index, 'perfect')">Perfect</a>
+				</div>
+			</div>
+			<div class="item item-divider" ng-show="$index === 0">
+				<button class="button button-small" ng-click="openWird(wird)">
+					<i class="icon ion-ios-book-outline"></i> Read
+				</button>
+				<span class="item-note">
+					<button class="button button-small" ng-click="removeWird($index)">
+						<i class="icon ion-minus-circled"></i> Delete
+					</button>
+				</span>
+			</div>
+		</div>
+	</ion-content>
 </ion-view>
