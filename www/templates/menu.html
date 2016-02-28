@@ -17,14 +17,14 @@
 			<h1 class="title">
 				Users
 			</h1>
-			<button class="button" ng-click="ordering = !ordering"
+			<button class="button" ng-click="view.ordering = !view.ordering"
 				ng-if="users.length > 1"
-				ng-class="{ 'button-assertive button-outline': ordering }">
+				ng-class="{ 'button-assertive button-outline': view.ordering }">
 				<i class="icon ion-arrow-move"></i> Reorder
 			</button>
 		</ion-header-bar>
 		<ion-content>
-			<ion-list show-reorder="ordering">
+			<ion-list show-reorder="view.ordering">
 				<ion-item menu-close ng-repeat="user in users track by $index" ng-click="setCurrentUser(user)" ng-class="{ 'active': user === currentUser }">
 					<i class="icon ion-edit" ng-click="userDialog(user)"></i> &nbsp; {{ user.name }}
 					<ion-reorder-button class="ion-navicon" on-reorder="moveItem(user, $fromIndex, $toIndex)">

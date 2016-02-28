@@ -2,7 +2,7 @@ angular.module('hifzTracker.controllers', [])
 
 	.controller('AppCtrl', ['$scope', '$ionicModal', '$ionicPopup', 'UserService',
 		function ($scope, $ionicModal, $ionicPopup, UserService) {
-
+			$scope.view = {};
 			$scope.users = UserService.getAllUsers();
 			$scope.currentUser = UserService.getCurrentUser();
 
