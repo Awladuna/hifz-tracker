@@ -4,5 +4,11 @@
 	"DELETE": "Delete",
 	"READ": "Read",
 	"LAST_READ": "Last read",
-	"NEVER": "Never"
+	"NEVER": "Never",
+	"SETTINGS": "Settings",
+	"REORDER": "Reorder",
+	"USERS": "Users",
+	"LANGUAGE": "Language",
+	"ARABIC": "Arabic",
+	"ENGLISH": "English"
 }

@@ -196,4 +196,22 @@ angular.module('hifzTracker.controllers', [])
 				});
 			};
 
+		}])
+
+	.controller('SettingsCtrl', ['$scope', '$translate',
+		function ($scope, $translate) {
+			$scope.languages = [
+				{
+					name: "ARABIC",
+					code: "ar"
+				},
+				{
+					name: "ENGLISH",
+					code: "en"
+				}
+			];
+
+			$scope.switchLanguage = function (code) {
+				$translate.use(code);
+			};
 		}]);

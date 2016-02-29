@@ -4,5 +4,11 @@
 	"DELETE": "حذف",
 	"READ": "اقرأ",
 	"LAST_READ": "آخر قراءة",
-	"NEVER": "أبدا"
+	"NEVER": "أبدا",
+	"SETTINGS": "إعدادات",
+	"REORDER": "رتب",
+	"USERS": "المستخدمون",
+	"LANGUAGE": "اللغة",
+	"ARABIC": "العربية",
+	"ENGLISH": "الانجليزية"
 }
