@@ -5,6 +5,8 @@
     "ionic": "driftyco/ionic-bower#1.2.4"
   },
   "dependencies": {
-    "ionic-toast": "^0.2.0"
+    "ionic-toast": "^0.2.0",
+    "angular-translate": "^2.10.0",
+    "angular-translate-loader-static-files": "^2.10.0"
   }
 }

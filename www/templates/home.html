@@ -1,7 +1,7 @@
 <ion-view view-title="{{ currentUser.name }}">
 	<ion-nav-buttons side="secondary">
 		<button class="button" ng-if="currentUser" ng-click="addWirdDialog($event)">
-			<i class="icon ion-plus-circled"></i> Add
+			<i class="icon ion-plus-circled"></i>  {{ 'ADD_WIRD' | translate }}
 		</button>
 	</ion-nav-buttons>
 	<ion-content>
@@ -9,7 +9,7 @@
 			<div class="row">
 				<div class="col">
 					<button class="button button-block button-calm" ng-click="addUserDialog()">
-						<i class="icon ion-plus-circled"></i> Add New User
+						<i class="icon ion-plus-circled"></i> {{ 'ADD_NEW_USER' | translate }}
 					</button>
 				</div>
 			</div>
@@ -18,7 +18,7 @@
 			<div class="item item-divider">
 				{{ wird.title }}
 				<span class="item-note">
-					Last read: {{ wird.lastRead || 'Never' }}
+					<span translate="LAST_READ"></span>: {{ wird.lastRead || 'NEVER' | translate }}
 					<span ng-if="wird.rating">({{ wird.rating }})</span>
 				</span>
 			</div>
@@ -32,11 +32,11 @@
 			</div>
 			<div class="item item-divider" ng-show="$index === 0">
 				<button class="button button-small" ng-click="openWird(wird)">
-					<i class="icon ion-ios-book-outline"></i> Read
+					<i class="icon ion-ios-book-outline"></i> {{ 'READ' | translate }}
 				</button>
 				<span class="item-note">
 					<button class="button button-small" ng-click="removeWird($index)">
-						<i class="icon ion-minus-circled"></i> Delete
+						<i class="icon ion-minus-circled"></i> {{ 'DELETE' | translate }}
 					</button>
 				</span>
 			</div>
