@@ -25,7 +25,10 @@
 		</ion-header-bar>
 		<ion-content>
 			<ion-list show-reorder="view.ordering">
-				<ion-item menu-close ng-repeat="user in users track by $index" ng-click="setCurrentUser(user)" ng-class="{ 'active': user === currentUser }">
+				<ion-item menu-close ng-repeat="user in users track by $index"
+				ng-click="setCurrentUser(user)"
+				ng-href="/#/app/home"
+				ng-class="{ 'active': user === currentUser }">
 					<i class="icon ion-edit" ng-click="userDialog(user)"></i> &nbsp; {{ user.name }}
 					<ion-reorder-button class="ion-navicon" on-reorder="moveItem(user, $fromIndex, $toIndex)">
 					</ion-reorder-button>

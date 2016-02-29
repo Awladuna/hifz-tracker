@@ -1,4 +1,4 @@
-<ion-view view-title="{{ currentUser.name }}">
+<ion-view cache-view="false" view-title="{{ currentUser.name }}">
 	<ion-nav-buttons side="secondary">
 		<button class="button" ng-if="currentUser" ng-click="addWirdDialog($event)">
 			<i class="icon ion-plus-circled"></i>  {{ 'ADD_WIRD' | translate }}
