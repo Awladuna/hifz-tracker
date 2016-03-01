@@ -16,7 +16,7 @@
 		</div>
 		<div ng-repeat="wird in currentUser.wirds track by $index" class="card">
 			<div class="item item-divider">
-				{{ wird.title }}
+				<span translate="{{wird.title}}"></span>
 				<span class="item-note">
 					<span translate="LAST_READ"></span>: {{ wird.lastRead || 'NEVER' | translate }}
 					<span ng-if="wird.rating">({{ wird.rating }})</span>
@@ -24,10 +24,10 @@
 			</div>
 			<div class="item item-text-wrap" ng-show="$index === 0">
 				<div class="button-bar">
-					<a class="button button-outline button-small button-assertive" ng-click="markRead($index, 'poor')">Poor</a>
-					<a class="button button-outline button-small button-energized" ng-click="markRead($index, 'weak')">Weak</a>
-					<a class="button button-outline button-small button-positive" ng-click="markRead($index, 'okay')">Okay</a>
-					<a class="button button-outline button-small button-balanced" ng-click="markRead($index, 'perfect')">Perfect</a>
+					<a class="button button-outline button-small button-assertive" ng-click="markRead($index, 'poor')" translate="POOR"></a>
+					<a class="button button-outline button-small button-energized" ng-click="markRead($index, 'weak')" translate="WEAK"></a>
+					<a class="button button-outline button-small button-positive" ng-click="markRead($index, 'okay')" translate="OKAY"></a>
+					<a class="button button-outline button-small button-balanced" ng-click="markRead($index, 'perfect')" translate="PERFECT"></a>
 				</div>
 			</div>
 			<div class="item item-divider" ng-show="$index === 0">

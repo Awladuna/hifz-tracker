@@ -1,12 +1,11 @@
 <ion-popover-view>
 	<ion-header-bar>
-		<h1 class="title">Select Wird</h1>
+		<h1 class="title" translate="SELECT_WIRD"></h1>
 	</ion-header-bar>
 	<ion-content>
 		<ul class="list">
 			<li class="item" ng-repeat="surah in allSurahs | excludeItemsById:currentUser.wirds track by surah.id"
-				ng-if="currentUser.wirds.indexOf(surah) < 0" ng-click="addWird(surah)">
-				{{ surah.title }}
+				ng-if="currentUser.wirds.indexOf(surah) < 0" ng-click="addWird(surah)" translate="{{ surah.title }}">
 			</li>
 		</ul>
 	</ion-content>
