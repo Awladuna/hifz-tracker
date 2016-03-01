@@ -1,10 +1,12 @@
 angular.module('hifzTracker.controllers', [])
 
-	.controller('AppCtrl', ['$scope', '$ionicModal', '$ionicPopup', 'UserService',
-		function ($scope, $ionicModal, $ionicPopup, UserService) {
+	.controller('AppCtrl', ['$scope', '$ionicModal', '$ionicPopup', 'UserService', 'LanguageService',
+		function ($scope, $ionicModal, $ionicPopup, UserService, LanguageService) {
 			$scope.view = {};
 			$scope.users = UserService.getAllUsers();
 			$scope.currentUser = UserService.getCurrentUser();
+			$scope.languages = LanguageService.getAll();
+			$scope.preferredLanguage = LanguageService.getPreferred();
 
 			$scope.setCurrentUser = function (user) {
 				$scope.currentUser = UserService.setCurrentUser(user);
@@ -27,6 +29,17 @@ angular.module('hifzTracker.controllers', [])
 			$scope.userDialog = function (user) {
 				$scope.editUser = user;
 				$ionicModal.fromTemplateUrl('templates/user-dialog.html', {
+					scope: $scope,
+					animation: 'slide-in-up'
+				}).then(function (modal) {
+					$scope.modal = modal;
+					$scope.modal.show();
+				});
+			};
+
+			// Settings modal
+			$scope.openSettings = function () {
+				$ionicModal.fromTemplateUrl('templates/settings.html', {
 					scope: $scope,
 					animation: 'slide-in-up'
 				}).then(function (modal) {
@@ -62,6 +75,10 @@ angular.module('hifzTracker.controllers', [])
 						$scope.closeModal();
 					}
 				});
+			};
+
+			$scope.switchLanguage = function (language) {
+				LanguageService.setPreferred(language);
 			};
 
 		}])
@@ -187,31 +204,11 @@ angular.module('hifzTracker.controllers', [])
 			// Add Wird popover
 			$scope.addWirdDialog = function ($event) {
 				$ionicPopover.fromTemplateUrl('templates/add-wird.html', {
-					scope: $scope,
-					animation: 'slide-in-up'
+					scope: $scope
 				}).then(function (modal) {
 					$scope.modal = modal;
 					$scope.allSurahs = Surahs.getAllSurahs();
 					$scope.modal.show($event);
 				});
-			};
-
-		}])
-
-	.controller('SettingsCtrl', ['$scope', '$translate',
-		function ($scope, $translate) {
-			$scope.languages = [
-				{
-					name: "ARABIC",
-					code: "ar"
-				},
-				{
-					name: "ENGLISH",
-					code: "en"
-				}
-			];
-
-			$scope.switchLanguage = function (code) {
-				$translate.use(code);
 			};
 		}]);

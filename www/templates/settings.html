@@ -1,18 +1,21 @@
-<ion-view view-title="{{ 'SETTINGS' | translate }}">
-
+<ion-modal-view>
+	<ion-header-bar>
+		<h1 class="title" translate="SETTINGS"></h1>
+		<button class="button" ng-click="closeModal()">
+			<i class="icon ion-ios-close"></i>
+		</button>
+	</ion-header-bar>
 	<ion-content>
 		<div class="list">
 
 			<label class="item item-input item-select">
 				<div class="input-label" translate="LANGUAGE"></div>
-				<select ng-model="settings.language"
-				ng-change="switchLanguage(settings.language.code)"
-				ng-options="language.name | translate for language in languages">
+				<select ng-model="preferredLanguage"
+				ng-change="switchLanguage(preferredLanguage)"
+				ng-options="language.name for language in languages track by language.id">
 				</select>
 			</label>
 
 		</div>
-
 	</ion-content>
-
-</ion-view>
+</ion-modal-view>

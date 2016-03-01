@@ -27,7 +27,6 @@
 			<ion-list show-reorder="view.ordering">
 				<ion-item menu-close ng-repeat="user in users track by $index"
 				ng-click="setCurrentUser(user)"
-				ng-href="/#/app/home"
 				ng-class="{ 'active': user === currentUser }">
 					<i class="icon ion-edit" ng-click="userDialog(user)"></i> &nbsp; {{ user.name }}
 					<ion-reorder-button class="ion-navicon" on-reorder="moveItem(user, $fromIndex, $toIndex)">
@@ -38,7 +37,7 @@
 				</ion-item>
 			</ion-list>
 			<ion-list style="position: absolute; bottom: 0; width: 100%;">
-				<ion-item menu-close ng-href="/#/app/settings">
+				<ion-item menu-close ng-click="openSettings()">
 					<i class="icon ion-android-settings"></i> &nbsp; {{ 'SETTINGS' | translate }}
 				</ion-item>
 			</ion-list>

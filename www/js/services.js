@@ -34,6 +34,42 @@ angular.module('hifzTracker.services', [])
 		}
 	}])
 
+	.factory('LanguageService', ['$translate', '$localstorage', function ($translate, $localstorage) {
+		return {
+			_allLanguages: [
+					{ id: 1, name: "Arabic", code: "ar"},
+					{ id: 2, name: "English", code: "en"}
+				],
+			getAll: function () {
+				return this._allLanguages;
+			},
+			getPreferred: function () {
+				var preferredLanguage = $localstorage.getObject('preferredLanguage');
+
+				if (!preferredLanguage.code) {
+					var preferredCode = $translate.preferredLanguage();
+					var supportedCodes = this._allLanguages.map(function (l) { return l.code; });
+					var preferredIndex = supportedCodes.indexOf(preferredCode);
+					preferredLanguage = preferredIndex < 0 ? this._allLanguages[0] : this._allLanguages[preferredIndex];
+					$localstorage.setObject('preferredLanguage', preferredLanguage);
+				}
+
+				$translate.use(preferredLanguage.code);
+				return preferredLanguage;
+			},
+			setPreferred: function (language) {
+				var instance = _array_findById(this._allLanguages, language.id);
+				if (instance) {
+					$translate.use(instance.code);
+					$localstorage.setObject('preferredLanguage', instance);
+					return instance;
+				} else {
+					return this.getPreferred();
+				}
+			}
+		}
+	}])
+
 	.factory('UserService', ['$rootScope', '$localstorage', 'User', function ($rootScope, $localstorage, User) {
 		return {
 			_pool: [],
