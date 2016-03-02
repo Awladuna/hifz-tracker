@@ -19,6 +19,11 @@
 
 
 	"SELECT_WIRD": "Select Wird",
+	"OK": "OK",
+	"CANCEL": "Cancel",
+	"EDIT_USER": "Edit User",
+	"DELETE_CONFIRMATION": "Are you sure you want to delete",
+	"DATE": "{{date|date:'short'}}",
 
 	"Al-Fatihah": "Al-Fatihah",
 	"Al-Baqarah": "Al-Baqarah",

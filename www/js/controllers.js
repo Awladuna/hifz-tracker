@@ -64,8 +64,8 @@ angular.module('hifzTracker.controllers', [])
 
 			$scope.deleteUser = function () {
 				var confirmPopup = $ionicPopup.confirm({
-					title: 'Delete confirmation',
-					template: 'Are you sure you want to delete <b>' + $scope.editUser.name + '</b>?'
+					scope: $scope,
+					template: '<span translate="DELETE_CONFIRMATION"></span> <b translate="{{editUser.name}}"></b>?'
 				});
 
 				confirmPopup.then(function (res) {
@@ -78,7 +78,7 @@ angular.module('hifzTracker.controllers', [])
 			};
 
 			$scope.switchLanguage = function (language) {
-				LanguageService.setPreferred(language);
+				$scope.preferredLanguage = LanguageService.setPreferred(language);
 			};
 
 		}])
@@ -111,20 +111,20 @@ angular.module('hifzTracker.controllers', [])
 
 				// Determine next location based on rating
 				switch (rating) {
-					case 'poor':
-            surah.rating = 'Poor';
+					case 'POOR':
+            surah.rating = 'POOR';
             $scope.currentUser.wirds.splice(5, 0, surah);
             break;
-					case 'weak':
-            surah.rating = 'Weak';
+					case 'WEAK':
+            surah.rating = 'WEAK';
             $scope.currentUser.wirds.splice(10, 0, surah);
             break;
-					case 'okay':
-            surah.rating = 'Okay';
+					case 'OKAY':
+            surah.rating = 'OKAY';
             $scope.currentUser.wirds.splice(15, 0, surah);
             break;
 					default:
-            surah.rating = 'Perfect';
+            surah.rating = 'PERFECT';
             $scope.currentUser.wirds.push(surah);
 				}
 
@@ -151,10 +151,10 @@ angular.module('hifzTracker.controllers', [])
 			};
 
 			$scope.removeWird = function (index) {
-				var surah = $scope.currentUser.wirds[index];
+				$scope.surah = $scope.currentUser.wirds[index];
 				var confirmPopup = $ionicPopup.confirm({
-					title: 'Delete confirmation',
-					template: 'Are you sure you want to delete <b>' + surah.title + '</b>?'
+					scope: $scope,
+					template: '<span translate="DELETE_CONFIRMATION"></span> <b translate="{{surah.title}}"></b>?'
 				});
 
 				confirmPopup.then(function (res) {

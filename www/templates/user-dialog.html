@@ -1,6 +1,9 @@
 <ion-modal-view>
 	<ion-header-bar>
-		<h1 class="title">{{ editUser ? 'Edit ' + editUser.name : 'Add User' }}</h1>
+		<h1 class="title">
+			<span ng-show="editUser" translate="EDIT_USER"></span>
+			<span ng-hide="editUser" translate="ADD_NEW_USER"></span>
+		</h1>
 		<button class="button" ng-click="closeModal()">
 			<i class="icon ion-ios-close"></i>
 		</button>
@@ -18,10 +21,10 @@
 				</button>
 			</div>
 			<div class="col col-25 col-offset-25">
-				<button class="button button-block button-outline" ng-click="closeModal()">Cancel</button>
+				<button class="button button-block button-outline" ng-click="closeModal()" translate="CANCEL"></button>
 			</div>
 			<div class="col col-25">
-				<button class="button button-block button-outline button-positive" ng-click="saveUser(editUser)">OK</button>
+				<button class="button button-block button-outline button-positive" ng-click="saveUser(editUser)" translate="OK"></button>
 			</div>
 		</div>
 	</ion-content>

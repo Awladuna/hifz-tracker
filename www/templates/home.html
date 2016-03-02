@@ -19,15 +19,19 @@
 				<span translate="{{wird.title}}"></span>
 				<span class="item-note">
 					<span translate="LAST_READ"></span>: {{ wird.lastRead || 'NEVER' | translate }}
-					<span ng-if="wird.rating">({{ wird.rating }})</span>
+					<span ng-if="wird.rating" class="ion-ios-circle-filled"
+					ng-class="{ 'assertive': wird.rating === 'POOR',
+					 'energized': wird.rating === 'WEAK',
+					 'positive': wird.rating === 'OKAY',
+					 'balanced': wird.rating === 'PERFECT' }"></span>
 				</span>
 			</div>
 			<div class="item item-text-wrap" ng-show="$index === 0">
 				<div class="button-bar">
-					<a class="button button-outline button-small button-assertive" ng-click="markRead($index, 'poor')" translate="POOR"></a>
-					<a class="button button-outline button-small button-energized" ng-click="markRead($index, 'weak')" translate="WEAK"></a>
-					<a class="button button-outline button-small button-positive" ng-click="markRead($index, 'okay')" translate="OKAY"></a>
-					<a class="button button-outline button-small button-balanced" ng-click="markRead($index, 'perfect')" translate="PERFECT"></a>
+					<a class="button button-outline button-small button-assertive" ng-click="markRead($index, 'POOR')" translate="POOR"></a>
+					<a class="button button-outline button-small button-energized" ng-click="markRead($index, 'WEAK')" translate="WEAK"></a>
+					<a class="button button-outline button-small button-positive" ng-click="markRead($index, 'OKAY')" translate="OKAY"></a>
+					<a class="button button-outline button-small button-balanced" ng-click="markRead($index, 'PERFECT')" translate="PERFECT"></a>
 				</div>
 			</div>
 			<div class="item item-divider" ng-show="$index === 0">
