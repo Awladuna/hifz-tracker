@@ -10,6 +10,11 @@ angular.module('hifzTracker', [
 
 	.run(function ($ionicPlatform) {
 		$ionicPlatform.ready(function () {
+			// Hide splash screen
+			if (navigator && navigator.splashscreen) {
+				navigator.splashscreen.hide();
+			}
+
 			// Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
 			// for form inputs)
 			if (window.cordova && window.cordova.plugins.Keyboard) {
