@@ -18,7 +18,11 @@
 			<div class="item item-divider">
 				<span translate="{{wird.title}}"></span>
 				<span class="item-note">
-					<span translate="LAST_READ"></span>: {{ wird.lastRead || 'NEVER' | translate }}
+
+					<span translate="LAST_READ"></span>:
+					<span ng-show="wird.lastRead">{{ wird.lastRead | localizeDate }}</span>
+					<span ng-hide="wird.lastRead" translate="NEVER"></span>
+
 					<span ng-if="wird.rating" class="ion-ios-circle-filled"
 					ng-class="{ 'assertive': wird.rating === 'POOR',
 					 'energized': wird.rating === 'WEAK',

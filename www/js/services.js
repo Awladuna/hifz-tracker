@@ -37,7 +37,7 @@ angular.module('hifzTracker.services', [])
 	.factory('LanguageService', ['$translate', '$localstorage', function ($translate, $localstorage) {
 		return {
 			_allLanguages: [
-					{ id: 1, name: "Arabic", code: "ar"},
+					{ id: 1, name: "العربية", code: "ar"},
 					{ id: 2, name: "English", code: "en"}
 				],
 			getAll: function () {

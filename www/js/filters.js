@@ -8,4 +8,12 @@ angular.module('hifzTracker.filters', [])
 				});
 			});
 		};
+	})
+
+	.filter('localizeDate', function (LanguageService) {
+		return function (date) {
+			if (!date) return;
+			var code = LanguageService.getPreferred().code;
+			return moment(date, 'l').locale(code).format('l');
+		};
 	});
