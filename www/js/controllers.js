@@ -83,10 +83,10 @@ angular.module('hifzTracker.controllers', [])
 
 		}])
 
-	.controller('HomeCtrl', ['$rootScope', '$scope', '$ionicPopup', '$ionicModal', '$ionicPopover', 'ionicToast', 'Surahs', 'UserService',
-		function ($rootScope, $scope, $ionicPopup, $ionicModal, $ionicPopover, ionicToast, Surahs, UserService) {
+	.controller('HomeCtrl', ['$rootScope', '$scope', '$ionicPopup', '$ionicModal', '$ionicPopover', 'ionicToast', 'Wirds', 'UserService',
+		function ($rootScope, $scope, $ionicPopup, $ionicModal, $ionicPopover, ionicToast, Wirds, UserService) {
 
-			$scope.view = {};
+			$scope.view = {limit: 10};
 
 			// Get the array of users and currentUser from UserService
 			$scope.users = UserService.getAllUsers();
@@ -94,6 +94,13 @@ angular.module('hifzTracker.controllers', [])
 			$rootScope.$on('currentUserChanged', function (event, newCurrentUser) {
 				$scope.currentUser = newCurrentUser;
 			});
+
+			$scope.loadMoreData = function() {
+				if ($scope.view.limit < $scope.currentUser.wirds.length) {
+					$scope.view.limit += 3;
+					$scope.$broadcast('scroll.infiniteScrollComplete');
+				}
+			};
 
 			$scope.markRead = function (index, rating) {
 				var surah = $scope.currentUser.wirds[index];
@@ -207,7 +214,7 @@ angular.module('hifzTracker.controllers', [])
 					scope: $scope
 				}).then(function (modal) {
 					$scope.modal = modal;
-					$scope.allSurahs = Surahs.getAllSurahs();
+					$scope.allSurahs = Wirds.getAllSurahs();
 					$scope.modal.show($event);
 				});
 			};

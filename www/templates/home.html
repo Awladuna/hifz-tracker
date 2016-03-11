@@ -14,7 +14,7 @@
 				</div>
 			</div>
 		</div>
-		<div ng-repeat="wird in currentUser.wirds track by $index" class="card">
+		<div ng-repeat="wird in currentUser.wirds | limitTo:view.limit track by $index" class="card">
 			<div class="item item-divider">
 				<span translate="{{wird.title}}"></span>
 				<span class="item-note">
@@ -49,5 +49,8 @@
 				</span>
 			</div>
 		</div>
+		<ion-infinite-scroll distance="2"
+		on-infinite="loadMoreData()"
+		ng-if="currentUser.wirds.length > view.limit"></ion-infinite-scroll>
 	</ion-content>
 </ion-view>
