@@ -101,7 +101,7 @@ angular.module('hifzTracker.services', [])
 				return this._pool;
 			},
 			getCurrentUser: function () {
-				var currentId = this._current ? this._current.id : 0;
+				var currentId = this._current ? this._current.id : $localstorage.get('currentId', 0);
 				var instance = _array_findById(this._pool, currentId);
 				this._current = instance || this._pool[0];
 				$rootScope.$emit('currentUserChanged', this._current);
@@ -109,6 +109,7 @@ angular.module('hifzTracker.services', [])
 			},
 			setCurrentUser: function (user) {
 				this._current = this._retrieveInstance(user);
+				$localstorage.set('currentId', this._current.id);
 				$rootScope.$emit('currentUserChanged', this._current);
 				return this._current;
 			},
