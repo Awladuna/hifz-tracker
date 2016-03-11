@@ -9730,3 +9730,23 @@ a.button {
   opacity: 0;
   -webkit-transition-duration: 0s;
   transition-duration: 0s; }
+
+.center {
+  top: 50%;
+  -webkit-transform: translateY(-50%);
+  -moz-transform: translateY(-50%);
+  -ms-transform: translateY(-50%);
+  -o-transform: translateY(-50%);
+  transform: translateY(-50%);
+  position: absolute !important;
+  margin: 0 auto;
+  width: 100%; }
+
+.bottom-list {
+  position: absolute;
+  bottom: 0;
+  width: 100%; }
+
+.scroll, .slider, .slider-slides {
+  min-height: 100%;
+  height: 100%; }

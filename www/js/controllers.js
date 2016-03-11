@@ -93,6 +93,7 @@ angular.module('hifzTracker.controllers', [])
 			$scope.currentUser = UserService.getCurrentUser();
 			$rootScope.$on('currentUserChanged', function (event, newCurrentUser) {
 				$scope.currentUser = newCurrentUser;
+				$scope.view.limit = 10;
 			});
 
 			$scope.loadMoreData = function() {
