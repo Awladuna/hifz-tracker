@@ -514,6 +514,12 @@ angular.module('hifzTracker.services', [])
 			},
 			getSurahById: function (id) {
 				return _array_findById(allSurahs, id);
+			},
+			getAllQuarters: function () {
+				return allQuarters;
+			},
+			getQuarterById: function (id) {
+				return _array_findById(allQuarters, id);
 			}
 		}
 	}]);

@@ -201,22 +201,25 @@ angular.module('hifzTracker.controllers', [])
 				});
 			};
 
-			$scope.closeModal = function () {
-				if ($scope.modal) { $scope.modal.hide(); }
-			};
-			//Cleanup the modal when we're done with it!
-			$scope.$on('$destroy', function () {
-				if ($scope.modal) { $scope.modal.remove(); }
-			});
-
 			// Add Wird popover
 			$scope.addWirdDialog = function ($event) {
 				$ionicPopover.fromTemplateUrl('templates/add-wird.html', {
 					scope: $scope
 				}).then(function (modal) {
 					$scope.modal = modal;
+					$scope.wirdTypes = ['surah', 'quarter'];
 					$scope.allSurahs = Wirds.getAllSurahs();
+					$scope.allQuarters = Wirds.getAllQuarters();
 					$scope.modal.show($event);
 				});
 			};
+			// Execute action on remove popover
+			$scope.$on('popover.hidden', function() {
+				delete $scope.view.wirdType;
+			});
+
+			$scope.closeModal = function () {
+				if ($scope.modal) { $scope.modal.hide(); }
+			};
+
 		}]);
