@@ -19,11 +19,15 @@
 
 
 	"SELECT_WIRD": "اختر الورد",
+	"SELECT_WIRD_TYPE": "اختر نوع الورد",
 	"OK": "موافقة",
 	"CANCEL": "إلغاء",
 	"EDIT_USER": "تعديل مستخدم",
 	"DELETE_CONFIRMATION": "هل أنت متأكد من حذف",
 	"DATE": "{{date|date:'medium'}}",
+
+	"SURAH": "سورة",
+	"QUARTER": "ربع حزب",
 
 	"Al-Fatihah": "الفاتحة",
 	"Al-Baqarah": "البقرة",

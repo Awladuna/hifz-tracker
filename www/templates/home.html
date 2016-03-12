@@ -50,7 +50,7 @@
 			</div>
 		</div>
 		<ion-infinite-scroll distance="2"
-		on-infinite="loadMoreData()"
+		on-infinite="loadMoreData('limit')"
 		ng-if="currentUser.wirds.length > view.limit"></ion-infinite-scroll>
 	</ion-content>
 </ion-view>

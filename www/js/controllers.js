@@ -86,7 +86,7 @@ angular.module('hifzTracker.controllers', [])
 	.controller('HomeCtrl', ['$rootScope', '$scope', '$ionicPopup', '$ionicModal', '$ionicPopover', 'ionicToast', 'Wirds', 'UserService',
 		function ($rootScope, $scope, $ionicPopup, $ionicModal, $ionicPopover, ionicToast, Wirds, UserService) {
 
-			$scope.view = {limit: 10};
+			$scope.view = {limit: 10, wirdLimit: 20};
 
 			// Get the array of users and currentUser from UserService
 			$scope.users = UserService.getAllUsers();
@@ -96,11 +96,9 @@ angular.module('hifzTracker.controllers', [])
 				$scope.view.limit = 10;
 			});
 
-			$scope.loadMoreData = function() {
-				if ($scope.view.limit < $scope.currentUser.wirds.length) {
-					$scope.view.limit += 3;
-					$scope.$broadcast('scroll.infiniteScrollComplete');
-				}
+			$scope.loadMoreData = function(limit, increment) {
+				$scope.view[limit] += increment || 3;
+				$scope.$broadcast('scroll.infiniteScrollComplete');
 			};
 
 			$scope.markRead = function (index, rating) {
@@ -207,7 +205,7 @@ angular.module('hifzTracker.controllers', [])
 					scope: $scope
 				}).then(function (modal) {
 					$scope.modal = modal;
-					$scope.wirdTypes = ['surah', 'quarter'];
+					$scope.wirdTypes = ['SURAH', 'QUARTER'];
 					$scope.allSurahs = Wirds.getAllSurahs();
 					$scope.allQuarters = Wirds.getAllQuarters();
 					$scope.modal.show($event);
@@ -215,6 +213,7 @@ angular.module('hifzTracker.controllers', [])
 			};
 			// Execute action on remove popover
 			$scope.$on('popover.hidden', function() {
+			$scope.view.wirdLimit = 20;
 				delete $scope.view.wirdType;
 			});
 

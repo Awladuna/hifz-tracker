@@ -1,6 +1,7 @@
 <ion-popover-view>
 	<ion-header-bar>
-		<h1 class="title" translate="view.wirdType ? SELECT_WIRD : SELECT_WIRD_TYPE"></h1>
+		<h1 class="title" ng-if="view.wirdType" translate="SELECT_WIRD"></h1>
+		<h1 class="title" ng-if="!view.wirdType" translate="SELECT_WIRD_TYPE"></h1>
 	</ion-header-bar>
 	<ion-content>
 
@@ -12,20 +13,26 @@
 			</ul>
 		</div>
 
-		<div ng-if="view.wirdType === 'surah'">
+		<div ng-if="view.wirdType === 'SURAH'">
 			<ul class="list">
-				<li class="item" ng-repeat="surah in allSurahs | excludeItemsById:currentUser.wirds track by surah.id"
+				<li class="item" ng-repeat="surah in allSurahs | limitTo:view.wirdLimit | excludeItemsById:currentUser.wirds track by surah.id"
 					ng-click="addWird(surah)" translate="{{ surah.title }}">
 				</li>
 			</ul>
+			<ion-infinite-scroll distance="2"
+			on-infinite="loadMoreData('wirdLimit', 20)"
+			ng-if="allSurahs.length > view.wirdLimit"></ion-infinite-scroll>
 		</div>
 
-		<div ng-if="view.wirdType === 'quarter'">
+		<div ng-if="view.wirdType === 'QUARTER'">
 			<ul class="list">
-				<li class="item" ng-repeat="quarter in allQuarters | excludeItemsById:currentUser.wirds track by quarter.id"
+				<li class="item" ng-repeat="quarter in allQuarters | limitTo:view.wirdLimit | excludeItemsById:currentUser.wirds track by quarter.id"
 					ng-click="addWird(quarter)" translate="{{ quarter.title }}">
 				</li>
 			</ul>
+			<ion-infinite-scroll distance="2"
+			on-infinite="loadMoreData('wirdLimit', 20)"
+			ng-if="allQuarters.length > view.wirdLimit"></ion-infinite-scroll>
 		</div>
 
 	</ion-content>

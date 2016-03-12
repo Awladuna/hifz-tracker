@@ -19,11 +19,15 @@
 
 
 	"SELECT_WIRD": "Select Wird",
+	"SELECT_WIRD_TYPE": "Select Wird Type",
 	"OK": "OK",
 	"CANCEL": "Cancel",
 	"EDIT_USER": "Edit User",
 	"DELETE_CONFIRMATION": "Are you sure you want to delete",
 	"DATE": "{{date|date:'short'}}",
+
+	"SURAH": "Surah",
+	"QUARTER": "Quarter of Hizb",
 
 	"Al-Fatihah": "Al-Fatihah",
 	"Al-Baqarah": "Al-Baqarah",
