@@ -34,6 +34,35 @@ angular.module('hifzTracker.services', [])
 		}
 	}])
 
+	.factory('preferencesService', ['$rootScope', '$localstorage', function ($rootScope, $localstorage) {
+		return {
+			_allThemes: [
+					{ id: 1, name: "LIGHT", class: "stable"},
+					{ id: 2, name: "DARK", class: "dark"}
+				],
+			getAllThemes: function () {
+				return this._allThemes;
+			},
+			getTheme: function() {
+				var theme = $localstorage.getObject('theme');
+				if (!theme.id) {
+					theme = this._allThemes[0];
+				}
+				return theme;
+			},
+			setTheme: function(theme) {
+				var instance = _array_findById(this._allThemes, theme.id);
+				if (instance) {
+					$localstorage.setObject('theme', instance);
+					$rootScope.$emit('themeChanged', instance);
+					return instance;
+				} else {
+					return this.getTheme();
+				}
+			}
+		}
+	}])
+
 	.factory('LanguageService', ['$translate', '$localstorage', function ($translate, $localstorage) {
 		return {
 			_allLanguages: [

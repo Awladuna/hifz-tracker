@@ -144,6 +144,9 @@
 	"Al-Falaq": "Al-Falaq",
 	"An-Nas": "An-Nas",
 
-	"LANGUAGE": "Language"
+	"LANGUAGE": "Language",
+	"THEME": "Theme",
+	"DARK": "Dark",
+	"LIGHT": "Light"
 
 }

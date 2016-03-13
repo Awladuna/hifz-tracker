@@ -4,7 +4,7 @@
 			<i class="icon ion-plus-circled"></i>  {{ 'ADD_WIRD' | translate }}
 		</button>
 	</ion-nav-buttons>
-	<ion-content>
+	<ion-content ng-class="'content-' + appTheme.class">
 		<div ng-hide="currentUser" class="center">
 			<div class="row">
 				<div class="col">
@@ -15,7 +15,7 @@
 			</div>
 		</div>
 		<div ng-repeat="wird in currentUser.wirds | limitTo:view.limit track by $index" class="card">
-			<div class="item item-divider">
+			<div class="item item-divider" ng-class="'item-' + appTheme.class">
 				<span translate="{{wird.title}}"></span>
 				<span class="item-note">
 
@@ -30,7 +30,7 @@
 					 'balanced': wird.rating === 'PERFECT' }"></span>
 				</span>
 			</div>
-			<div class="item item-text-wrap" ng-show="$index === 0">
+			<div class="item item-text-wrap item-main" ng-class="'item-' + appTheme.class" ng-show="$index === 0">
 				<div class="button-bar">
 					<a class="button button-outline button-small button-assertive" ng-click="markRead($index, 'POOR')" translate="POOR"></a>
 					<a class="button button-outline button-small button-energized" ng-click="markRead($index, 'WEAK')" translate="WEAK"></a>
@@ -38,12 +38,12 @@
 					<a class="button button-outline button-small button-balanced" ng-click="markRead($index, 'PERFECT')" translate="PERFECT"></a>
 				</div>
 			</div>
-			<div class="item item-divider" ng-show="$index === 0">
-				<button class="button button-small" ng-click="openWird(wird)">
+			<div class="item item-divider" ng-class="'item-' + appTheme.class" ng-show="$index === 0">
+				<button class="button button-small" ng-class="'button-' + appTheme.class" ng-click="openWird(wird)">
 					<i class="icon ion-ios-book-outline"></i> {{ 'READ' | translate }}
 				</button>
 				<span class="item-note">
-					<button class="button button-small" ng-click="removeWird($index)">
+					<button class="button button-small" ng-class="'button-' + appTheme.class" ng-click="removeWird($index)">
 						<i class="icon ion-minus-circled"></i> {{ 'DELETE' | translate }}
 					</button>
 				</span>

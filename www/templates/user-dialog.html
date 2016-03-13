@@ -1,5 +1,5 @@
 <ion-modal-view>
-	<ion-header-bar>
+	<ion-header-bar ng-class="'bar-' + appTheme.class">
 		<h1 class="title">
 			<span ng-show="editUser" translate="EDIT_USER"></span>
 			<span ng-hide="editUser" translate="ADD_NEW_USER"></span>
@@ -8,9 +8,9 @@
 			<i class="icon ion-ios-close"></i>
 		</button>
 	</ion-header-bar>
-	<ion-content>
+	<ion-content ng-class="'content-' + appTheme.class">
 		<div class="list">
-			<label class="item item-input">
+			<label class="item item-{{appTheme.class}} item-input">
 				<input type="text" placeholder="Name" ng-model="editUser.name">
 			</label>
 		</div>

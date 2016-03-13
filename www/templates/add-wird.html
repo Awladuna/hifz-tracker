@@ -1,13 +1,14 @@
 <ion-popover-view>
-	<ion-header-bar>
+	<ion-header-bar ng-class="'bar-' + appTheme.class">
 		<h1 class="title" ng-if="view.wirdType" translate="SELECT_WIRD"></h1>
 		<h1 class="title" ng-if="!view.wirdType" translate="SELECT_WIRD_TYPE"></h1>
 	</ion-header-bar>
-	<ion-content>
+	<ion-content ng-class="'content-' + appTheme.class">
 
 		<div ng-if="!view.wirdType">
 			<ul class="list">
-				<li class="item" ng-repeat="type in wirdTypes track by $index"
+				<li ng-repeat="type in wirdTypes track by $index"
+					class="item" ng-class="'item-' + appTheme.class"
 					ng-click="view.wirdType = type;" translate="{{ type }}">
 				</li>
 			</ul>
@@ -15,7 +16,8 @@
 
 		<div ng-if="view.wirdType === 'SURAH'">
 			<ul class="list">
-				<li class="item" ng-repeat="surah in allSurahs | limitTo:view.wirdLimit | excludeItemsById:currentUser.wirds track by surah.id"
+				<li ng-repeat="surah in allSurahs | limitTo:view.wirdLimit | excludeItemsById:currentUser.wirds track by surah.id"
+					class="item" ng-class="'item-' + appTheme.class"
 					ng-click="addWird(surah)" translate="{{ surah.title }}">
 				</li>
 			</ul>
@@ -26,7 +28,8 @@
 
 		<div ng-if="view.wirdType === 'QUARTER'">
 			<ul class="list">
-				<li class="item" ng-repeat="quarter in allQuarters | limitTo:view.wirdLimit | excludeItemsById:currentUser.wirds track by quarter.id"
+				<li ng-repeat="quarter in allQuarters | limitTo:view.wirdLimit | excludeItemsById:currentUser.wirds track by quarter.id"
+					class="item" ng-class="'item-' + appTheme.class"
 					ng-click="addWird(quarter)" translate="{{ quarter.title }}">
 				</li>
 			</ul>

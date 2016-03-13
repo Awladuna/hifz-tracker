@@ -1,12 +1,18 @@
 angular.module('hifzTracker.controllers', [])
 
-	.controller('AppCtrl', ['$scope', '$ionicModal', '$ionicPopup', 'UserService', 'LanguageService',
-		function ($scope, $ionicModal, $ionicPopup, UserService, LanguageService) {
+	.controller('AppCtrl', ['$rootScope', '$scope', '$ionicModal', '$ionicPopup', 'UserService', 'LanguageService', 'preferencesService',
+		function ($rootScope, $scope, $ionicModal, $ionicPopup, UserService, LanguageService, preferencesService) {
 			$scope.view = {};
 			$scope.users = UserService.getAllUsers();
 			$scope.currentUser = UserService.getCurrentUser();
 			$scope.languages = LanguageService.getAll();
 			$scope.preferredLanguage = LanguageService.getPreferred();
+
+			$scope.allThemes = preferencesService.getAllThemes();
+			$scope.appTheme = preferencesService.getTheme();
+			$rootScope.$on('themeChanged', function (event, newTheme) {
+				$scope.appTheme = newTheme;
+			});
 
 			$scope.setCurrentUser = function (user) {
 				$scope.currentUser = UserService.setCurrentUser(user);
@@ -81,12 +87,20 @@ angular.module('hifzTracker.controllers', [])
 				$scope.preferredLanguage = LanguageService.setPreferred(language);
 			};
 
+			$scope.setTheme = function(theme) {
+				preferencesService.setTheme(theme);
+			};
+
 		}])
 
-	.controller('HomeCtrl', ['$rootScope', '$scope', '$ionicPopup', '$ionicModal', '$ionicPopover', 'ionicToast', 'Wirds', 'UserService',
-		function ($rootScope, $scope, $ionicPopup, $ionicModal, $ionicPopover, ionicToast, Wirds, UserService) {
+	.controller('HomeCtrl', ['$rootScope', '$scope', '$ionicPopup', '$ionicModal', '$ionicPopover', 'ionicToast', 'Wirds', 'UserService', 'preferencesService',
+		function ($rootScope, $scope, $ionicPopup, $ionicModal, $ionicPopover, ionicToast, Wirds, UserService, preferencesService) {
 
-			$scope.view = {limit: 10, wirdLimit: 20};
+			$scope.view = { limit: 10, wirdLimit: 20 };
+			$scope.appTheme = preferencesService.getTheme();
+			$rootScope.$on('themeChanged', function (event, newTheme) {
+				$scope.appTheme = newTheme;
+			});
 
 			// Get the array of users and currentUser from UserService
 			$scope.users = UserService.getAllUsers();
