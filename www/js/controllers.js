@@ -132,20 +132,23 @@ angular.module('hifzTracker.controllers', [])
 				// Determine next location based on rating
 				switch (rating) {
 					case 'POOR':
-            surah.rating = 'POOR';
-            $scope.currentUser.wirds.splice(5, 0, surah);
-            break;
+						surah.rating = 'POOR';
+						var position = Math.floor($scope.currentUser.wirds.length * 0.25);
+						$scope.currentUser.wirds.splice(position, 0, surah);
+						break;
 					case 'WEAK':
-            surah.rating = 'WEAK';
-            $scope.currentUser.wirds.splice(10, 0, surah);
-            break;
+						surah.rating = 'WEAK';
+						var position = Math.floor($scope.currentUser.wirds.length * 0.50);
+						$scope.currentUser.wirds.splice(position, 0, surah);
+						break;
 					case 'OKAY':
-            surah.rating = 'OKAY';
-            $scope.currentUser.wirds.splice(15, 0, surah);
-            break;
+						surah.rating = 'OKAY';
+						var position = Math.floor($scope.currentUser.wirds.length * 0.75);
+						$scope.currentUser.wirds.splice(position, 0, surah);
+						break;
 					default:
-            surah.rating = 'PERFECT';
-            $scope.currentUser.wirds.push(surah);
+						surah.rating = 'PERFECT';
+						$scope.currentUser.wirds.push(surah);
 				}
 
 				// Save user
@@ -179,9 +182,9 @@ angular.module('hifzTracker.controllers', [])
 
 				confirmPopup.then(function (res) {
 					if (res) {
-            $scope.currentUser.wirds.splice(index, 1);
-            // Save user
-            UserService.saveUser($scope.currentUser);
+						$scope.currentUser.wirds.splice(index, 1);
+						// Save user
+						UserService.saveUser($scope.currentUser);
 					}
 				});
 			};
