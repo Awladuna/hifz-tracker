@@ -69,3 +69,8 @@ $ionicons-font-path: "../lib/ionic/fonts" !default;
 .item-dark .item-reorder .button.icon {
 	color: #fff;
 }
+
+.translucent {
+	opacity: 0.5;
+	filter: alpha(opacity=50);
+}

@@ -168,6 +168,8 @@ angular.module('hifzTracker.controllers', [])
 
 			$scope.addWird = function (wird) {
 				$scope.currentUser.wirds.unshift(wird);
+				$scope.view.limit++;
+				$scope.view.wirdLimit++;
 				// Save user
 				UserService.saveUser($scope.currentUser);
 				ionicToast.show('Added "' + wird.title + '"', 'bottom', false, 2500);
