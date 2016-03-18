@@ -74,3 +74,9 @@ $ionicons-font-path: "../lib/ionic/fonts" !default;
 	opacity: 0.5;
 	filter: alpha(opacity=50);
 }
+
+.item-dark {
+	border-color: #111 !important;
+	background-color: #444 !important;
+	color: #fff !important;
+}
