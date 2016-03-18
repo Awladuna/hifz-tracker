@@ -93,8 +93,8 @@ angular.module('hifzTracker.controllers', [])
 
 		}])
 
-	.controller('HomeCtrl', ['$rootScope', '$scope', '$ionicPopup', '$ionicModal', '$ionicPopover', 'ionicToast', 'Wirds', 'UserService', 'preferencesService',
-		function ($rootScope, $scope, $ionicPopup, $ionicModal, $ionicPopover, ionicToast, Wirds, UserService, preferencesService) {
+	.controller('HomeCtrl', ['$rootScope', '$scope', '$window', '$ionicPopup', '$ionicModal', '$ionicPopover', 'ionicToast', 'Wirds', 'UserService', 'preferencesService',
+		function ($rootScope, $scope, $window, $ionicPopup, $ionicModal, $ionicPopover, ionicToast, Wirds, UserService, preferencesService) {
 
 			$scope.view = { limit: 10, wirdLimit: 20 };
 			$scope.appTheme = preferencesService.getTheme();
@@ -207,7 +207,11 @@ angular.module('hifzTracker.controllers', [])
 				$ionicModal.fromTemplateUrl('templates/wird-page.html', {
 					scope: $scope,
 					animation: 'slide-in-up'
-				}).then(function (modal) {
+				}).then(function(modal) {
+					if ($window.plugins) {
+						$window.plugins.insomnia.keepAwake();
+					}
+
 					$scope.modal = modal;
 					$scope.wird = wird;
 					$scope.activePage = wird.endPage - wird.startPage;
@@ -238,6 +242,9 @@ angular.module('hifzTracker.controllers', [])
 
 			$scope.closeModal = function () {
 				if ($scope.modal) { $scope.modal.hide(); }
+				if ($window.plugins) {
+					$window.plugins.insomnia.allowSleepAgain();
+				}
 			};
 
 		}]);

@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<widget id="org.awladuna.hifz-tracker" version="0.0.1" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
+<widget id="org.awladuna.hifz-tracker" version="0.8.0" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
   <name>Hifz Tracker</name>
   <description>
-        Helps you keeps track of your Quran memorization
+        Helps you keep track of your Quran memorization
     </description>
   <author email="questions@awladuna.org" href="http://awladuna.org/">
       Awladuna
