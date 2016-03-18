@@ -14,6 +14,9 @@
 
 	<ion-side-menu side="left">
 		<ion-header-bar ng-class="'bar-' + appTheme.class">
+			<button menu-close class="button" ng-click="openSettings()">
+				<i class="icon ion-android-settings"></i>
+			</button>
 			<h1 class="title">
 				{{ 'USERS' | translate }}
 			</h1>
@@ -35,11 +38,6 @@
 				</ion-item>
 				<ion-item menu-close ng-click="userDialog()" class="item" ng-class="'item-' + appTheme.class">
 					<i class="icon ion-plus-circled"></i> &nbsp; {{ 'ADD_NEW_USER' | translate }}
-				</ion-item>
-			</ion-list>
-			<ion-list class="bottom-list">
-				<ion-item menu-close ng-click="openSettings()" class="item" ng-class="'item-' + appTheme.class">
-					<i class="icon ion-android-settings"></i> &nbsp; {{ 'SETTINGS' | translate }}
 				</ion-item>
 			</ion-list>
 		</ion-content>
