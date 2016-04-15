@@ -5,6 +5,7 @@ angular.module('hifzTracker', [
 	'hifzTracker.entities',
 	'hifzTracker.controllers',
 	'hifzTracker.services',
+	'hifzTracker.directives',
 	'hifzTracker.filters'
 ])
 

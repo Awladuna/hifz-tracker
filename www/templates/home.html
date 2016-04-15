@@ -14,6 +14,7 @@
 				</div>
 			</div>
 		</div>
+		<stat-bar stats="stats" total="currentUser.wirds.length"></stat-bar>
 		<div ng-repeat="wird in currentUser.wirds | limitTo:view.limit track by $index"
 		class="card" ng-class="{ 'translucent': $index > 0 }">
 			<div class="item item-divider" ng-class="'item-' + appTheme.class">

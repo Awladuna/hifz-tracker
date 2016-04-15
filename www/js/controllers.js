@@ -247,4 +247,12 @@ angular.module('hifzTracker.controllers', [])
 				}
 			};
 
+			$scope.$watch('currentUser', function () {
+				$scope.stats = [
+					{ color: '#ef473a', count: $scope.currentUser.wirds.filter(function (w) { return w.rating === 'POOR'; }).length },
+					{ color: '#ffc900', count: $scope.currentUser.wirds.filter(function (w) { return w.rating === 'WEAK'; }).length },
+					{ color: '#387ef5', count: $scope.currentUser.wirds.filter(function (w) { return w.rating === 'OKAY'; }).length },
+					{ color: '#33cd5f', count: $scope.currentUser.wirds.filter(function (w) { return w.rating === 'PERFECT'; }).length }
+				];
+			}, true);
 		}]);

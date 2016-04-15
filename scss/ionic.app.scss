@@ -82,3 +82,16 @@ $ionicons-font-path: "../lib/ionic/fonts" !default;
 	background-color: #444 !important;
 	color: #fff !important;
 }
+
+.stat-bar {
+	position: relative;
+	margin: 0 10px;
+	border-radius: 2px;
+	height: 3px;
+	background-color: rgba(80, 80, 80, 0.3);
+}
+
+.stat-section {
+	float: left;
+	height: 100%;
+}
