@@ -59,7 +59,9 @@ $ionicons-font-path: "../lib/ionic/fonts" !default;
 }
 
 .page-dark {
-	background-color: #ccc;
+	background-color: transparent;
+	-webkit-filter: invert(1);
+	filter: invert(1);
 }
 
 .item.item-main.item-stable {
