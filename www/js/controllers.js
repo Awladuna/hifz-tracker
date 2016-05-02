@@ -93,8 +93,8 @@ angular.module('hifzTracker.controllers', [])
 
 		}])
 
-	.controller('HomeCtrl', ['$rootScope', '$scope', '$window', '$ionicPopup', '$ionicModal', '$ionicPopover', 'ionicToast', 'Wirds', 'UserService', 'preferencesService',
-		function ($rootScope, $scope, $window, $ionicPopup, $ionicModal, $ionicPopover, ionicToast, Wirds, UserService, preferencesService) {
+	.controller('HomeCtrl', ['$rootScope', '$scope', '$window', '$ionicPopup', '$ionicModal', '$ionicPopover', '$cordovaFileTransfer', 'ionicToast', 'Wirds', 'UserService', 'preferencesService',
+		function ($rootScope, $scope, $window, $ionicPopup, $ionicModal, $ionicPopover, $cordovaFileTransfer, ionicToast, Wirds, UserService, preferencesService) {
 
 			$scope.view = { limit: 10, wirdLimit: 20 };
 			$scope.appTheme = preferencesService.getTheme();
@@ -255,4 +255,24 @@ angular.module('hifzTracker.controllers', [])
 					{ color: '#33cd5f', count: $scope.currentUser.wirds.filter(function (w) { return w.rating === 'PERFECT'; }).length }
 				];
 			}, true);
+
+			$scope.downloadQuran = function () {
+				// File for download
+				var url = "http://android.quran.com/data/zips/images_800.zip";
+
+				// File name only
+				var filename = url.split("/").pop();
+
+				// Save location
+				var targetPath = cordova.file.externalRootDirectory + filename;
+
+				$cordovaFileTransfer.download(url, targetPath, {}, true).then(function (result) {
+						console.log('Success');
+				}, function (error) {
+						console.log('Error');
+				}, function (progress) {
+						console.log('progress: ' + Math.floor(100 * progress.loaded / progress.total) + '%');
+				});
+			};
+
 		}]);

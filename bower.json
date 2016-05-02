@@ -8,6 +8,12 @@
     "ionic-toast": "^0.2.0",
     "angular-translate": "^2.10.0",
     "angular-translate-loader-static-files": "^2.10.0",
-    "moment": "^2.11.2"
+    "moment": "^2.11.2",
+    "ngCordova": "^0.1.26-alpha"
+  },
+  "resolutions": {
+    "angular-sanitize": "1.5.3",
+    "angular": ">= 1.0.8",
+    "angular-animate": "1.5.3"
   }
 }

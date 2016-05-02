@@ -1,5 +1,6 @@
 angular.module('hifzTracker', [
 	'ionic',
+	'ngCordova',
 	'ionic-toast',
 	'pascalprecht.translate',
 	'hifzTracker.entities',

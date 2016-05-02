@@ -4,6 +4,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width">
+	<meta http-equiv="Content-Security-Policy" content="default-src *; script-src 'self' 'unsafe-inline' 'unsafe-eval' *; style-src  'self' 'unsafe-inline' *">
 	<title></title>
 
 	<link href="lib/ionic-toast/src/style.css">
@@ -18,6 +19,7 @@
 	<script src="lib/angular-translate-loader-static-files/angular-translate-loader-static-files.min.js"></script>
 
 	<!-- cordova script (this will be a 404 during development) -->
+	<script src="lib/ngCordova/dist/ng-cordova.min.js"></script>
 	<script src="cordova.js"></script>
 
 	<!-- MomentJs and locales -->
