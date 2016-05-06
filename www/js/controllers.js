@@ -87,14 +87,14 @@ angular.module('hifzTracker.controllers', [])
 				$scope.preferredLanguage = LanguageService.setPreferred(language);
 			};
 
-			$scope.setTheme = function(theme) {
+			$scope.setTheme = function (theme) {
 				preferencesService.setTheme(theme);
 			};
 
 		}])
 
-	.controller('HomeCtrl', ['$rootScope', '$scope', '$window', '$ionicPopup', '$ionicModal', '$ionicPopover', '$cordovaFileTransfer', 'ionicToast', 'Wirds', 'UserService', 'preferencesService',
-		function ($rootScope, $scope, $window, $ionicPopup, $ionicModal, $ionicPopover, $cordovaFileTransfer, ionicToast, Wirds, UserService, preferencesService) {
+	.controller('HomeCtrl', ['$rootScope', '$scope', '$window', '$ionicPopup', '$ionicModal', '$ionicPopover', 'ionicToast', 'Wirds', 'UserService', 'preferencesService',
+		function ($rootScope, $scope, $window, $ionicPopup, $ionicModal, $ionicPopover, ionicToast, Wirds, UserService, preferencesService) {
 
 			$scope.view = { limit: 10, wirdLimit: 20 };
 			$scope.appTheme = preferencesService.getTheme();
@@ -110,7 +110,13 @@ angular.module('hifzTracker.controllers', [])
 				$scope.view.limit = 10;
 			});
 
-			$scope.loadMoreData = function(limit, increment) {
+			// Check if Wirds images are downloaded
+			$scope.wirdsDownloaded = false;
+			Wirds.isAvailable().then( function(success) {
+				$scope.wirdsDownloaded = success.isDirectory;
+			});
+
+			$scope.loadMoreData = function (limit, increment) {
 				$scope.view[limit] += increment || 3;
 				$scope.$broadcast('scroll.infiniteScrollComplete');
 			};
@@ -204,22 +210,39 @@ angular.module('hifzTracker.controllers', [])
 
 			// Read Wird modal
 			$scope.openWird = function (wird) {
-				$ionicModal.fromTemplateUrl('templates/wird-page.html', {
-					scope: $scope,
-					animation: 'slide-in-up'
-				}).then(function(modal) {
-					if ($window.plugins) {
-						$window.plugins.insomnia.keepAwake();
-					}
+				if ($scope.wirdsDownloaded) {
+					// Images are available, display the wird
+					$ionicModal.fromTemplateUrl('templates/wird-page.html', {
+						scope: $scope,
+						animation: 'slide-in-up'
+					}).then(function (modal) {
+						if ($window.plugins) {
+							$window.plugins.insomnia.keepAwake();
+						}
 
-					$scope.modal = modal;
-					$scope.wird = wird;
-					$scope.activePage = wird.endPage - wird.startPage;
-					$scope.newArray = function (length) {
-						return new Array(length);
-					};
-					$scope.modal.show();
-				});
+						$scope.modal = modal;
+						$scope.wird = wird;
+						$scope.activePage = wird.endPage - wird.startPage;
+						$scope.newArray = function (length) {
+							return new Array(length);
+						};
+						$scope.modal.show();
+					});
+				} else {
+					// Images not available, prompt to download
+					var confirmPopup = $ionicPopup.confirm({
+						template: '<span translate="DOWNLOAD_CONFIRMATION"></span>?'
+					});
+
+					confirmPopup.then(function (res) {
+						if (res) {
+							Wirds.download().then(function () {
+								console.log('Finished download');
+								$scope.wirdsDownloaded = true;
+							});
+						}
+					});
+				}
 			};
 
 			// Add Wird popover
@@ -235,8 +258,8 @@ angular.module('hifzTracker.controllers', [])
 				});
 			};
 			// Execute action on remove popover
-			$scope.$on('popover.hidden', function() {
-			$scope.view.wirdLimit = 20;
+			$scope.$on('popover.hidden', function () {
+				$scope.view.wirdLimit = 20;
 				delete $scope.view.wirdType;
 			});
 
@@ -255,24 +278,5 @@ angular.module('hifzTracker.controllers', [])
 					{ color: '#33cd5f', count: $scope.currentUser.wirds.filter(function (w) { return w.rating === 'PERFECT'; }).length }
 				];
 			}, true);
-
-			$scope.downloadQuran = function () {
-				// File for download
-				var url = "http://android.quran.com/data/zips/images_800.zip";
-
-				// File name only
-				var filename = url.split("/").pop();
-
-				// Save location
-				var targetPath = cordova.file.externalRootDirectory + filename;
-
-				$cordovaFileTransfer.download(url, targetPath, {}, true).then(function (result) {
-						console.log('Success');
-				}, function (error) {
-						console.log('Error');
-				}, function (progress) {
-						console.log('progress: ' + Math.floor(100 * progress.loaded / progress.total) + '%');
-				});
-			};
 
 		}]);
