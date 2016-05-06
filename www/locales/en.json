@@ -24,6 +24,7 @@
 	"CANCEL": "Cancel",
 	"EDIT_USER": "Edit User",
 	"DELETE_CONFIRMATION": "Are you sure you want to delete",
+	"DOWNLOAD_CONFIRMATION": "This requires an additional download. Proceed?",
 	"DATE": "{{date|date:'short'}}",
 
 	"SURAH": "Surah",

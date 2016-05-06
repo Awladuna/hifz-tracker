@@ -24,6 +24,7 @@
 	"CANCEL": "إلغاء",
 	"EDIT_USER": "تعديل مستخدم",
 	"DELETE_CONFIRMATION": "هل أنت متأكد من حذف",
+	"DOWNLOAD_CONFIRMATION": "هذا يتطلب تحميل إضافي. تقدم؟",
 	"DATE": "{{date|date:'medium'}}",
 
 	"SURAH": "سورة",
