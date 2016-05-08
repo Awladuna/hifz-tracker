@@ -178,8 +178,8 @@ angular.module('hifzTracker.services', [])
 		}
 	}])
 
-	.factory('Wirds', ['$cordovaFile', '$cordovaFileTransfer', '$cordovaZip', '$q',
-		function ($cordovaFile, $cordovaFileTransfer, $cordovaZip, $q) {
+	.factory('Wirds', ['$cordovaFile', '$cordovaFileTransfer', '$localstorage', '$cordovaZip', '$q',
+		function ($cordovaFile, $cordovaFileTransfer, $localstorage, $cordovaZip, $q) {
 
 			var allSurahs = [
 				{ id: 1001, title: "Al-Fatihah", startPage: 1, endPage: 1 },
@@ -552,15 +552,45 @@ angular.module('hifzTracker.services', [])
 				getQuarterById: function (id) {
 					return _array_findById(allQuarters, id);
 				},
-				isAvailable: function () {
-					return $cordovaFile.checkDir(cordova.file.externalRootDirectory, "hifzTracker");
+				getDownloadStatus: function () {
+					// 0: Not downloaded
+					// 1: Downloaded but not unzipped
+					// 2: Downloaded and unzipped
+					var status = parseInt($localstorage.get('downloadStatus', 0));
+					return status;
+				},
+				downloadOrUnzip: function () {
+					var deferred = $q.defer();
+					var scope = this;
+
+					var status = scope.getDownloadStatus();
+					if (status === 0) {
+						console.log("Not downloaded. Starting download");
+						scope.download().then(function () {
+							deferred.resolve();
+						}, function () {
+							deferred.reject();
+						});
+					} else if (status === 1) {
+						console.log("Not unzipped. Starting unzip");
+						scope.unzip().then(function () {
+							deferred.resolve();
+						}, function () {
+							deferred.reject();
+						});
+					} else {
+						console.log("Already downloaded and unzipped!");
+						deferred.resolve();
+					}
+
+					return deferred.promise;
 				},
 				download: function () {
 					var deferred = $q.defer();
 					var scope = this;
 
 					// File for download
-					var url = "http://android.quran.com/data/zips/images_800.zip";
+					var url = "http://android.quran.com/data/zips/images_480.zip";
 
 					// File name only
 					var filename = url.split("/").pop();
@@ -570,24 +600,45 @@ angular.module('hifzTracker.services', [])
 					var targetPath = cordova.file.externalRootDirectory + "/hifzTracker/" + filename;
 
 					$cordovaFileTransfer.download(url, targetPath, {}, true).then(function (result) {
+						$localstorage.set('downloadStatus', 1);
 						console.log('Download Success... Unzipping');
-						$cordovaZip
-							.unzip(
-								targetPath,
-								cordova.file.externalRootDirectory + "/hifzTracker/"
-							).then(function () {
-								$cordovaFile.removeFile(cordova.file.externalRootDirectory + "/hifzTracker/", filename);
-								deferred.resolve();
-							}, function () {
-								deferred.reject();
-							}, function (progress) {
-								// console.log('progress unzipping: ' + Math.floor(100 * progress.loaded / progress.total) + '%');
-							});
+						scope.unzip(filename).then(function () {
+							deferred.resolve();
+						}, function () {
+							deferred.reject();
+						});
 					}, function (error) {
+						$cordovaFile.removeRecursively(cordova.file.externalRootDirectory, "hifzTracker");
 						deferred.reject();
 					}, function (progress) {
 						// console.log('progress downloading: ' + Math.floor(100 * progress.loaded / progress.total) + '%');
 					});
+
+					return deferred.promise;
+				},
+				unzip: function (filename) {
+					var deferred = $q.defer();
+					var scope = this;
+
+					// Unzip location
+					var targetPath = cordova.file.externalRootDirectory + "/hifzTracker/" + filename;
+
+					$cordovaZip
+						.unzip(
+							targetPath,
+							cordova.file.externalRootDirectory + "/hifzTracker/"
+						).then(function () {
+							console.log('Unzip Success...');
+							$localstorage.set('downloadStatus', 0);
+							$cordovaFile.removeFile(cordova.file.externalRootDirectory + "/hifzTracker/", filename);
+							deferred.resolve();
+						}, function () {
+							// Failed unzip.. probably a corrupt download
+							$localstorage.set('downloadStatus', 0);
+							deferred.reject();
+						}, function (progress) {
+							// console.log('progress unzipping: ' + Math.floor(100 * progress.loaded / progress.total) + '%');
+						});
 
 					return deferred.promise;
 				}
