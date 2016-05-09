@@ -110,9 +110,6 @@ angular.module('hifzTracker.controllers', [])
 				$scope.view.limit = 10;
 			});
 
-			// Check if Wirds images are downloaded
-			$scope.wirdsDownloadStatus = Wirds.getDownloadStatus();
-
 			$scope.loadMoreData = function (limit, increment) {
 				$scope.view[limit] += increment || 3;
 				$scope.$broadcast('scroll.infiniteScrollComplete');
@@ -207,7 +204,7 @@ angular.module('hifzTracker.controllers', [])
 
 			// Read Wird modal
 			$scope.openWird = function (wird) {
-				if ($scope.wirdsDownloadStatus === 2) {
+				if (Wirds.getDownloadStatus() === 2) {
 					// Images are available, display the wird
 					$ionicModal.fromTemplateUrl('templates/wird-page.html', {
 						scope: $scope,
@@ -267,6 +264,7 @@ angular.module('hifzTracker.controllers', [])
 			};
 
 			$scope.$watch('currentUser', function () {
+				if (!($scope.currentUser && $scope.currentUser.wirds)) return;
 				$scope.stats = [
 					{ color: '#ef473a', count: $scope.currentUser.wirds.filter(function (w) { return w.rating === 'POOR'; }).length },
 					{ color: '#ffc900', count: $scope.currentUser.wirds.filter(function (w) { return w.rating === 'WEAK'; }).length },

@@ -563,23 +563,37 @@ angular.module('hifzTracker.services', [])
 					var deferred = $q.defer();
 					var scope = this;
 
+					// Background process information
+					cordova.plugins.backgroundMode.setDefaults({
+							title:  'Hifz Tracker',
+							text:   'Downloading Quran Pages'
+					});
+
+					// Enable background mode
+					cordova.plugins.backgroundMode.enable();
+
 					var status = scope.getDownloadStatus();
 					if (status === 0) {
 						console.log("Not downloaded. Starting download");
 						scope.download().then(function () {
+							cordova.plugins.backgroundMode.disable();
 							deferred.resolve();
 						}, function () {
+							cordova.plugins.backgroundMode.disable();
 							deferred.reject();
 						});
 					} else if (status === 1) {
 						console.log("Not unzipped. Starting unzip");
 						scope.unzip().then(function () {
+							cordova.plugins.backgroundMode.disable();
 							deferred.resolve();
 						}, function () {
+							cordova.plugins.backgroundMode.disable();
 							deferred.reject();
 						});
 					} else {
 						console.log("Already downloaded and unzipped!");
+						cordova.plugins.backgroundMode.disable();
 						deferred.resolve();
 					}
 
@@ -629,7 +643,7 @@ angular.module('hifzTracker.services', [])
 							cordova.file.externalRootDirectory + "/hifzTracker/"
 						).then(function () {
 							console.log('Unzip Success...');
-							$localstorage.set('downloadStatus', 0);
+							$localstorage.set('downloadStatus', 2);
 							$cordovaFile.removeFile(cordova.file.externalRootDirectory + "/hifzTracker/", filename);
 							deferred.resolve();
 						}, function () {
