@@ -95,3 +95,25 @@ $ionicons-font-path: "../lib/ionic/fonts" !default;
 	float: left;
 	height: 100%;
 }
+
+.progress {
+	bottom: 0;
+	position: absolute !important;
+	width:100%;
+	padding: 0 10px;
+	background-color: rgba(200, 200, 200, 0.5);
+}
+
+.progress h4 {
+	font-weight: bold;
+}
+
+.progress-bar {
+	height: 5px;
+	margin-bottom: 10px;
+}
+
+.progress-section {
+	float: left;
+	height: 100%;
+}

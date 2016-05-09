@@ -178,8 +178,8 @@ angular.module('hifzTracker.services', [])
 		}
 	}])
 
-	.factory('Wirds', ['$cordovaFile', '$cordovaFileTransfer', '$localstorage', '$cordovaZip', '$q',
-		function ($cordovaFile, $cordovaFileTransfer, $localstorage, $cordovaZip, $q) {
+	.factory('Wirds', ['$rootScope', '$cordovaFile', '$cordovaFileTransfer', '$localstorage', '$cordovaZip', '$q',
+		function ($rootScope, $cordovaFile, $cordovaFileTransfer, $localstorage, $cordovaZip, $q) {
 
 			var allSurahs = [
 				{ id: 1001, title: "Al-Fatihah", startPage: 1, endPage: 1 },
@@ -625,7 +625,7 @@ angular.module('hifzTracker.services', [])
 						$cordovaFile.removeRecursively(cordova.file.externalRootDirectory, "hifzTracker");
 						deferred.reject();
 					}, function (progress) {
-						// console.log('progress downloading: ' + Math.floor(100 * progress.loaded / progress.total) + '%');
+						$rootScope.$emit('downloadProgressChanged', Math.floor(100 * progress.loaded / progress.total));
 					});
 
 					return deferred.promise;
@@ -651,7 +651,7 @@ angular.module('hifzTracker.services', [])
 							$localstorage.set('downloadStatus', 0);
 							deferred.reject();
 						}, function (progress) {
-							// console.log('progress unzipping: ' + Math.floor(100 * progress.loaded / progress.total) + '%');
+							$rootScope.$emit('unzipProgressChanged', Math.floor(100 * progress.loaded / progress.total));
 						});
 
 					return deferred.promise;

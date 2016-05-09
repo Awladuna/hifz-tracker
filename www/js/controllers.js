@@ -97,9 +97,22 @@ angular.module('hifzTracker.controllers', [])
 		function ($rootScope, $scope, $window, $ionicPopup, $ionicModal, $ionicPopover, ionicToast, Wirds, UserService, preferencesService) {
 
 			$scope.view = { limit: 10, wirdLimit: 20 };
+			$scope.progress = {};
 			$scope.appTheme = preferencesService.getTheme();
 			$rootScope.$on('themeChanged', function (event, newTheme) {
 				$scope.appTheme = newTheme;
+			});
+
+			$rootScope.$on('downloadProgressChanged', function (event, percent) {
+				$scope.progress.percent = percent < 100 ? percent : undefined;
+				$scope.progress.description = 'Downloading';
+				$scope.progress.color = '#387ef5';
+			});
+
+			$rootScope.$on('unzipProgressChanged', function (event, percent) {
+				$scope.progress.percent = percent < 100 ? percent : undefined;
+				$scope.progress.description = 'Expanding';
+				$scope.progress.color = '#33cd5f';
 			});
 
 			// Get the array of users and currentUser from UserService
