@@ -218,6 +218,7 @@ angular.module('hifzTracker.controllers', [])
 			// Read Wird modal
 			$scope.openWird = function (wird) {
 				if (Wirds.getDownloadStatus() === 2) {
+					$scope.imgRoot = cordova.file.externalRootDirectory + "hifzTracker/width_480";
 					// Images are available, display the wird
 					$ionicModal.fromTemplateUrl('templates/wird-page.html', {
 						scope: $scope,

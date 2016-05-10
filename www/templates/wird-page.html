@@ -9,7 +9,7 @@
 		<ion-content ng-class="'content-' + appTheme.class">
 			<ion-slide-box active-slide="activePage" show-pager="false">
 				<ion-slide ng-repeat="page in newArray(wird.endPage - wird.startPage + 1) track by $index">
-					<img ng-src="img/quran/{{ ('0000' + (wird.endPage - $index)).slice(-5) }}.png"
+					<img ng-src="{{ imgRoot }}/page{{ ('00' + (wird.endPage - $index)).slice(-3) }}.png"
 					class="page" ng-class="'page-' + appTheme.class" />
 				</ion-slide>
 			</ion-slide-box>

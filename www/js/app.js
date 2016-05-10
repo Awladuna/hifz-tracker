@@ -31,7 +31,8 @@ angular.module('hifzTracker', [
 		});
 	})
 
-	.config(function ($stateProvider, $urlRouterProvider, $translateProvider) {
+	.config(function ($stateProvider, $urlRouterProvider, $translateProvider, $compileProvider) {
+		$compileProvider.imgSrcSanitizationWhitelist(/^\s*(https?|ftp|mailto|file|tel):/);
 		$stateProvider
 
 			.state('app', {

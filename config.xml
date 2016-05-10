@@ -7,7 +7,9 @@
   <author email="questions@awladuna.org" href="http://awladuna.org/">
       Awladuna
     </author>
-  <content src="index.html"/>
+  <content src="index.html" />
+  <allow-navigation href="*" />
+  <allow-navigation href="file://*/*" />
   <access origin="*"/>
   <preference name="webviewbounce" value="false"/>
   <preference name="UIWebViewBounce" value="true"/>
