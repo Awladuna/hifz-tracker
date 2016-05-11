@@ -16,7 +16,7 @@
 		</div>
 		<stat-bar stats="stats" total="currentUser.wirds.length"></stat-bar>
 		<div ng-repeat="wird in currentUser.wirds | limitTo:view.limit track by $index"
-		class="card" ng-class="{ 'translucent': $index > 0 }">
+		class="card" ng-style="{ 'opacity': view.limit < currentUser.wirds.length ? 1 - $index * 0.3 : 1 }">
 			<div class="item item-divider" ng-class="'item-' + appTheme.class">
 				<span translate="{{wird.title}}"></span>
 				<span class="item-note">
@@ -40,7 +40,7 @@
 					<a class="button button-outline button-small button-balanced" ng-click="markRead($index, 'PERFECT')" translate="PERFECT"></a>
 				</div>
 			</div>
-			<div class="item item-divider" ng-class="'item-' + appTheme.class" ng-if="$index === 0">
+			<div class="item item-divider" ng-class="'item-' + appTheme.class">
 				<button class="button button-small" ng-class="'button-' + appTheme.class" ng-click="openWird(wird)">
 					<i class="icon ion-ios-book-outline"></i> {{ 'READ' | translate }}
 				</button>
@@ -51,9 +51,16 @@
 				</span>
 			</div>
 		</div>
-		<ion-infinite-scroll distance="2"
-		on-infinite="loadMoreData('limit', 10)"
-		ng-if="currentUser.wirds.length > view.limit"></ion-infinite-scroll>
+
+		<div class="row" ng-if="view.limit < currentUser.wirds.length">
+			<div class="col">
+				<button class="button button-outline button-block button-stable"
+								ng-click="loadMoreData('limit', currentUser.wirds.length)">
+					{{ 'LOAD_MORE' | translate }}
+				</button>
+			</div>
+		</div>
+
 		<progress-bar progress="progress"></progress-bar>
 	</ion-content>
 </ion-view>
