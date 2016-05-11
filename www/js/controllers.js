@@ -96,7 +96,7 @@ angular.module('hifzTracker.controllers', [])
 	.controller('HomeCtrl', ['$rootScope', '$scope', '$window', '$ionicPopup', '$ionicModal', '$ionicPopover', 'ionicToast', 'Wirds', 'UserService', 'preferencesService',
 		function ($rootScope, $scope, $window, $ionicPopup, $ionicModal, $ionicPopover, ionicToast, Wirds, UserService, preferencesService) {
 
-			$scope.view = { limit: 3, wirdLimit: 20 };
+			$scope.view = { limit: 3, wirdLimit: 50 };
 			$scope.progress = {};
 			$scope.appTheme = preferencesService.getTheme();
 			$rootScope.$on('themeChanged', function (event, newTheme) {

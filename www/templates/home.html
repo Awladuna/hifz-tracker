@@ -16,7 +16,7 @@
 		</div>
 		<stat-bar stats="stats" total="currentUser.wirds.length"></stat-bar>
 		<div ng-repeat="wird in currentUser.wirds | limitTo:view.limit track by $index"
-		class="card" ng-style="{ 'opacity': view.limit < currentUser.wirds.length ? 1 - $index * 0.3 : 1 }">
+		class="card" ng-style="{ 'opacity': (view.limit - $index) < 3 ? (view.limit - $index) * 0.3 : 1 }">
 			<div class="item item-divider" ng-class="'item-' + appTheme.class">
 				<span translate="{{wird.title}}"></span>
 				<span class="item-note">
@@ -55,7 +55,7 @@
 		<div class="row" ng-if="view.limit < currentUser.wirds.length">
 			<div class="col">
 				<button class="button button-outline button-block button-stable"
-								ng-click="loadMoreData('limit', currentUser.wirds.length)">
+								ng-click="loadMoreData('limit', 20)">
 					{{ 'LOAD_MORE' | translate }}
 				</button>
 			</div>
