@@ -12,6 +12,8 @@
 	"READ": "Read",
 	"LAST_READ": "Last read",
 	"NEVER": "Never",
+	"ADD_USERS_INSTRUCTIONS": "You can add and manage users in the left menu",
+	"ADD_WIRDS_INSTRUCTIONS": "Current user has no wirds, you can add some here",
 
 	"POOR": "Poor",
 	"WEAK": "Weak",

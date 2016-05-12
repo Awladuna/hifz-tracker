@@ -604,7 +604,7 @@ angular.module('hifzTracker.services', [])
 					var scope = this;
 
 					// File for download
-					var url = "http://android.quran.com/data/zips/images_480.zip";
+					var url = "http://android.quran.com/data/zips/images_800.zip";
 
 					// File name only
 					var filename = url.split("/").pop();
