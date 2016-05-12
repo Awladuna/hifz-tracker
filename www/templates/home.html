@@ -5,7 +5,8 @@
 		</button>
 	</ion-nav-buttons>
 	<ion-content ng-class="'content-' + appTheme.class">
-		<div ng-hide="currentUser" class="center">
+		<!-- No user -->
+		<div ng-if="!currentUser" class="center">
 			<div class="row">
 				<div class="col">
 					<button class="button button-block button-calm" ng-click="addUserDialog()">
@@ -14,7 +15,19 @@
 				</div>
 			</div>
 		</div>
-		<stat-bar stats="stats" total="currentUser.wirds.length"></stat-bar>
+		<!-- User but no wird -->
+		<div ng-if="currentUser && !currentUser.wirds.length">
+			<div class="row">
+				<div class="col">
+					<div class="bubble bubble-top-left">Add and manager users</div>
+				</div>
+				<div class="col">
+					<div class="bubble bubble-top-right">Add wirds</div>
+				</div>
+			</div>
+		</div>
+		<!-- User and wirds -->
+		<stat-bar stats="stats" total="currentUser.wirds.length" ng-if="currentUser.wirds.length"></stat-bar>
 		<div ng-repeat="wird in currentUser.wirds | limitTo:view.limit track by $index"
 		class="card" ng-style="{ 'opacity': (view.limit - $index) < 3 ? (view.limit - $index) * 0.3 : 1 }">
 			<div class="item item-divider" ng-class="'item-' + appTheme.class">
