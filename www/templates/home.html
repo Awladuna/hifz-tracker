@@ -74,6 +74,9 @@
 			</div>
 		</div>
 
-		<progress-bar progress="progress"></progress-bar>
 	</ion-content>
+	<div class="bar bar-footer" ng-if="progress.percent"
+			ng-class="'bar-' + appTheme.class" style="position: fixed; bottom: 0;">
+		<progress-bar progress="progress"></progress-bar>
+	</div>
 </ion-view>
