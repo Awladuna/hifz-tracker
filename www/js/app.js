@@ -50,6 +50,16 @@ angular.module('hifzTracker', [
 						controller: 'HomeCtrl'
 					}
 				}
+			})
+
+			.state('app.stats', {
+				url: '/stats/:userId',
+				views: {
+					'menuContent': {
+						templateUrl: 'templates/stats.html',
+						controller: 'StatsCtrl'
+					}
+				}
 			});
 
 		// if none of the above states are matched, use this as the fallback

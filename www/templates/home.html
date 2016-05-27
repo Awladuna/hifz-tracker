@@ -5,6 +5,10 @@
 		</button>
 	</ion-nav-buttons>
 	<ion-content ng-class="'content-' + appTheme.class">
+		<ion-refresher
+			pulling-text="Pull to view stats..."
+			on-refresh="showStats()">
+		</ion-refresher>
 		<!-- No user -->
 		<div ng-if="!currentUser" class="center">
 			<div class="row">

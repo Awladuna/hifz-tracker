@@ -93,8 +93,8 @@ angular.module('hifzTracker.controllers', [])
 
 		}])
 
-	.controller('HomeCtrl', ['$rootScope', '$scope', '$window', '$ionicPopup', '$ionicModal', '$ionicPopover', 'ionicToast', 'Wirds', 'UserService', 'preferencesService',
-		function ($rootScope, $scope, $window, $ionicPopup, $ionicModal, $ionicPopover, ionicToast, Wirds, UserService, preferencesService) {
+	.controller('HomeCtrl', ['$rootScope', '$scope', '$window', '$ionicPopup', '$ionicModal', '$ionicPopover', '$state', 'ionicToast', 'Wirds', 'UserService', 'preferencesService',
+		function ($rootScope, $scope, $window, $ionicPopup, $ionicModal, $ionicPopover, $state, ionicToast, Wirds, UserService, preferencesService) {
 
 			$scope.view = { limit: 3, wirdLimit: 50 };
 			$scope.progress = {};
@@ -287,4 +287,13 @@ angular.module('hifzTracker.controllers', [])
 				];
 			}, true);
 
+			$scope.showStats = function () {
+				$state.go("app.stats", { "userId": $scope.currentUser.id});
+				$scope.$broadcast('scroll.refreshComplete');
+			};
+		}])
+
+	.controller('StatsCtrl', ['$scope',
+		function ($scope) {
+			console.log('Stats!!');
 		}]);
