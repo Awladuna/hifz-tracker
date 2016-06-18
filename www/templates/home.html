@@ -5,7 +5,7 @@
 		</button>
 	</ion-nav-buttons>
 	<ion-content ng-class="'content-' + appTheme.class">
-		<ion-refresher
+		<ion-refresher ng-if="false"
 			pulling-text="Pull to view stats..."
 			on-refresh="showStats()">
 		</ion-refresher>
