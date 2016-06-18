@@ -16,4 +16,14 @@ angular.module('hifzTracker.filters', [])
 			var code = LanguageService.getPreferred().code;
 			return moment(date, 'l').locale(code).format('l');
 		};
+	})
+
+	.filter('surahName', function (Wirds) {
+		return function (startPage) {
+			if (!startPage) return;
+			var containingSurahs = Wirds.getAllSurahs().filter(function(surah){
+				return surah.startPage <= startPage && surah.endPage >= startPage;
+			});
+			return containingSurahs[0] ? containingSurahs[0].title : "";
+		};
 	});
