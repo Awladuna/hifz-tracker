@@ -8,9 +8,10 @@
 		</ion-header-bar>
 		<ion-content ng-class="'content-' + appTheme.class">
 			<ion-slide-box active-slide="activePage" show-pager="false">
-				<ion-slide ng-repeat="page in newArray(wird.endPage - wird.startPage + 1) track by $index">
-					<img ng-src="{{ imgRoot }}/page{{ ('00' + (wird.endPage - $index)).slice(-3) }}.png"
-					class="page" ng-class="'page-' + appTheme.class" />
+				<ion-slide ng-repeat="page in wirdPages track by $index">
+					<img ng-src="{{ imgRoot }}/page{{ ('00' + (wird.endPage - $index + 1)).slice(-3) }}.png"
+					ng-class="{'translucent': $index < 1 || $index > wirdPages.length - 2 }"
+					class="page page-{{ appTheme.class }}" />
 				</ion-slide>
 			</ion-slide-box>
 		</ion-content>

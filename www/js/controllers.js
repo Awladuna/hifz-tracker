@@ -230,10 +230,8 @@ angular.module('hifzTracker.controllers', [])
 
 						$scope.modal = modal;
 						$scope.wird = wird;
-						$scope.activePage = wird.endPage - wird.startPage;
-						$scope.newArray = function (length) {
-							return new Array(length);
-						};
+						$scope.activePage = wird.endPage - wird.startPage + 1;
+						$scope.wirdPages = new Array(wird.endPage - wird.startPage + 3);
 						$scope.modal.show();
 					});
 				} else {
