@@ -37,8 +37,9 @@
 			<div class="item item-divider" ng-class="'item-' + appTheme.class">
 				<div class="wird-info">
 					<div translate="{{wird.title}}"></div>
-					<div class="wird-details" ng-if="wird.id >= 2000">
-						{{ wird.startPage | surahName | translate }} {{ wird.startPage }} - {{ wird.endPage }}
+					<div class="wird-details">
+						<span ng-if="wird.id >= 2000" translate="{{ wird.startPage | surahName }}"></span>
+						{{ wird.startPage }} - {{ wird.endPage }}
 					</div>
 				</div>
 				<span class="item-note">

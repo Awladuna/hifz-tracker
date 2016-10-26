@@ -1,7 +1,7 @@
 angular.module('hifzTracker.controllers', [])
 
-	.controller('AppCtrl', ['$rootScope', '$scope', '$ionicModal', '$ionicPopup', 'UserService', 'LanguageService', 'preferencesService',
-		function ($rootScope, $scope, $ionicModal, $ionicPopup, UserService, LanguageService, preferencesService) {
+	.controller('AppCtrl', ['$rootScope', '$scope', '$ionicModal', '$ionicPopup', 'UserService', 'LanguageService', 'preferencesService', 'BackupService',
+		function ($rootScope, $scope, $ionicModal, $ionicPopup, UserService, LanguageService, preferencesService, BackupService) {
 			$scope.view = {};
 			$scope.users = UserService.getAllUsers();
 			$scope.currentUser = UserService.getCurrentUser();
@@ -91,10 +91,14 @@ angular.module('hifzTracker.controllers', [])
 				preferencesService.setTheme(theme);
 			};
 
+			$scope.restore = function () {
+				BackupService.restore();
+			};
+
 		}])
 
-	.controller('HomeCtrl', ['$rootScope', '$scope', '$window', '$ionicPopup', '$ionicModal', '$ionicPopover', '$state', 'ionicToast', 'Wirds', 'UserService', 'preferencesService',
-		function ($rootScope, $scope, $window, $ionicPopup, $ionicModal, $ionicPopover, $state, ionicToast, Wirds, UserService, preferencesService) {
+	.controller('HomeCtrl', ['$rootScope', '$scope', '$window', '$ionicPopup', '$ionicModal', '$ionicPopover', '$state', 'ionicToast', 'Wirds', 'UserService', 'preferencesService', 'BackupService',
+		function ($rootScope, $scope, $window, $ionicPopup, $ionicModal, $ionicPopover, $state, ionicToast, Wirds, UserService, preferencesService, BackupService) {
 
 			$scope.view = { limit: 3, wirdLimit: 50 };
 			$scope.progress = {};
@@ -119,7 +123,8 @@ angular.module('hifzTracker.controllers', [])
 			$scope.users = UserService.getAllUsers();
 			$scope.currentUser = UserService.getCurrentUser();
 			$rootScope.$on('currentUserChanged', function (event, newCurrentUser) {
-				$scope.currentUser = newCurrentUser;
+				$scope.users = UserService.getAllUsers();
+				$scope.currentUser = UserService.getCurrentUser();
 				$scope.view.limit = 3;
 			});
 
@@ -166,6 +171,8 @@ angular.module('hifzTracker.controllers', [])
 
 				// Save user
 				UserService.saveUser($scope.currentUser);
+				console.log("backing up");
+				BackupService.backup();
 			};
 
 			$scope.saveUser = function (newUser) {
@@ -286,7 +293,7 @@ angular.module('hifzTracker.controllers', [])
 			}, true);
 
 			$scope.showStats = function () {
-				$state.go("app.stats", { "userId": $scope.currentUser.id});
+				$state.go("app.stats", { "userId": $scope.currentUser.id });
 				$scope.$broadcast('scroll.refreshComplete');
 			};
 		}])

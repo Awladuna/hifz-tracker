@@ -37,20 +37,20 @@ angular.module('hifzTracker.services', [])
 	.factory('preferencesService', ['$rootScope', '$localstorage', function ($rootScope, $localstorage) {
 		return {
 			_allThemes: [
-					{ id: 1, name: "LIGHT", class: "stable"},
-					{ id: 2, name: "DARK", class: "dark"}
-				],
+				{ id: 1, name: "LIGHT", class: "stable" },
+				{ id: 2, name: "DARK", class: "dark" }
+			],
 			getAllThemes: function () {
 				return this._allThemes;
 			},
-			getTheme: function() {
+			getTheme: function () {
 				var theme = $localstorage.getObject('theme');
 				if (!theme.id) {
 					theme = this._allThemes[0];
 				}
 				return theme;
 			},
-			setTheme: function(theme) {
+			setTheme: function (theme) {
 				var instance = _array_findById(this._allThemes, theme.id);
 				if (instance) {
 					$localstorage.setObject('theme', instance);
@@ -66,9 +66,9 @@ angular.module('hifzTracker.services', [])
 	.factory('LanguageService', ['$translate', '$localstorage', function ($translate, $localstorage) {
 		return {
 			_allLanguages: [
-					{ id: 1, name: "العربية", code: "ar"},
-					{ id: 2, name: "English", code: "en"}
-				],
+				{ id: 1, name: "العربية", code: "ar" },
+				{ id: 2, name: "English", code: "en" }
+			],
 			getAll: function () {
 				return this._allLanguages;
 			},
@@ -168,6 +168,7 @@ angular.module('hifzTracker.services', [])
 				users.forEach(function (user) {
 					scope.saveUser(user);
 				});
+				$rootScope.$emit('currentUserChanged', this._current);
 			},
 			deleteUser: function (user) {
 				var instance = this._retrieveInstance(user);
@@ -565,8 +566,8 @@ angular.module('hifzTracker.services', [])
 
 					// Background process information
 					cordova.plugins.backgroundMode.setDefaults({
-							title:  'Hifz Tracker',
-							text:   'Downloading Quran Pages'
+						title: 'Hifz Tracker',
+						text: 'Downloading Quran Pages'
 					});
 
 					// Enable background mode
@@ -639,8 +640,8 @@ angular.module('hifzTracker.services', [])
 
 					$cordovaZip
 						.unzip(
-							targetPath,
-							cordova.file.externalRootDirectory + "/hifzTracker/"
+						targetPath,
+						cordova.file.externalRootDirectory + "/hifzTracker/"
 						).then(function () {
 							console.log('Unzip Success...');
 							$localstorage.set('downloadStatus', 2);
@@ -657,4 +658,41 @@ angular.module('hifzTracker.services', [])
 					return deferred.promise;
 				}
 			}
+		}])
+
+
+	.factory('BackupService', ['$localstorage', 'UserService', '$cordovaFile', function ($localstorage, UserService, $cordovaFile) {
+		return {
+			backup: function () {
+				var allUsers = JSON.stringify(UserService.getAllUsers());
+
+				// Save location
+				$cordovaFile.createDir(cordova.file.externalRootDirectory, "hifzTracker", false);
+				var targetPath = cordova.file.externalRootDirectory + "/hifzTracker/";
+
+				$cordovaFile.writeFile(targetPath, 'hifz.bkp', allUsers, true);
+			},
+			backupExists: function () {
+				var deferred = $q.defer();
+
+				var targetPath = cordova.file.externalRootDirectory + "/hifzTracker/";
+				$cordovaFile.checkFile(targetPath, 'hifz.bkp')
+					.then(function (file) {
+						deferred.resolve();
+					}, function (error) {
+						deferred.reject();
+					});
+
+				return deferred.promise;
+			},
+			restore: function () {
+				var targetPath = cordova.file.externalRootDirectory + "/hifzTracker/";
+
+				$cordovaFile.readAsText(targetPath, 'hifz.bkp')
+					.then(function (content) {
+						var allUsers = JSON.parse(content);
+						UserService.saveAllUsers(allUsers);
+					});
+			},
+		}
 	}]);

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<widget id="org.awladuna.hifz-tracker" version="0.8.3" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
+<widget id="org.awladuna.hifz-tracker" version="0.8.4" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
   <name>Hifz Tracker</name>
   <description>
         Helps you keep track of your Quran memorization
@@ -7,9 +7,9 @@
   <author email="questions@awladuna.org" href="http://awladuna.org/">
       Awladuna
     </author>
-  <content src="index.html" />
-  <allow-navigation href="*" />
-  <allow-navigation href="file://*/*" />
+  <content src="index.html"/>
+  <allow-navigation href="*"/>
+  <allow-navigation href="file://*/*"/>
   <access origin="*"/>
   <preference name="webviewbounce" value="false"/>
   <preference name="UIWebViewBounce" value="true"/>
