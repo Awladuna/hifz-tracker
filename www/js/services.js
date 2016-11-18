@@ -168,7 +168,7 @@ angular.module('hifzTracker.services', [])
 				users.forEach(function (user) {
 					scope.saveUser(user);
 				});
-				$rootScope.$emit('currentUserChanged', this._current);
+				$rootScope.$emit('currentUserChanged', scope.getCurrentUser());
 			},
 			deleteUser: function (user) {
 				var instance = this._retrieveInstance(user);

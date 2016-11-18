@@ -91,14 +91,13 @@ angular.module('hifzTracker.controllers', [])
 				preferencesService.setTheme(theme);
 			};
 
-			$scope.restore = function () {
-				BackupService.restore();
-			};
-
 		}])
 
 	.controller('HomeCtrl', ['$rootScope', '$scope', '$window', '$ionicPopup', '$ionicModal', '$ionicPopover', '$state', 'ionicToast', 'Wirds', 'UserService', 'preferencesService', 'BackupService',
 		function ($rootScope, $scope, $window, $ionicPopup, $ionicModal, $ionicPopover, $state, ionicToast, Wirds, UserService, preferencesService, BackupService) {
+
+			// Restore last backup if any
+			BackupService.restore();
 
 			$scope.view = { limit: 3, wirdLimit: 50 };
 			$scope.progress = {};
