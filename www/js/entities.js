@@ -1,6 +1,4 @@
-angular.module('hifzTracker.entities', [])
-
-.factory('User', [ function() {
+app.factory('User', [ function() {
 	function User(userData) {
 		if (userData) {
 			this.setData(userData);

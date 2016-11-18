@@ -1,16 +1,11 @@
-angular.module('hifzTracker', [
+var app = angular.module('hifzTracker', [
 	'ionic',
 	'ngCordova',
 	'ionic-toast',
-	'pascalprecht.translate',
-	'hifzTracker.entities',
-	'hifzTracker.controllers',
-	'hifzTracker.services',
-	'hifzTracker.directives',
-	'hifzTracker.filters'
+	'pascalprecht.translate'
 ])
 
-	.run(function ($ionicPlatform) {
+app.run(function ($ionicPlatform) {
 		$ionicPlatform.ready(function () {
 			// Hide splash screen
 			if (navigator && navigator.splashscreen) {
@@ -29,9 +24,9 @@ angular.module('hifzTracker', [
 				StatusBar.styleDefault();
 			}
 		});
-	})
+	});
 
-	.config(function ($stateProvider, $urlRouterProvider, $translateProvider, $compileProvider) {
+app.config(function ($stateProvider, $urlRouterProvider, $translateProvider, $compileProvider) {
 		$compileProvider.imgSrcSanitizationWhitelist(/^\s*(https?|ftp|mailto|file|tel):/);
 		$stateProvider
 
