@@ -6,7 +6,7 @@
  * Service in the hifzTracker.services
  * Central location for sharedState information.
  */
-app.service('stateService', function ($rootScope, $log, User) {
+app.service('stateService', function ($rootScope, $log, $translate, User) {
 		return {
 			_state: {},
 			_userReducers: function (action, users) {
@@ -14,11 +14,15 @@ app.service('stateService', function ($rootScope, $log, User) {
 
 				switch (action.type) {
 					case INIT_STATE:
-						users = [];
+						users = {
+							ids: [],
+							list: {}
+						};
 						var length = action.payload.users ? action.payload.users.length : 0;
 						for (var i = 0; i < length; i++) {
 							var userData = action.payload.users[i];
-							users.push(new User(userData));
+							users.list[userData.id] = new User(userData);
+							users.ids.push(userData.id);
 						}
 						return users;
 					default:
@@ -32,8 +36,25 @@ app.service('stateService', function ($rootScope, $log, User) {
 					case INIT_STATE:
 						ui = {
 							currentId: action.payload.currentId,
-							currentLang: action.payload.currentLang
+							currentLang: action.payload.currentLang,
+							limit: 3
 						};
+
+						// Select first user if currentId was never set
+						if (ui.currentId === 0) {
+							ui.currentId = action.payload.users.length ? action.payload.users[0].id : 0;
+						}
+
+						// Select the first language if currentLang was never set
+						if (!ui.currentLang.code) {
+							var preferredCode = $translate.preferredLanguage();
+							var supportedCodes = allLanguages.map(function (language) { return language.code; });
+							var preferredIndex = supportedCodes.indexOf(preferredCode);
+							preferredLanguage = preferredIndex < 0 ? allLanguages[0] : allLanguages[preferredIndex];
+							// TODO: Where should persisting the default language happen
+							// storageService.setObject('preferredLanguage', preferredLanguage);
+						}
+
 						return ui;
 					default:
 						return ui;

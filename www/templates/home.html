@@ -1,6 +1,6 @@
-<ion-view cache-view="false" view-title="{{ currentUser.name }}">
+<ion-view cache-view="false" view-title="{{ view.state.users.list[view.state.ui.currentId].name }}">
 	<ion-nav-buttons side="secondary">
-		<button class="button" ng-if="currentUser" ng-click="addWirdDialog($event)">
+		<button class="button" ng-if="view.state.ui.currentId" ng-click="addWirdDialog($event)">
 			<i class="icon ion-plus-circled"></i>  {{ 'ADD_WIRD' | translate }}
 		</button>
 	</ion-nav-buttons>
@@ -8,7 +8,7 @@
 		<ion-refresher ng-if="false" pulling-text="Pull to view stats..." on-refresh="showStats()">
 		</ion-refresher>
 		<!-- No user -->
-		<div ng-if="!currentUser" class="center">
+		<div ng-if="!view.state.ui.currentId" class="center">
 			<div class="row">
 				<div class="col">
 					<button class="button button-block button-calm" ng-click="addUserDialog()">
@@ -18,7 +18,7 @@
 			</div>
 		</div>
 		<!-- User but no wird -->
-		<div ng-if="currentUser && !currentUser.wirds.length">
+		<div ng-if="view.state.ui.currentId && !view.state.users.list[view.state.ui.currentId].wirds.length">
 			<div class="row">
 				<div class="col">
 					<div class="bubble bubble-top-left">{{ 'ADD_USERS_INSTRUCTIONS' | translate }}</div>
@@ -29,9 +29,10 @@
 			</div>
 		</div>
 		<!-- User and wirds -->
-		<stat-bar stats="stats" total="currentUser.wirds.length" ng-if="currentUser.wirds.length"></stat-bar>
-		<div ng-repeat="wird in currentUser.wirds | limitTo:view.limit track by $index"
-			class="card" ng-style="{ 'opacity': (view.limit - $index) < 3 ? (view.limit - $index) * 0.3 : 1 }">
+		<stat-bar stats="stats" total="view.state.users.list[view.state.ui.currentId].wirds.length"
+			ng-if="view.state.users.list[view.state.ui.currentId].wirds.length"></stat-bar>
+		<div ng-repeat="wird in view.state.users.list[view.state.ui.currentId].wirds | limitTo:view.state.ui.limit track by $index"
+			class="card" ng-style="{ 'opacity': (view.state.ui.limit - $index) < 3 ? (view.state.ui.limit - $index) * 0.3 : 1 }">
 			<div class="item item-divider" ng-class="'item-' + appTheme.class">
 				<div class="wird-info">
 					<div translate="{{wird.title}}"></div>
@@ -77,7 +78,7 @@
 			</div>
 		</div>
 
-		<div class="row" ng-if="view.limit < currentUser.wirds.length">
+		<div class="row" ng-if="view.state.ui.limit < view.state.users.list[view.state.ui.currentId].wirds.length">
 			<div class="col">
 				<button class="button button-outline button-block button-stable" ng-click="loadMoreData('limit', 20)">
 					{{ 'LOAD_MORE' | translate }}

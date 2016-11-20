@@ -9,7 +9,7 @@ app.controller('HomeCtrl', ['$scope', '$rootScope', 'actionCreators',
 			$scope.view = {};
 
 			$rootScope.$on('stateChanged', function (event, data) {
-				$scope.view.state = data;
+				$scope.view.state = data.state;
 			});
 
 			actionCreators.getInitialState();
