@@ -371,3 +371,4 @@ var allQuarters = [
 ];
 
 var INIT_STATE = 'INIT_STATE';
+var RATE_WIRD = 'RATE_WIRD';

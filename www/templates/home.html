@@ -37,7 +37,8 @@
 				<div class="wird-info">
 					<div translate="{{wird.title}}"></div>
 					<div class="wird-details">
-						<span ng-if="wird.id >= 2000" translate="{{ wird.startPage | surahName }}"></span>						{{ wird.startPage }} - {{ wird.endPage }}
+						<span ng-if="wird.id >= 2000" translate="{{ wird.startPage | surahName }}">
+							</span>{{ wird.startPage }} - {{ wird.endPage }}
 					</div>
 				</div>
 				<span class="item-note">
@@ -55,13 +56,13 @@
 			<div class="item item-text-wrap item-main" ng-class="'item-' + appTheme.class"
 				ng-if="$index === 0">
 				<div class="button-bar">
-					<a class="button button-outline button-small button-assertive" ng-click="markRead($index, 'POOR')"
+					<a class="button button-outline button-small button-assertive" ng-click="rateWird($index, 'POOR')"
 						translate="POOR"></a>
-					<a class="button button-outline button-small button-energized" ng-click="markRead($index, 'WEAK')"
+					<a class="button button-outline button-small button-energized" ng-click="rateWird($index, 'WEAK')"
 						translate="WEAK"></a>
-					<a class="button button-outline button-small button-positive" ng-click="markRead($index, 'OKAY')"
+					<a class="button button-outline button-small button-positive" ng-click="rateWird($index, 'OKAY')"
 						translate="OKAY"></a>
-					<a class="button button-outline button-small button-balanced" ng-click="markRead($index, 'PERFECT')"
+					<a class="button button-outline button-small button-balanced" ng-click="rateWird($index, 'PERFECT')"
 						translate="PERFECT"></a>
 				</div>
 			</div>

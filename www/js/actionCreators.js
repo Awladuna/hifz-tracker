@@ -18,6 +18,17 @@ app.service('actionCreators', ['stateService', 'storageService', function (state
 					}
 				};
 				stateService.reduce(action);
+			},
+			rateWird: function(index, rating, currentId) {
+				var action = {
+					type: RATE_WIRD,
+					payload: {
+						index: index,
+						rating: rating,
+						currentId: currentId
+					}
+				};
+				stateService.reduce(action);
 			}
 		};
 	}]);

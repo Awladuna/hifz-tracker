@@ -18,5 +18,9 @@ app.controller('HomeCtrl', ['$scope', '$rootScope', 'actionCreators',
 			$scope.view.state = data.state;
 		});
 
+		$scope.rateWird = function(index, rating) {
+			actionCreators.rateWird(index, rating, $scope.view.state.ui.currentId);
+		};
+
 		actionCreators.getInitialState();
 	}]);
