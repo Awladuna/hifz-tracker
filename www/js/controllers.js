@@ -1,16 +1,22 @@
-app.controller('AppCtrl', ['$rootScope', '$scope', '$ionicModal', '$ionicPopup',
-		function($rootScope, $scope, $ionicModal, $ionicPopup) {
-				$scope.view = {};
-		}]);
+app.controller('AppCtrl', ['$rootScope', '$scope', 'actionCreators',
+	function($rootScope, $scope, actionCreators) {
+
+		$scope.view = {};
+
+		$rootScope.$on('stateChanged', function (event, data) {
+			$scope.view.state = data.state;
+		});
+
+	}]);
 
 app.controller('HomeCtrl', ['$scope', '$rootScope', 'actionCreators',
-		function($scope, $rootScope, actionCreators) {
+	function($scope, $rootScope, actionCreators) {
 
-			$scope.view = {};
+		$scope.view = {};
 
-			$rootScope.$on('stateChanged', function (event, data) {
-				$scope.view.state = data.state;
-			});
+		$rootScope.$on('stateChanged', function (event, data) {
+			$scope.view.state = data.state;
+		});
 
-			actionCreators.getInitialState();
-		}]);
+		actionCreators.getInitialState();
+	}]);
