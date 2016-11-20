@@ -28,6 +28,16 @@ app.service('actionCreators', ['stateService', 'hifzService', function (stateSer
 					}
 				};
 				stateService.reduce(action);
+			},
+			removeWird: function(index, user) {
+				var updatedUser = hifzService.removeWird(index, user);
+				var action = {
+					type: REMOVE_WIRD,
+					payload: {
+						user: updatedUser,
+					}
+				};
+				stateService.reduce(action);
 			}
 		};
 	}]);

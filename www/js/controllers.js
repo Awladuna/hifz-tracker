@@ -23,5 +23,10 @@ app.controller('HomeCtrl', ['$scope', '$rootScope', 'actionCreators',
 			actionCreators.rateWird(index, rating, user);
 		};
 
+		$scope.removeWird = function(index) {
+			var user = $scope.view.state.users.list[$scope.view.state.ui.currentId];
+			actionCreators.removeWird(index, user);
+		};
+
 		actionCreators.getInitialState();
 	}]);

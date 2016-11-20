@@ -26,6 +26,7 @@ app.service('stateService', function ($rootScope, $log, User) {
 						}
 						return users;
 					case RATE_WIRD:
+					case REMOVE_WIRD:
 						users.list[action.payload.user.id] = action.payload.user;
 						return users;
 					default:
