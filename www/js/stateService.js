@@ -6,7 +6,7 @@
  * Service in the hifzTracker.services
  * Central location for sharedState information.
  */
-app.service('stateService', function ($rootScope, $log, $translate, User) {
+app.service('stateService', function ($rootScope, $log, User) {
 		return {
 			_state: {},
 			_userReducers: function (action, users) {
@@ -26,44 +26,7 @@ app.service('stateService', function ($rootScope, $log, $translate, User) {
 						}
 						return users;
 					case RATE_WIRD:
-						var surah = users.list[action.payload.currentId].wirds[action.payload.index];
-						var currentUser = users.list[action.payload.currentId];
-
-						// Set reading time
-						var today = new Date();
-						var dd = today.getDate();
-						var mm = today.getMonth() + 1; //January is 0!
-						var yyyy = today.getFullYear();
-
-						surah.lastRead = mm + '/' + dd + '/' + yyyy;
-
-						// Remove from current location
-						currentUser.wirds.splice(action.payload.index, 1);
-
-						// Determine next location based on rating
-						switch (action.payload.rating) {
-							case 'POOR':
-								surah.rating = 'POOR';
-								var position = Math.floor(currentUser.wirds.length * 0.25);
-								currentUser.wirds.splice(position, 0, surah);
-								break;
-							case 'WEAK':
-								surah.rating = 'WEAK';
-								var position = Math.floor(currentUser.wirds.length * 0.50);
-								currentUser.wirds.splice(position, 0, surah);
-								break;
-							case 'OKAY':
-								surah.rating = 'OKAY';
-								var position = Math.floor(currentUser.wirds.length * 0.75);
-								currentUser.wirds.splice(position, 0, surah);
-								break;
-							default:
-								surah.rating = 'PERFECT';
-								currentUser.wirds.push(surah);
-						}
-
-						// TODO: Persist user
-
+						users.list[action.payload.user.id] = action.payload.user;
 						return users;
 					default:
 						return users;
@@ -79,22 +42,6 @@ app.service('stateService', function ($rootScope, $log, $translate, User) {
 							currentLang: action.payload.currentLang,
 							limit: 3
 						};
-
-						// Select first user if currentId was never set
-						if (ui.currentId === 0) {
-							ui.currentId = action.payload.users.length ? action.payload.users[0].id : 0;
-						}
-
-						// Select the first language if currentLang was never set
-						if (!ui.currentLang.code) {
-							var preferredCode = $translate.preferredLanguage();
-							var supportedCodes = allLanguages.map(function (language) { return language.code; });
-							var preferredIndex = supportedCodes.indexOf(preferredCode);
-							preferredLanguage = preferredIndex < 0 ? allLanguages[0] : allLanguages[preferredIndex];
-							// TODO: Where should persisting the default language happen
-							// storageService.setObject('preferredLanguage', preferredLanguage);
-						}
-
 						return ui;
 					default:
 						return ui;

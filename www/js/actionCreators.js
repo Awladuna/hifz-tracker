@@ -6,26 +6,25 @@
  * Service in the hifzTracker.services
  * Central location for sharedState information.
  */
-app.service('actionCreators', ['stateService', 'storageService', function (stateService, storageService) {
+app.service('actionCreators', ['stateService', 'hifzService', function (stateService, hifzService) {
 		return {
 			getInitialState: function () {
 				var action = {
 					type: INIT_STATE,
 					payload: {
-						users: storageService.getArray('users'),
-						currentId: storageService.get('currentId', 0),
-						currentLang: storageService.getObject('preferredLanguage')
+						users: hifzService.getUsers(),
+						currentId: hifzService.getCurrentId(),
+						currentLang: hifzService.getCurrentLang()
 					}
 				};
 				stateService.reduce(action);
 			},
-			rateWird: function(index, rating, currentId) {
+			rateWird: function(index, rating, user) {
+				var updatedUser = hifzService.rateWird(index, rating, user);
 				var action = {
 					type: RATE_WIRD,
 					payload: {
-						index: index,
-						rating: rating,
-						currentId: currentId
+						user: updatedUser,
 					}
 				};
 				stateService.reduce(action);
