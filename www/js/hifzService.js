@@ -110,6 +110,10 @@ app.factory("hifzService", ['$window', '$translate', function ($window, $transla
 
 			return this.saveUser(user);
 		},
+		addWird: function(wird, user) {
+			user.wirds.unshift(wird);
+			return this.saveUser(user);
+		},
 		removeWird: function(index, user) {
 			user.wirds.splice(index, 1);
 			return this.saveUser(user);

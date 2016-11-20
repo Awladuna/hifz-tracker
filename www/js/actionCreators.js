@@ -29,6 +29,16 @@ app.service('actionCreators', ['stateService', 'hifzService', function (stateSer
 				};
 				stateService.reduce(action);
 			},
+			addWird: function(wird, user) {
+				var updatedUser = hifzService.addWird(wird, user);
+				var action = {
+					type: ADD_WIRD,
+					payload: {
+						user: updatedUser,
+					}
+				};
+				stateService.reduce(action);
+			},
 			removeWird: function(index, user) {
 				var updatedUser = hifzService.removeWird(index, user);
 				var action = {
