@@ -45,6 +45,9 @@ app.service('stateService', function ($rootScope, $log, User) {
 							limit: 3
 						};
 						return ui;
+					case LOAD_MORE:
+						ui.limit += action.payload.increment || 3;
+						return ui;
 					default:
 						return ui;
 				}

@@ -46,6 +46,10 @@ app.controller('HomeCtrl', ['$scope', '$rootScope', '$ionicPopover', 'actionCrea
 			actionCreators.addWird(wird, user);
 		};
 
+		$scope.loadMore = function (increment) {
+			actionCreators.loadMore(increment);
+		};
+
 		// TODO: Find way to move this to a resolve
 		actionCreators.getInitialState();
 	}]);

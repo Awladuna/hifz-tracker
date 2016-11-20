@@ -48,6 +48,15 @@ app.service('actionCreators', ['stateService', 'hifzService', function (stateSer
 					}
 				};
 				stateService.reduce(action);
+			},
+			loadMore: function(increment) {
+				var action = {
+					type: LOAD_MORE,
+					payload: {
+						increment: increment,
+					}
+				};
+				stateService.reduce(action);
 			}
 		};
 	}]);
