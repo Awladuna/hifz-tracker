@@ -1,5 +1,8 @@
 app.filter('excludeItemsById', function () {
 		return function (items, excludedItems) {
+			// Skip the filter if no excluded items
+			if (!excludedItems || !excludedItems.length) { return items; }
+			// Filter out excluded items
 			return items.filter(function (item) {
 				return !excludedItems.some(function (eItem) {
 					return eItem.id === item.id;

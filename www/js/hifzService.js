@@ -125,6 +125,7 @@ app.factory("hifzService", ['$window', '$translate', function ($window, $transla
 			return this.saveUser(user);
 		},
 		addWird: function(wird, user) {
+			user.wirds = user.wirds || [];
 			user.wirds.unshift(wird);
 			return this.saveUser(user);
 		},
