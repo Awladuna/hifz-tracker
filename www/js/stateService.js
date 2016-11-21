@@ -63,6 +63,13 @@ app.service('stateService', function ($rootScope, $log, User) {
 					case SWITCH_USER:
 						ui.currentId = action.payload.currentId;
 						return ui;
+					case SAVE_USER:
+						ui.currentId = action.payload.user.id;
+						return ui;
+					case DELETE_USER:
+						// Set current user to the first user
+						ui.currentId = action.payload.users.length ? action.payload.users[0].id : 0;
+						return ui;
 					default:
 						return ui;
 				}

@@ -48,6 +48,7 @@ app.factory("hifzService", ['$window', '$translate', function ($window, $transla
 				user.id = lastId + 1;
 				users.push(user);
 				this.setArray('users', users);
+				this.switchUser(user.id);
 				return user;
 			}
 		},
@@ -59,7 +60,7 @@ app.factory("hifzService", ['$window', '$translate', function ($window, $transla
 				if (userIndex >= 0) {
 					users.splice(userIndex, 1);
 					this.setArray('users', users);
-					return user;
+					return users;
 				} else {
 					// This should never happen
 				}

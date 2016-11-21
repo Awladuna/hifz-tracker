@@ -69,11 +69,12 @@ app.service('actionCreators', ['stateService', 'hifzService', function (stateSer
 				stateService.reduce(action);
 			},
 			deleteUser: function(user) {
-				hifzService.deleteUser(user);
+				var users = hifzService.deleteUser(user);
 				var action = {
 					type: DELETE_USER,
 					payload: {
 						user: user,
+						users: users,
 					}
 				};
 				stateService.reduce(action);
