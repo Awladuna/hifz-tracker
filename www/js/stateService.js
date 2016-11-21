@@ -60,6 +60,9 @@ app.service('stateService', function ($rootScope, $log, User) {
 					case LOAD_MORE:
 						ui.limit += action.payload.increment || 3;
 						return ui;
+					case SWITCH_USER:
+						ui.currentId = action.payload.currentId;
+						return ui;
 					default:
 						return ui;
 				}

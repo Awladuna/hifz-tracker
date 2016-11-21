@@ -27,7 +27,7 @@
 		<ion-content ng-class="'content-' + appTheme.class">
 			<ion-list show-reorder="view.ordering">
 				<ion-item menu-close ng-repeat="userId in view.state.users.ids track by userId"
-					class="item item-{{appTheme.class}}" ng-click="setCurrentUser(userId)"
+					class="item item-{{appTheme.class}}" ng-click="switchUser(userId)"
 					ng-class="{ 'active': userId === view.state.ui.currentId }">
 					<a class="icon ion-edit" ng-click="userDialog(userId)"></a> &nbsp; {{ view.state.users.list[userId].name }}
 					<ion-reorder-button class="ion-navicon" on-reorder="moveItem(userId, $fromIndex, $toIndex)">

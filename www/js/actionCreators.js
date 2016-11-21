@@ -77,6 +77,16 @@ app.service('actionCreators', ['stateService', 'hifzService', function (stateSer
 					}
 				};
 				stateService.reduce(action);
+			},
+			switchUser: function(userId) {
+				var currentId = hifzService.switchUser(userId);
+				var action = {
+					type: SWITCH_USER,
+					payload: {
+						currentId: currentId,
+					}
+				};
+				stateService.reduce(action);
 			}
 		};
 	}]);

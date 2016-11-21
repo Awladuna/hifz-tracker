@@ -12,6 +12,10 @@ app.controller('AppCtrl', ['$rootScope', '$scope', 'stateService', 'actionCreato
 		$scope.userDialog = function(userId) {
 			$state.go("app.users", { "userId": userId});
 		};
+
+		$scope.switchUser = function(userId) {
+			actionCreators.switchUser(userId);
+		}
 	}]);
 
 app.controller('HomeCtrl', ['$scope', '$rootScope', '$ionicPopover', 'stateService', 'actionCreators',

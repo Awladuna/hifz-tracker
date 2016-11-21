@@ -131,6 +131,18 @@ app.factory("hifzService", ['$window', '$translate', function ($window, $transla
 		removeWird: function(index, user) {
 			user.wirds.splice(index, 1);
 			return this.saveUser(user);
+		},
+		switchUser: function(userId) {
+			var currentId = this.get('currentId', 0);
+			// Make sure the userId is valid
+			if (userId) {
+				var userIds = this.getUsers().map(function(user) { return user.id; });
+				if (userIds.indexOf(userId) >= 0) {
+					currentId = userId;
+					this.set('currentId', currentId);
+				}
+			}
+			return currentId;
 		}
 	}
 }]);
