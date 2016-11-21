@@ -1,31 +1,25 @@
-<ion-modal-view>
-	<ion-header-bar ng-class="'bar-' + appTheme.class">
-		<h1 class="title">
-			<span ng-show="editUser" translate="EDIT_USER"></span>
-			<span ng-hide="editUser" translate="ADD_NEW_USER"></span>
-		</h1>
-		<button class="button" ng-click="closeModal()">
-			<i class="icon ion-ios-close"></i>
-		</button>
-	</ion-header-bar>
+<ion-view cache-view="false" view-title="{{ userId ? 'EDIT_USER' : 'ADD_NEW_USER' | translate }}">
 	<ion-content ng-class="'content-' + appTheme.class">
 		<div class="list">
 			<label class="item item-{{appTheme.class}} item-input">
-				<input type="text" placeholder="Name" ng-model="editUser.name">
+				<input type="text" placeholder="Name" ng-model="user.name">
 			</label>
 		</div>
 		<div class="padding row">
 			<div class="col col-25">
-				<button class="button button-block button-outline button-assertive" ng-click="deleteUser(editUser)" ng-if="editUser.id">
+				<button class="button button-block button-outline button-assertive" ng-click="deleteUser()"
+					ng-if="userId">
 					<i class="icon ion-trash-b"></i>
 				</button>
 			</div>
 			<div class="col col-25 col-offset-25">
-				<button class="button button-block button-outline" ng-click="closeModal()" translate="CANCEL"></button>
+				<button class="button button-block button-outline" ng-click="goBack()"
+					translate="CANCEL"></button>
 			</div>
 			<div class="col col-25">
-				<button class="button button-block button-outline button-positive" ng-click="saveUser(editUser)" translate="OK"></button>
+				<button class="button button-block button-outline button-positive" ng-click="saveUser()"
+					translate="OK"></button>
 			</div>
 		</div>
 	</ion-content>
-</ion-modal-view>
+</ion-view>

@@ -1,18 +1,25 @@
-app.controller('AppCtrl', ['$rootScope', '$scope', 'actionCreators',
-	function($rootScope, $scope, actionCreators) {
+app.controller('AppCtrl', ['$rootScope', '$scope', 'stateService', 'actionCreators', '$state',
+	function($rootScope, $scope, stateService, actionCreators, $state) {
 
-		$scope.view = {};
+		$scope.view = {
+			state: stateService.getState()
+		};
 
 		$rootScope.$on('stateChanged', function (event, data) {
 			$scope.view.state = data.state;
 		});
 
+		$scope.userDialog = function(userId) {
+			$state.go("app.users", { "userId": userId});
+		};
 	}]);
 
-app.controller('HomeCtrl', ['$scope', '$rootScope', '$ionicPopover', 'actionCreators',
-	function($scope, $rootScope, $ionicPopover, actionCreators) {
+app.controller('HomeCtrl', ['$scope', '$rootScope', '$ionicPopover', 'stateService', 'actionCreators',
+	function($scope, $rootScope, $ionicPopover, stateService, actionCreators) {
 
-		$scope.view = {};
+		$scope.view = {
+			state: stateService.getState()
+		};
 
 		$rootScope.$on('stateChanged', function (event, data) {
 			$scope.view.state = data.state;
@@ -51,5 +58,37 @@ app.controller('HomeCtrl', ['$scope', '$rootScope', '$ionicPopover', 'actionCrea
 		};
 
 		// TODO: Find way to move this to a resolve
-		actionCreators.getInitialState();
+		if (!$scope.view.state.users) {
+			actionCreators.getInitialState();
+		}
+	}]);
+
+app.controller('UserFormCtrl', ['$scope', '$stateParams', '$ionicHistory', 'stateService', 'actionCreators',
+	function ($scope, $stateParams, $ionicHistory, stateService, actionCreators) {
+		$scope.userId = parseInt($stateParams.userId);
+		$scope.user = {};
+
+		var state = stateService.getState();
+		if ($scope.userId && state.users) {
+			$scope.user = state.users.list[$scope.userId];
+		}
+
+		$scope.goBack = function() {
+			$ionicHistory.goBack();
+		};
+
+		$scope.deleteUser = function() {
+			actionCreators.deleteUser($scope.user);
+			$scope.goBack();
+		};
+
+		$scope.saveUser = function() {
+			actionCreators.saveUser($scope.user);
+			$scope.goBack();
+		};
+	}]);
+
+app.controller('StatsCtrl', ['$scope',
+	function ($scope) {
+		console.log('Stats!!');
 	}]);

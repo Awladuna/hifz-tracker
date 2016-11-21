@@ -30,6 +30,18 @@ app.service('stateService', function ($rootScope, $log, User) {
 					case REMOVE_WIRD:
 						users.list[action.payload.user.id] = action.payload.user;
 						return users;
+					case SAVE_USER:
+						users.list[action.payload.user.id] = action.payload.user;
+						var userIndex = users.ids.indexOf(action.payload.user.id);
+						if (userIndex < 0) {
+							users.ids.push(action.payload.user.id);
+						}
+						return users;
+					case DELETE_USER:
+						var userIndex = users.ids.indexOf(action.payload.user.id);
+						users.ids.splice(userIndex, 1);
+						delete users.list[action.payload.user.id];
+						return users;
 					default:
 						return users;
 				}
@@ -51,6 +63,9 @@ app.service('stateService', function ($rootScope, $log, User) {
 					default:
 						return ui;
 				}
+			},
+			getState: function() {
+				return this._state;
 			},
 			reduce: function (action) {
 				var scope = this;

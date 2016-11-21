@@ -5,8 +5,7 @@
 			</ion-nav-back-button>
 
 			<ion-nav-buttons side="left">
-				<button class="button button-icon button-clear ion-navicon" menu-toggle="left">
-				</button>
+				<button class="button button-icon icon ion-navicon" menu-toggle="primary"></button>
 			</ion-nav-buttons>
 		</ion-nav-bar>
 		<ion-nav-view name="menuContent"></ion-nav-view>
@@ -30,8 +29,7 @@
 				<ion-item menu-close ng-repeat="userId in view.state.users.ids track by userId"
 					class="item item-{{appTheme.class}}" ng-click="setCurrentUser(userId)"
 					ng-class="{ 'active': userId === view.state.ui.currentId }">
-					<i class="icon ion-edit" ng-click="userDialog(userId)"></i> &nbsp;
-					{{ view.state.users.list[view.state.ui.currentId].name }}
+					<a class="icon ion-edit" ng-click="userDialog(userId)"></a> &nbsp; {{ view.state.users.list[userId].name }}
 					<ion-reorder-button class="ion-navicon" on-reorder="moveItem(userId, $fromIndex, $toIndex)">
 					</ion-reorder-button>
 				</ion-item>

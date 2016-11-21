@@ -55,6 +55,16 @@ app.config(function ($stateProvider, $urlRouterProvider, $translateProvider, $co
 						controller: 'StatsCtrl'
 					}
 				}
+			})
+
+			.state('app.users', {
+				url: '/users/:userId',
+				views: {
+					'menuContent': {
+						templateUrl: 'templates/user-dialog.html',
+						controller: 'UserFormCtrl'
+					}
+				}
 			});
 
 		// if none of the above states are matched, use this as the fallback

@@ -57,6 +57,26 @@ app.service('actionCreators', ['stateService', 'hifzService', function (stateSer
 					}
 				};
 				stateService.reduce(action);
+			},
+			saveUser: function(user) {
+				var savedUser = hifzService.saveUser(user);
+				var action = {
+					type: SAVE_USER,
+					payload: {
+						user: savedUser,
+					}
+				};
+				stateService.reduce(action);
+			},
+			deleteUser: function(user) {
+				hifzService.deleteUser(user);
+				var action = {
+					type: DELETE_USER,
+					payload: {
+						user: user,
+					}
+				};
+				stateService.reduce(action);
 			}
 		};
 	}]);

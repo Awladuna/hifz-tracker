@@ -51,6 +51,20 @@ app.factory("hifzService", ['$window', '$translate', function ($window, $transla
 				return user;
 			}
 		},
+		deleteUser: function(user) {
+			var users = this.getUsers();
+
+			if (user.id) {
+				var userIndex = users.indexOf(users.find(function(u) { return u.id == user.id; }));
+				if (userIndex >= 0) {
+					users.splice(userIndex, 1);
+					this.setArray('users', users);
+					return user;
+				} else {
+					// This should never happen
+				}
+			}
+		},
 		getCurrentLang: function () {
 			var currentLang = this.getObject('currentLang');
 			if (!currentLang.code) {
