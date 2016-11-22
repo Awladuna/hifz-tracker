@@ -48,27 +48,31 @@ app.service('stateService', function ($rootScope, $log, User) {
 			},
 			_uiReducers: function (action, ui) {
 				var scope = this;
+				var DEFAULT_LIMIT = 3;
 
 				switch (action.type) {
 					case INIT_STATE:
 						ui = {
 							currentId: action.payload.currentId,
 							currentLang: action.payload.currentLang,
-							limit: 3
+							limit: DEFAULT_LIMIT
 						};
 						return ui;
 					case LOAD_MORE:
-						ui.limit += action.payload.increment || 3;
+						ui.limit += action.payload.increment || DEFAULT_LIMIT;
 						return ui;
 					case SWITCH_USER:
 						ui.currentId = action.payload.currentId;
+						ui.limit = DEFAULT_LIMIT;
 						return ui;
 					case SAVE_USER:
 						ui.currentId = action.payload.user.id;
+						ui.limit = DEFAULT_LIMIT;
 						return ui;
 					case DELETE_USER:
 						// Set current user to the first user
 						ui.currentId = action.payload.users.length ? action.payload.users[0].id : 0;
+						ui.limit = DEFAULT_LIMIT;
 						return ui;
 					default:
 						return ui;
