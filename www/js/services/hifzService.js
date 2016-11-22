@@ -30,11 +30,11 @@ app.factory("hifzService", ['$window', '$translate', function ($window, $transla
 		getUsers: function () {
 			return this.getArray('users');
 		},
-		saveUser: function(user) {
+		saveUser: function (user) {
 			var users = this.getUsers();
 
 			if (user.id) {
-				var userIndex = users.indexOf(users.find(function(u) { return u.id == user.id; }));
+				var userIndex = users.indexOf(users.find(function (u) { return u.id == user.id; }));
 				if (userIndex >= 0) {
 					users[userIndex] = user;
 					this.setArray('users', users);
@@ -44,7 +44,7 @@ app.factory("hifzService", ['$window', '$translate', function ($window, $transla
 				}
 			} else {
 				// User is new: generate an id and create user
-				var lastId = users.map(function(u) { return u.id; }).sort().pop();
+				var lastId = users.map(function (u) { return u.id; }).sort().pop();
 				user.id = lastId + 1;
 				users.push(user);
 				this.setArray('users', users);
@@ -52,11 +52,11 @@ app.factory("hifzService", ['$window', '$translate', function ($window, $transla
 				return user;
 			}
 		},
-		deleteUser: function(user) {
+		deleteUser: function (user) {
 			var users = this.getUsers();
 
 			if (user.id) {
-				var userIndex = users.indexOf(users.find(function(u) { return u.id == user.id; }));
+				var userIndex = users.indexOf(users.find(function (u) { return u.id == user.id; }));
 				if (userIndex >= 0) {
 					users.splice(userIndex, 1);
 					this.setArray('users', users);
@@ -76,6 +76,14 @@ app.factory("hifzService", ['$window', '$translate', function ($window, $transla
 				this.setObject('currentLang', currentLang);
 			}
 			return currentLang;
+		},
+		getCurrentTheme: function () {
+			var currentTheme = this.getObject('currentTheme');
+			if (!currentTheme.class) {
+				currentTheme = allThemes[0];
+				this.setObject('currentTheme', currentTheme);
+			}
+			return currentTheme;
 		},
 		getCurrentId: function () {
 			var currentId = this.get('currentId', 0);
@@ -125,20 +133,20 @@ app.factory("hifzService", ['$window', '$translate', function ($window, $transla
 
 			return this.saveUser(user);
 		},
-		addWird: function(wird, user) {
+		addWird: function (wird, user) {
 			user.wirds = user.wirds || [];
 			user.wirds.unshift(wird);
 			return this.saveUser(user);
 		},
-		removeWird: function(index, user) {
+		removeWird: function (index, user) {
 			user.wirds.splice(index, 1);
 			return this.saveUser(user);
 		},
-		switchUser: function(userId) {
+		switchUser: function (userId) {
 			var currentId = this.get('currentId', 0);
 			// Make sure the userId is valid
 			if (userId) {
-				var userIds = this.getUsers().map(function(user) { return user.id; });
+				var userIds = this.getUsers().map(function (user) { return user.id; });
 				if (userIds.indexOf(userId) >= 0) {
 					currentId = userId;
 					this.set('currentId', currentId);
