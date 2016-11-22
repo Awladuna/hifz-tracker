@@ -1,29 +1,23 @@
-<ion-modal-view>
-	<ion-header-bar ng-class="'bar-' + appTheme.class">
-		<h1 class="title" translate="SETTINGS"></h1>
-		<button class="button" ng-click="closeModal()">
-			<i class="icon ion-ios-close"></i>
-		</button>
-	</ion-header-bar>
-	<ion-content ng-class="'content-' + appTheme.class">
+<ion-view cache-view="false" view-title="{{ 'SETTINGS' | translate }}">
+	<ion-content ng-class="'content-' + view.state.ui.currentTheme.class">
 		<div class="list">
 
-			<label class="item item-{{appTheme.class}} item-input item-select">
+			<label class="item item-{{view.state.ui.currentTheme.class}} item-input item-select">
 				<div class="input-label" translate="LANGUAGE"></div>
-				<select ng-model="preferredLanguage"
-				ng-change="switchLanguage(preferredLanguage)"
-				ng-options="language.name for language in languages track by language.id">
+				<select ng-model="view.state.ui.currentLang"
+				ng-change="switchLanguage(view.state.ui.currentLang)"
+				ng-options="language.name for language in view.allLanguages track by language.id">
 				</select>
 			</label>
 
-			<label class="item item-{{appTheme.class}} item-input item-select">
+			<label class="item item-{{view.state.ui.currentTheme.class}} item-input item-select">
 				<div class="input-label" translate="THEME"></div>
-				<select ng-model="appTheme"
-				ng-change="setTheme(appTheme)"
-				ng-options="theme.name | translate for theme in allThemes track by theme.id">
+				<select ng-model="view.state.ui.currentTheme"
+				ng-change="setTheme(view.state.ui.currentTheme)"
+				ng-options="theme.name | translate for theme in view.allThemes track by theme.id">
 				</select>
 			</label>
 
 		</div>
 	</ion-content>
-</ion-modal-view>
+</ion-view>

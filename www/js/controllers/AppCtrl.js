@@ -13,6 +13,10 @@ app.controller('AppCtrl', ['$rootScope', '$scope', 'stateService', 'actionCreato
 			$state.go("app.users", { "userId": userId });
 		};
 
+		$scope.settings = function () {
+			$state.go("app.settings");
+		};
+
 		$scope.switchUser = function (userId) {
 			actionCreators.switchUser(userId);
 		}
