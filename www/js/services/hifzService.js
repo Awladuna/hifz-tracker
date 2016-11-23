@@ -75,6 +75,7 @@ app.factory("hifzService", ['$window', '$translate', function ($window, $transla
 				currentLang = preferredIndex < 0 ? allLanguages[0] : allLanguages[preferredIndex];
 				this.setObject('currentLang', currentLang);
 			}
+			$translate.use(currentLang.code);
 			return currentLang;
 		},
 		getCurrentTheme: function () {
@@ -160,10 +161,11 @@ app.factory("hifzService", ['$window', '$translate', function ($window, $transla
 			if (languageId) {
 				var languageIds = allLanguages.map(function (lang) { return lang.id; });
 				if (languageIds.indexOf(languageId) >= 0) {
-					currentLang = allLanguages.find(function(lang) { return lang.id === languageId; });
+					currentLang = allLanguages.find(function (lang) { return lang.id === languageId; });
 					this.setObject('currentLang', currentLang);
 				}
 			}
+			$translate.use(currentLang.code);
 			return currentLang;
 		},
 		setTheme: function (themeId) {
@@ -172,7 +174,7 @@ app.factory("hifzService", ['$window', '$translate', function ($window, $transla
 			if (themeId) {
 				var themeIds = allThemes.map(function (theme) { return theme.id; });
 				if (themeIds.indexOf(themeId) >= 0) {
-					currentTheme = allThemes.find(function(theme) { return theme.id === themeId; });
+					currentTheme = allThemes.find(function (theme) { return theme.id === themeId; });
 					this.setObject('currentTheme', currentTheme);
 				}
 			}
