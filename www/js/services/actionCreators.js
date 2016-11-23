@@ -54,7 +54,7 @@ app.service('actionCreators', ['stateService', 'hifzService', function (stateSer
 			var action = {
 				type: LOAD_MORE,
 				payload: {
-					increment: increment,
+					increment: increment
 				}
 			};
 			stateService.reduce(action);

@@ -20,8 +20,7 @@
 					ng-click="addWird(surah)" translate="{{ surah.title }}">
 				</li>
 			</ul>
-			<ion-infinite-scroll distance="50%" on-infinite="loadMoreData('wirdLimit', 30)"
-				ng-if="allSurahs.length > view.wirdLimit"></ion-infinite-scroll>
+			<ion-infinite-scroll distance="50%" on-infinite="increaseWirdLimit()" ng-if="allSurahs.length > view.wirdLimit"></ion-infinite-scroll>
 		</div>
 
 		<div ng-if="view.wirdType === 'QUARTER'">
@@ -31,8 +30,7 @@
 					ng-click="addWird(quarter)" translate="{{ quarter.title }}">
 				</li>
 			</ul>
-			<ion-infinite-scroll distance="50%" on-infinite="loadMoreData('wirdLimit', 30)"
-				ng-if="allQuarters.length > view.wirdLimit"></ion-infinite-scroll>
+			<ion-infinite-scroll distance="50%" on-infinite="increaseWirdLimit()" ng-if="allQuarters.length > view.wirdLimit"></ion-infinite-scroll>
 		</div>
 
 	</ion-content>

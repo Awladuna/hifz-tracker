@@ -19,17 +19,29 @@ app.controller('HomeCtrl', ['$scope', '$rootScope', '$ionicPopover', 'stateServi
 			actionCreators.removeWird(index, user);
 		};
 
-		// Add Wird popover
+		// Initialize Add-Wird popover
+		$ionicPopover.fromTemplateUrl('templates/add-wird.html', {
+			scope: $scope
+		}).then(function (popover) {
+			$scope.popover = popover;
+			$scope.wirdTypes = ['SURAH', 'QUARTER'];
+			$scope.allSurahs = allSurahs;
+			$scope.allQuarters = allQuarters;
+			$scope.view.wirdLimit = 20;
+		});
+		// Reset add-wird view when popover is hidden
+		$scope.$on('popover.hidden', function () {
+			$scope.view.wirdLimit = 20;
+			delete $scope.view.wirdType;
+		});
+		// Open the popover
 		$scope.addWirdDialog = function ($event) {
-			$ionicPopover.fromTemplateUrl('templates/add-wird.html', {
-				scope: $scope
-			}).then(function (modal) {
-				$scope.modal = modal;
-				$scope.wirdTypes = ['SURAH', 'QUARTER'];
-				$scope.allSurahs = allSurahs;
-				$scope.allQuarters = allQuarters;
-				$scope.modal.show($event);
-			});
+			$scope.popover.show($event);
+		};
+		// Add-wird infinite scroll
+		$scope.increaseWirdLimit = function () {
+			$scope.view.wirdLimit += 20;
+			$scope.$broadcast('scroll.infiniteScrollComplete');
 		};
 
 		$scope.addWird = function (wird) {
