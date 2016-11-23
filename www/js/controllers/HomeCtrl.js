@@ -1,5 +1,5 @@
-app.controller('HomeCtrl', ['$scope', '$rootScope', '$ionicPopover', 'stateService', 'actionCreators',
-	function ($scope, $rootScope, $ionicPopover, stateService, actionCreators) {
+app.controller('HomeCtrl', ['$scope', '$rootScope', '$ionicPopover', '$ionicPopup', 'stateService', 'actionCreators',
+	function ($scope, $rootScope, $ionicPopover, $ionicPopup, stateService, actionCreators) {
 
 		$scope.view = {
 			state: stateService.getState()
@@ -16,7 +16,17 @@ app.controller('HomeCtrl', ['$scope', '$rootScope', '$ionicPopover', 'stateServi
 
 		$scope.removeWird = function (index) {
 			var user = $scope.view.state.users.list[$scope.view.state.ui.currentId];
-			actionCreators.removeWird(index, user);
+			$scope.surah = user.wirds[index];
+			var confirmPopup = $ionicPopup.confirm({
+				scope: $scope,
+				template: '<span translate="DELETE_CONFIRMATION"></span> <b translate="{{surah.title}}"></b>?'
+			});
+
+			confirmPopup.then(function (res) {
+				if (res) {
+					actionCreators.removeWird(index, user);
+				}
+			});
 		};
 
 		// Initialize Add-Wird popover
