@@ -153,6 +153,30 @@ app.factory("hifzService", ['$window', '$translate', function ($window, $transla
 				}
 			}
 			return currentId;
+		},
+		setLanguage: function (languageId) {
+			var currentLang = this.getCurrentLang();
+			// Make sure the languageId is valid
+			if (languageId) {
+				var languageIds = allLanguages.map(function (lang) { return lang.id; });
+				if (languageIds.indexOf(languageId) >= 0) {
+					currentLang = allLanguages.find(function(lang) { return lang.id === languageId; });
+					this.setObject('currentLang', currentLang);
+				}
+			}
+			return currentLang;
+		},
+		setTheme: function (themeId) {
+			var currentTheme = this.getCurrentTheme();
+			// Make sure the themeId is valid
+			if (themeId) {
+				var themeIds = allThemes.map(function (theme) { return theme.id; });
+				if (themeIds.indexOf(themeId) >= 0) {
+					currentTheme = allThemes.find(function(theme) { return theme.id === themeId; });
+					this.setObject('currentTheme', currentTheme);
+				}
+			}
+			return currentTheme;
 		}
 	}
 }]);

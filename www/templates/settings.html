@@ -4,16 +4,14 @@
 
 			<label class="item item-{{view.state.ui.currentTheme.class}} item-input item-select">
 				<div class="input-label" translate="LANGUAGE"></div>
-				<select ng-model="view.state.ui.currentLang"
-				ng-change="switchLanguage(view.state.ui.currentLang)"
+				<select ng-model="view.state.ui.currentLang" ng-change="setLanguage(view.state.ui.currentLang.id)"
 				ng-options="language.name for language in view.allLanguages track by language.id">
 				</select>
 			</label>
 
 			<label class="item item-{{view.state.ui.currentTheme.class}} item-input item-select">
 				<div class="input-label" translate="THEME"></div>
-				<select ng-model="view.state.ui.currentTheme"
-				ng-change="setTheme(view.state.ui.currentTheme)"
+				<select ng-model="view.state.ui.currentTheme" ng-change="setTheme(view.state.ui.currentTheme.id)"
 				ng-options="theme.name | translate for theme in view.allThemes track by theme.id">
 				</select>
 			</label>

@@ -89,6 +89,26 @@ app.service('actionCreators', ['stateService', 'hifzService', function (stateSer
 				}
 			};
 			stateService.reduce(action);
+		},
+		setLanguage: function (languageId) {
+			var currentLang = hifzService.setLanguage(languageId);
+			var action = {
+				type: SET_LANGUAGE,
+				payload: {
+					currentLang: currentLang,
+				}
+			};
+			stateService.reduce(action);
+		},
+		setTheme: function (themeId) {
+			var currentTheme = hifzService.setTheme(themeId);
+			var action = {
+				type: SET_THEME,
+				payload: {
+					currentTheme: currentTheme,
+				}
+			};
+			stateService.reduce(action);
 		}
-		};
+	};
 }]);
