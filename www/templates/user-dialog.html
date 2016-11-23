@@ -1,7 +1,7 @@
 <ion-view cache-view="false" view-title="{{ userId ? 'EDIT_USER' : 'ADD_NEW_USER' | translate }}">
-	<ion-content ng-class="'content-' + appTheme.class">
+	<ion-content ng-class="'content-' + view.state.ui.currentTheme.class">
 		<div class="list">
-			<label class="item item-{{appTheme.class}} item-input">
+			<label class="item item-{{view.state.ui.currentTheme.class}} item-input">
 				<input type="text" placeholder="Name" ng-model="user.name">
 			</label>
 		</div>

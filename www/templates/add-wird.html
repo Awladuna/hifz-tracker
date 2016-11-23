@@ -1,13 +1,13 @@
 <ion-popover-view>
-	<ion-header-bar ng-class="'bar-' + appTheme.class">
+	<ion-header-bar ng-class="'bar-' + view.state.ui.currentTheme.class">
 		<h1 class="title" ng-if="view.wirdType" translate="SELECT_WIRD"></h1>
 		<h1 class="title" ng-if="!view.wirdType" translate="SELECT_WIRD_TYPE"></h1>
 	</ion-header-bar>
-	<ion-content ng-class="'content-' + appTheme.class">
+	<ion-content ng-class="'content-' + view.state.ui.currentTheme.class">
 
 		<div ng-if="!view.wirdType">
 			<ul class="list">
-				<li ng-repeat="type in wirdTypes track by $index" class="item" ng-class="'item-' + appTheme.class"
+				<li ng-repeat="type in wirdTypes track by $index" class="item" ng-class="'item-' + view.state.ui.currentTheme.class"
 					ng-click="view.wirdType = type;" translate="{{ type }}">
 				</li>
 			</ul>
@@ -16,8 +16,8 @@
 		<div ng-if="view.wirdType === 'SURAH'">
 			<ul class="list">
 				<li ng-repeat="surah in allSurahs | limitTo:view.wirdLimit | excludeItemsById:view.state.users.list[view.state.ui.currentId].wirds track by surah.id"
-					class="item" ng-class="'item-' + appTheme.class" ng-click="addWird(surah)"
-					translate="{{ surah.title }}">
+					class="item" ng-class="'item-' + view.state.ui.currentTheme.class"
+					ng-click="addWird(surah)" translate="{{ surah.title }}">
 				</li>
 			</ul>
 			<ion-infinite-scroll distance="50%" on-infinite="loadMoreData('wirdLimit', 30)"
@@ -27,8 +27,8 @@
 		<div ng-if="view.wirdType === 'QUARTER'">
 			<ul class="list">
 				<li ng-repeat="quarter in allQuarters | limitTo:view.wirdLimit | excludeItemsById:view.state.users.list[view.state.ui.currentId].wirds track by quarter.id"
-					class="item" ng-class="'item-' + appTheme.class" ng-click="addWird(quarter)"
-					translate="{{ quarter.title }}">
+					class="item" ng-class="'item-' + view.state.ui.currentTheme.class"
+					ng-click="addWird(quarter)" translate="{{ quarter.title }}">
 				</li>
 			</ul>
 			<ion-infinite-scroll distance="50%" on-infinite="loadMoreData('wirdLimit', 30)"

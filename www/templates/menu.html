@@ -24,16 +24,16 @@
 				<i class="icon ion-arrow-move"></i> {{ "REORDER" | translate }}
 			</button>
 		</ion-header-bar>
-		<ion-content ng-class="'content-' + appTheme.class">
+		<ion-content ng-class="'content-' + view.state.ui.currentTheme.class">
 			<ion-list show-reorder="view.ordering">
 				<ion-item menu-close ng-repeat="userId in view.state.users.ids track by userId"
-					class="item item-{{appTheme.class}}" ng-click="switchUser(userId)"
+					class="item item-{{view.state.ui.currentTheme.class}}" ng-click="switchUser(userId)"
 					ng-class="{ 'active': userId === view.state.ui.currentId }">
 					<a class="icon ion-edit" ng-click="userDialog(userId)"></a> &nbsp; {{ view.state.users.list[userId].name }}
 					<ion-reorder-button class="ion-navicon" on-reorder="moveItem(userId, $fromIndex, $toIndex)">
 					</ion-reorder-button>
 				</ion-item>
-				<ion-item menu-close ng-click="userDialog()" class="item" ng-class="'item-' + appTheme.class">
+				<ion-item menu-close ng-click="userDialog()" class="item" ng-class="'item-' + view.state.ui.currentTheme.class">
 					<i class="icon ion-plus-circled"></i> &nbsp; {{ 'ADD_NEW_USER' | translate
 					}}
 				</ion-item>

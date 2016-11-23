@@ -1,17 +1,17 @@
 <ion-modal-view>
 	<div ng-if="wird">
-		<ion-header-bar ng-class="'bar-' + appTheme.class">
+		<ion-header-bar ng-class="'bar-' + view.state.ui.currentTheme.class">
 			<h1 class="title">{{ wird.title | translate }}</h1>
 			<button class="button" ng-click="closeModal()">
 				<i class="icon ion-ios-close"></i>
 			</button>
 		</ion-header-bar>
-		<ion-content ng-class="'content-' + appTheme.class">
+		<ion-content ng-class="'content-' + view.state.ui.currentTheme.class">
 			<ion-slide-box active-slide="activePage" show-pager="false">
 				<ion-slide ng-repeat="page in wirdPages track by $index">
 					<img ng-src="{{ imgRoot }}/page{{ ('00' + (wird.endPage - $index + 1)).slice(-3) }}.png"
-					ng-class="{'translucent': $index === 0 || $index === wirdPages.length - 1 }"
-					class="page page-{{ appTheme.class }}" />
+						ng-class="{'translucent': $index === 0 || $index === wirdPages.length - 1 }"
+						class="page page-{{ view.state.ui.currentTheme.class }}" />
 				</ion-slide>
 			</ion-slide-box>
 		</ion-content>

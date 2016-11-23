@@ -4,7 +4,7 @@
 			<i class="icon ion-plus-circled"></i>  {{ 'ADD_WIRD' | translate }}
 		</button>
 	</ion-nav-buttons>
-	<ion-content ng-class="'content-' + appTheme.class">
+	<ion-content ng-class="'content-' + view.state.ui.currentTheme.class">
 		<ion-refresher ng-if="false" pulling-text="Pull to view stats..." on-refresh="showStats()">
 		</ion-refresher>
 		<!-- No user -->
@@ -33,7 +33,7 @@
 			ng-if="view.state.users.list[view.state.ui.currentId].wirds.length"></stat-bar>
 		<div ng-repeat="wird in view.state.users.list[view.state.ui.currentId].wirds | limitTo:view.state.ui.limit track by $index"
 			class="card" ng-style="{ 'opacity': (view.state.ui.limit - $index) < 3 ? (view.state.ui.limit - $index) * 0.3 : 1 }">
-			<div class="item item-divider" ng-class="'item-' + appTheme.class">
+			<div class="item item-divider" ng-class="'item-' + view.state.ui.currentTheme.class">
 				<div class="wird-info">
 					<div translate="{{wird.title}}"></div>
 					<div class="wird-details">
@@ -53,7 +53,7 @@
 					 'balanced': wird.rating === 'PERFECT' }"></span>
 				</span>
 			</div>
-			<div class="item item-text-wrap item-main" ng-class="'item-' + appTheme.class"
+			<div class="item item-text-wrap item-main" ng-class="'item-' + view.state.ui.currentTheme.class"
 				ng-if="$index === 0">
 				<div class="button-bar">
 					<a class="button button-outline button-small button-assertive" ng-click="rateWird($index, 'POOR')"
@@ -66,13 +66,13 @@
 						translate="PERFECT"></a>
 				</div>
 			</div>
-			<div class="item item-divider" ng-class="'item-' + appTheme.class">
-				<button class="button button-small" ng-class="'button-' + appTheme.class"
+			<div class="item item-divider" ng-class="'item-' + view.state.ui.currentTheme.class">
+				<button class="button button-small" ng-class="'button-' + view.state.ui.currentTheme.class"
 					ng-click="openWird(wird)">
 					<i class="icon ion-ios-book-outline"></i> {{ 'READ' | translate }}
 				</button>
 				<span class="item-note">
-					<button class="button button-small" ng-class="'button-' + appTheme.class" ng-click="removeWird($index)">
+					<button class="button button-small" ng-class="'button-' + view.state.ui.currentTheme.class" ng-click="removeWird($index)">
 						<i class="icon ion-minus-circled"></i> {{ 'DELETE' | translate }}
 					</button>
 				</span>
@@ -88,7 +88,7 @@
 		</div>
 
 	</ion-content>
-	<div class="bar bar-footer" ng-if="progress.percent" ng-class="'bar-' + appTheme.class"
+	<div class="bar bar-footer" ng-if="progress.percent" ng-class="'bar-' + view.state.ui.currentTheme.class"
 		style="position: fixed; bottom: 0;">
 		<progress-bar progress="progress"></progress-bar>
 	</div>
