@@ -11,11 +11,10 @@ app.filter('excludeItemsById', function () {
 		};
 	});
 
-app.filter('localizeDate', function () {
+app.filter('localizeDate', function (hifzService) {
 		return function (date) {
 			if (!date) return;
-			// var code = LanguageService.getPreferred().code;
-			var code = allLanguages[0].code;
+			var code = hifzService.getCurrentLang().code;
 			return moment(date, 'l').locale(code).format('l');
 		};
 	});
