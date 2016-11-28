@@ -6,7 +6,8 @@
  * Service in the hifzTracker.services
  * Central location for sharedState information.
  */
-app.service('actionCreators', ['stateService', 'hifzService', function (stateService, hifzService) {
+app.service('actionCreators', ['$timeout', 'stateService', 'hifzService',
+	function ($timeout, stateService, hifzService) {
 		return {
 		getInitialState: function () {
 			var action = {
@@ -109,6 +110,21 @@ app.service('actionCreators', ['stateService', 'hifzService', function (stateSer
 				}
 			};
 			stateService.reduce(action);
+		},
+		restore: function (usersString) {
+			hifzService.restore(usersString);
+			$timeout(function() {
+				var action = {
+					type: RESTORE_BACKUP,
+					payload: {
+						users: hifzService.getUsers(),
+						currentId: hifzService.getCurrentId(),
+						currentLang: hifzService.getCurrentLang(),
+						currentTheme: hifzService.getCurrentTheme()
+					}
+				};
+				stateService.reduce(action);
+			}, 500);
 		}
 	};
 }]);

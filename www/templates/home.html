@@ -11,6 +11,8 @@
 		<div ng-if="!view.state.ui.currentId" class="center">
 			<div class="row">
 				<div class="col">
+					<!-- Restore button for mobile -->
+					<button class="button button-block" ng-click="restore()">Restore</button>
 					<button class="button button-block button-calm" ng-click="addUserDialog()">
 						<i class="icon ion-plus-circled"></i> {{ 'ADD_NEW_USER' | translate }}
 					</button>

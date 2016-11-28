@@ -5,10 +5,16 @@ app.controller('HomeCtrl', ['$scope', '$rootScope', '$ionicPopover', '$ionicPopu
 			state: stateService.getState()
 		};
 
+		$scope.restore = function(data) {
+			actionCreators.restore(data);
+		};
+
 		$rootScope.$on('stateChanged', function(event, data) {
 			$scope.view.state = data.state;
-			$scope.view.userStats = $scope.view.state.users
-				.list[$scope.view.state.ui.currentId].getStats();
+			try {
+				$scope.view.userStats = $scope.view.state.users
+					.list[$scope.view.state.ui.currentId].getStats();
+			} catch (e) {}
 		});
 
 		$scope.rateWird = function(index, rating) {

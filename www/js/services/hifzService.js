@@ -6,7 +6,8 @@
  * Service in the hifzTracker.services
  * Central location for sharedState information.
  */
-app.factory("hifzService", ['$window', '$translate', function ($window, $translate) {
+app.factory("hifzService", ['$window', '$translate', '$cordovaFile',
+ function ($window, $translate, $cordovaFile) {
 	return {
 		set: function (key, value) {
 			$window.localStorage[key] = value;
@@ -36,11 +37,15 @@ app.factory("hifzService", ['$window', '$translate', function ($window, $transla
 			if (user.id) {
 				var userIndex = users.indexOf(users.find(function (u) { return u.id == user.id; }));
 				if (userIndex >= 0) {
+					// Updating existing user
 					users[userIndex] = user;
 					this.setArray('users', users);
 					return user;
 				} else {
-					// This should never happen
+					// User is being restored
+					users.push(user);
+					this.setArray('users', users);
+					return user;
 				}
 			} else {
 				// User is new: generate an id and create user
@@ -87,7 +92,7 @@ app.factory("hifzService", ['$window', '$translate', function ($window, $transla
 			return currentTheme;
 		},
 		getCurrentId: function () {
-			var currentId = this.get('currentId', 0);
+			var currentId = parseInt(this.get('currentId', 0));
 			// Select first user if currentId was never set
 			if (currentId === 0) {
 				var users = this.getUsers();
@@ -179,6 +184,51 @@ app.factory("hifzService", ['$window', '$translate', function ($window, $transla
 				}
 			}
 			return currentTheme;
+		},
+		backup: function () {
+			var allUsers = this.getUsers();
+
+			// Save location
+			$cordovaFile.createDir(cordova.file.externalRootDirectory, "hifzTracker", false);
+			var targetPath = cordova.file.externalRootDirectory + "/hifzTracker/";
+
+			$cordovaFile.writeFile(targetPath, 'hifz.bkp', allUsers, true);
+		},
+		backupExists: function () {
+			var deferred = $q.defer();
+
+			var targetPath = cordova.file.externalRootDirectory + "/hifzTracker/";
+			$cordovaFile.checkFile(targetPath, 'hifz.bkp')
+				.then(function (file) {
+					deferred.resolve();
+				}, function (error) {
+					deferred.reject();
+				});
+
+			return deferred.promise;
+		},
+		restore: function (usersString) {
+			var self = this;
+
+			if (typeof cordova === 'undefined' && usersString) {
+				self._saveUsersFromString(usersString);
+			} else if (typeof cordova !== 'undefined') {
+				var targetPath = cordova.file.externalRootDirectory + "/hifzTracker/";
+				$cordovaFile.readAsText(targetPath, 'hifz.bkp')
+					.then(function (usersString) {
+						self._saveUsersFromString(usersString);
+					});
+			}
+		},
+		_saveUsersFromString: function(usersString) {
+			var self = this;
+
+			var allUsers = JSON.parse(usersString);
+			if (allUsers instanceof Array && allUsers.length) {
+				allUsers.forEach(function(user) {
+					self.saveUser(user);
+				});
+			}
 		}
 	}
 }]);

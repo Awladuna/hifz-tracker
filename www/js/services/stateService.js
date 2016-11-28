@@ -14,6 +14,7 @@ app.service('stateService', function ($rootScope, $log, User) {
 
 			switch (action.type) {
 				case INIT_STATE:
+				case RESTORE_BACKUP:
 					users = {
 						ids: [],
 						list: {}
@@ -52,6 +53,7 @@ app.service('stateService', function ($rootScope, $log, User) {
 
 			switch (action.type) {
 				case INIT_STATE:
+				case RESTORE_BACKUP:
 					ui = {
 						currentId: action.payload.currentId,
 						currentLang: action.payload.currentLang,
