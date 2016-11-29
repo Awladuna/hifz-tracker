@@ -40,6 +40,7 @@ app.factory("hifzService", ['$window', '$translate', '$cordovaFile', '$q',
 						// Updating existing user
 						users[userIndex] = user;
 						this.setArray('users', users);
+						this.backup()
 						return user;
 					} else {
 						// User is being restored
@@ -54,6 +55,7 @@ app.factory("hifzService", ['$window', '$translate', '$cordovaFile', '$q',
 					users.push(user);
 					this.setArray('users', users);
 					this.switchUser(user.id);
+					this.backup()
 					return user;
 				}
 			},
@@ -186,6 +188,7 @@ app.factory("hifzService", ['$window', '$translate', '$cordovaFile', '$q',
 				return currentTheme;
 			},
 			backup: function () {
+				if (typeof cordova === 'undefined') { return; }
 				var allUsers = this.getUsers();
 
 				// Save location
