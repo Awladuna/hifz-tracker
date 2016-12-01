@@ -1,13 +1,12 @@
 app.controller('HomeCtrl', ['$scope', '$rootScope', '$ionicPopover', '$ionicPopup', 'stateService', 'actionCreators',
 	function($scope, $rootScope, $ionicPopover, $ionicPopup, stateService, actionCreators) {
-		actionCreators.checkBackup();
 
 		$scope.view = {
 			state: stateService.getState()
 		};
 
 		$scope.restore = function() {
-			actionCreators.restore();
+			actionCreators.restore($scope.view.backupJson);
 		};
 
 		$rootScope.$on('stateChanged', function(event, data) {

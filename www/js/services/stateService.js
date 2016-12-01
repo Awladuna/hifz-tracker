@@ -59,7 +59,9 @@ app.service('stateService', function ($rootScope, $log, User) {
 						currentLang: action.payload.currentLang,
 						currentTheme: action.payload.currentTheme,
 						limit: DEFAULT_LIMIT,
-						bkpExists: false
+						bkpExists: action.payload.fileState.bkpExists,
+						wirdsDirExists: action.payload.fileState.wirdsDirExists,
+						isMobile: action.payload.fileState.isMobile
 					};
 					return ui;
 				case LOAD_MORE:
@@ -77,9 +79,6 @@ app.service('stateService', function ($rootScope, $log, User) {
 					// Set current user to the first user
 					ui.currentId = action.payload.users.length ? action.payload.users[0].id : 0;
 					ui.limit = DEFAULT_LIMIT;
-					return ui;
-				case CHECK_BACKUP:
-					ui.bkpExists = action.payload.bkpExists;
 					return ui;
 				default:
 					return ui;

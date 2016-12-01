@@ -12,7 +12,12 @@
 			<div class="row">
 				<div class="col">
 					<!-- Restore button for mobile -->
-					<button ng-if="view.state.ui.bkpExists" class="button button-block" ng-click="restore()">Restore</button>
+					<label class="item item-input" ng-if="!view.state.ui.isMobile">
+						<span class="input-label">Backup JSON</span>
+						<input type="text" ng-model="view.backupJson">
+					</label>
+					<button ng-if="view.state.ui.bkpExists || !view.state.ui.isMobile" class="button button-block"
+						ng-click="restore()">Restore</button>
 					<button class="button button-block button-calm" ng-click="addUserDialog()">
 						<i class="icon ion-plus-circled"></i> {{ 'ADD_NEW_USER' | translate }}
 					</button>
