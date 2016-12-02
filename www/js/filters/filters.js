@@ -22,9 +22,11 @@ app.filter('localizeDate', function (hifzService) {
 app.filter('surahName', function () {
 		return function (startPage) {
 			if (!startPage) return;
-			var containingSurahs = allSurahs.filter(function (surah) {
-				return surah.startPage <= startPage && surah.endPage >= startPage;
+			var containingSurah = allWirds.find(function (wird) {
+				return wird.type === SURAH &&
+					wird.startPage <= startPage &&
+					wird.endPage >= startPage;
 			});
-			return containingSurahs[0] ? containingSurahs[0].title : "";
+			return containingSurah ? containingSurah.title : "";
 		};
 	});

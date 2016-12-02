@@ -47,6 +47,16 @@ app.config(function ($stateProvider, $urlRouterProvider, $translateProvider, $co
 			}
 		})
 
+		.state('app.wirds', {
+			url: '/wirds/:wirdId',
+			views: {
+				'menuContent': {
+					templateUrl: 'templates/wird-page.html',
+					controller: 'WirdCtrl'
+				}
+			}
+		})
+
 		.state('app.settings', {
 			url: '/settings',
 			views: {

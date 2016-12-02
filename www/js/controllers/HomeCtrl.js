@@ -1,5 +1,5 @@
-app.controller('HomeCtrl', ['$scope', '$rootScope', '$ionicPopover', '$ionicPopup', 'stateService', 'actionCreators',
-	function($scope, $rootScope, $ionicPopover, $ionicPopup, stateService, actionCreators) {
+app.controller('HomeCtrl', ['$scope', '$rootScope', '$ionicPopover', '$ionicPopup', '$state', 'stateService', 'actionCreators',
+	function($scope, $rootScope, $ionicPopover, $ionicPopup, $state, stateService, actionCreators) {
 
 		$scope.view = {
 			state: stateService.getState()
@@ -43,8 +43,7 @@ app.controller('HomeCtrl', ['$scope', '$rootScope', '$ionicPopover', '$ionicPopu
 		}).then(function(popover) {
 			$scope.popover = popover;
 			$scope.wirdTypes = ['SURAH', 'QUARTER'];
-			$scope.allSurahs = allSurahs;
-			$scope.allQuarters = allQuarters;
+			$scope.allWirds = allWirds;
 			$scope.view.wirdLimit = 20;
 		});
 		// Reset add-wird view when popover is hidden
@@ -65,6 +64,10 @@ app.controller('HomeCtrl', ['$scope', '$rootScope', '$ionicPopover', '$ionicPopu
 		$scope.addWird = function(wird) {
 			var user = $scope.view.state.users.list[$scope.view.state.ui.currentId];
 			actionCreators.addWird(wird, user);
+		};
+
+		$scope.openWird = function (wirdId) {
+			$state.go("app.wirds", { "wirdId": wirdId });
 		};
 
 		$scope.loadMore = function(increment) {

@@ -45,7 +45,7 @@
 					<div translate="{{wird.title}}"></div>
 					<div class="wird-details">
 						<span ng-if="wird.id >= 2000" translate="{{ wird.startPage | surahName }}">
-							</span>{{ wird.startPage }} - {{ wird.endPage }}
+							</span> {{ wird.startPage }} - {{ wird.endPage }}
 					</div>
 				</div>
 				<span class="item-note">
@@ -75,7 +75,7 @@
 			</div>
 			<div class="item item-divider" ng-class="'item-' + view.state.ui.currentTheme.class">
 				<button class="button button-small" ng-class="'button-' + view.state.ui.currentTheme.class"
-					ng-click="openWird(wird)">
+					ng-click="openWird(wird.id)">
 					<i class="icon ion-ios-book-outline"></i> {{ 'READ' | translate }}
 				</button>
 				<span class="item-note">
