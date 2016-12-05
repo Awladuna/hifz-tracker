@@ -77,7 +77,7 @@ app.service('stateService', function ($rootScope, $log, User) {
 					return ui;
 				case DELETE_USER:
 					// Set current user to the first user
-					ui.currentId = action.payload.users.length ? action.payload.users[0].id : 0;
+					ui.currentId = action.payload.currentId;
 					ui.limit = DEFAULT_LIMIT;
 					return ui;
 				default:
