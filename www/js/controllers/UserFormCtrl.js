@@ -12,6 +12,14 @@ app.controller('UserFormCtrl', ['$scope', '$stateParams', '$ionicHistory', 'stat
 			$ionicHistory.goBack();
 		};
 
+		$scope.cancel = function () {
+			if ($scope.confirmed) {
+				$scope.confirmed = false;
+			} else {
+				$scope.goBack();
+			}
+		};
+
 		$scope.deleteUser = function () {
 			if ($scope.confirmed) {
 				actionCreators.deleteUser($scope.user);

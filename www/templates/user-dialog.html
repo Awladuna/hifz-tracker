@@ -10,11 +10,13 @@
 				<button class="button button-block button-outline button-assertive" ng-click="deleteUser()"
 					ng-if="userId">
 					<i class="icon ion-trash-b" ng-if="!confirmed"></i>
-					<span ng-if="confirmed">Are you sure?</span>
+					<span ng-if="confirmed">
+						{{ 'DELETE_CONFIRMATION' | translate }} {{ user.name }}?
+					</span>
 				</button>
 			</div>
 			<div class="col col-25" ng-class="{ 'col-offset-25': !confirmed }">
-				<button class="button button-block button-outline" ng-click="goBack()"
+				<button class="button button-block button-outline" ng-click="cancel()"
 					translate="CANCEL"></button>
 			</div>
 			<div class="col col-25">
