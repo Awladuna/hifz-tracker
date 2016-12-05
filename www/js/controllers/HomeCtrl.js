@@ -74,9 +74,5 @@ app.controller('HomeCtrl', ['$scope', '$rootScope', '$ionicPopover', '$ionicPopu
 			actionCreators.loadMore(increment);
 		};
 
-		// TODO: Find way to move this to a resolve
-		if (!$scope.view.state.users) {
-			actionCreators.getInitialState();
-		}
 	}]);
 

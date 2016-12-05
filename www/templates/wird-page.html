@@ -4,7 +4,8 @@
 			<ion-slide ng-repeat="page in wirdPages track by $index">
 				<img ng-src="{{ imgRoot }}/page{{ ('00' + (wird.endPage - $index + 1)).slice(-3) }}.png"
 					ng-class="{'translucent': $index === 0 || $index === wirdPages.length - 1 }"
-					class="page page-{{ view.state.ui.currentTheme.class }}" />
+					class="page page-{{ view.state.ui.currentTheme.class }}" ng-if="($index - activePage) == 1 || (activePage - $index) == 1 || $index == activePage"
+				/>
 			</ion-slide>
 		</ion-slide-box>
 	</ion-content>

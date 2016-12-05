@@ -34,7 +34,15 @@ app.config(function ($stateProvider, $urlRouterProvider, $translateProvider, $co
 			url: '/app',
 			abstract: true,
 			templateUrl: 'templates/menu.html',
-			controller: 'AppCtrl'
+			controller: 'AppCtrl',
+			resolve: {
+				requestStorage: function(hifzService){
+					return hifzService.requestStoragePermission();
+				},
+				payload: function(actionCreators) {
+					return actionCreators.getInitialState();
+				}
+			}
 		})
 
 		.state('app.home', {

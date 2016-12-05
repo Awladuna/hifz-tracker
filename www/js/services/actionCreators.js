@@ -10,7 +10,7 @@ app.service('actionCreators', ['stateService', 'hifzService',
 	function (stateService, hifzService) {
 		return {
 			getInitialState: function () {
-				hifzService.checkFiles().then(function (fileState) {
+				return hifzService.checkFiles().then(function (fileState) {
 					var action = {
 						type: INIT_STATE,
 						payload: {

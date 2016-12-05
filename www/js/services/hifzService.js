@@ -6,8 +6,8 @@
  * Service in the hifzTracker.services
  * Central location for sharedState information.
  */
-app.factory("hifzService", ['$window', '$translate', '$cordovaFile', '$q',
-function($window, $translate, $cordovaFile, $q) {
+app.factory("hifzService", ['$window', '$translate', '$cordovaFile', '$q', 'ionicToast',
+function($window, $translate, $cordovaFile, $q, ionicToast) {
 return {
 	set: function(key, value) {
 		$window.localStorage[key] = value;
@@ -186,6 +186,32 @@ return {
 			}
 		}
 		return currentTheme;
+	},
+	requestStoragePermission: function() {
+		var deferred = $q.defer();
+
+		if (typeof cordova === 'undefined') {
+			deferred.resolve();
+		} else {
+			cordova.plugins.diagnostic.requestRuntimePermission(function(status){
+				switch(status){
+					case cordova.plugins.diagnostic.runtimePermissionStatus.GRANTED:
+						break;
+					case cordova.plugins.diagnostic.runtimePermissionStatus.NOT_REQUESTED:
+						break;
+					case cordova.plugins.diagnostic.runtimePermissionStatus.DENIED:
+						break;
+					case cordova.plugins.diagnostic.runtimePermissionStatus.DENIED_ALWAYS:
+						ionicToast.show("Permission to access files was permenantly denied, please give access in phone settings", 'bottom', true, 1000);
+						break;
+				}
+				deferred.resolve();
+			}, function(error){
+				console.error("The following error occurred: " + error);
+			}, cordova.plugins.diagnostic.runtimePermission.READ_EXTERNAL_STORAGE);
+		}
+
+		return deferred.promise;
 	},
 	backup: function() {
 		if (typeof cordova === 'undefined') { return; }
