@@ -29,10 +29,10 @@ app.service('stateService', function ($rootScope, $log, User) {
 				case RATE_WIRD:
 				case ADD_WIRD:
 				case REMOVE_WIRD:
-					users.list[action.payload.user.id] = action.payload.user;
+					users.list[action.payload.user.id] = new User(action.payload.user);
 					return users;
 				case SAVE_USER:
-					users.list[action.payload.user.id] = action.payload.user;
+					users.list[action.payload.user.id] = new User(action.payload.user);
 					var userIndex = users.ids.indexOf(action.payload.user.id);
 					if (userIndex < 0) {
 						users.ids.push(action.payload.user.id);
