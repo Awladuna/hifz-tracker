@@ -13,8 +13,12 @@ app.controller('UserFormCtrl', ['$scope', '$stateParams', '$ionicHistory', 'stat
 		};
 
 		$scope.deleteUser = function () {
-			actionCreators.deleteUser($scope.user);
-			$scope.goBack();
+			if ($scope.confirmed) {
+				actionCreators.deleteUser($scope.user);
+				$scope.goBack();
+			} else {
+				$scope.confirmed = true;
+			}
 		};
 
 		$scope.saveUser = function () {

@@ -6,13 +6,14 @@
 			</label>
 		</div>
 		<div class="padding row">
-			<div class="col col-25">
+			<div class="col" ng-class="{ 'col-25': !confirmed, 'col-50': confirmed }">
 				<button class="button button-block button-outline button-assertive" ng-click="deleteUser()"
 					ng-if="userId">
-					<i class="icon ion-trash-b"></i>
+					<i class="icon ion-trash-b" ng-if="!confirmed"></i>
+					<span ng-if="confirmed">Are you sure?</span>
 				</button>
 			</div>
-			<div class="col col-25 col-offset-25">
+			<div class="col col-25" ng-class="{ 'col-offset-25': !confirmed }">
 				<button class="button button-block button-outline" ng-click="goBack()"
 					translate="CANCEL"></button>
 			</div>
