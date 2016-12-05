@@ -1,12 +1,9 @@
 {
-
 	"ADD_NEW_USER": "إضافة مستخدم جديد",
 	"LOAD_MORE": "أظهر المزيد",
 	"USERS": "المستخدمون",
 	"SETTINGS": "إعدادات",
 	"REORDER": "رتب",
-
-
 	"ADD_WIRD": "أضف",
 	"DELETE": "حذف",
 	"READ": "اقرأ",
@@ -14,13 +11,11 @@
 	"NEVER": "لم يقرأ",
 	"ADD_USERS_INSTRUCTIONS": "يمكنك إضافة وإدارة المستخدمين في القائمة اليسرى",
 	"ADD_WIRDS_INSTRUCTIONS": "المستخدم الحالي لا يحوي أية أوراد، يمكنك إضافة بعض الأوراد هنا",
-
+	"PAGES": "ص.",
 	"POOR": "ضعيف",
 	"WEAK": "مقبول",
 	"OKAY": "جيد",
 	"PERFECT": "ممتاز",
-
-
 	"SELECT_WIRD": "اختر الورد",
 	"SELECT_WIRD_TYPE": "اختر نوع الورد",
 	"OK": "موافقة",
@@ -29,10 +24,8 @@
 	"DELETE_CONFIRMATION": "هل أنت متأكد من حذف",
 	"DOWNLOAD_CONFIRMATION": "هذا يتطلب تحميل إضافي. تقدم؟",
 	"DATE": "{{date|date:'medium'}}",
-
 	"SURAH": "سورة",
 	"QUARTER": "ربع حزب",
-
 	"Al-Fatihah": "الفاتحة",
 	"Al-Baqarah": "البقرة",
 	"Al-Imran": "آل عمران",
@@ -147,10 +140,8 @@
 	"Al-Ikhlas": "الإخلاص",
 	"Al-Falaq": "الفلق",
 	"An-Nas": "النّاس",
-
 	"LANGUAGE": "اللغة",
 	"THEME": "المظهر",
 	"DARK": "غامق",
 	"LIGHT": "فاتح"
-
 }

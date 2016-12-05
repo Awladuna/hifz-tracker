@@ -1,12 +1,9 @@
 {
-
 	"ADD_NEW_USER": "Add New User",
 	"LOAD_MORE": "Show more",
 	"USERS": "Users",
 	"SETTINGS": "Settings",
 	"REORDER": "Reorder",
-
-
 	"ADD_WIRD": "Add Wird",
 	"DELETE": "Delete",
 	"READ": "Read",
@@ -14,13 +11,11 @@
 	"NEVER": "Never",
 	"ADD_USERS_INSTRUCTIONS": "You can add and manage users in the left menu",
 	"ADD_WIRDS_INSTRUCTIONS": "Current user has no wirds, you can add some here",
-
+	"PAGES": "Pages",
 	"POOR": "Poor",
 	"WEAK": "Weak",
 	"OKAY": "Okay",
 	"PERFECT": "Perfect",
-
-
 	"SELECT_WIRD": "Select Wird",
 	"SELECT_WIRD_TYPE": "Select Wird Type",
 	"OK": "OK",
@@ -29,10 +24,8 @@
 	"DELETE_CONFIRMATION": "Are you sure you want to delete",
 	"DOWNLOAD_CONFIRMATION": "This requires an additional download. Proceed?",
 	"DATE": "{{date|date:'short'}}",
-
 	"SURAH": "Surah",
 	"QUARTER": "Quarter of Hizb",
-
 	"Al-Fatihah": "Al-Fatihah",
 	"Al-Baqarah": "Al-Baqarah",
 	"Al-Imran": "Al-Imran",
@@ -147,10 +140,8 @@
 	"Al-Ikhlas": "Al-Ikhlas",
 	"Al-Falaq": "Al-Falaq",
 	"An-Nas": "An-Nas",
-
 	"LANGUAGE": "Language",
 	"THEME": "Theme",
 	"DARK": "Dark",
 	"LIGHT": "Light"
-
 }

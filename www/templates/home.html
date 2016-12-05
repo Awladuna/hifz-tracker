@@ -44,8 +44,8 @@
 				<div class="wird-info">
 					<div translate="{{wird.title}}"></div>
 					<div class="wird-details">
-						<span ng-if="wird.id >= 2000" translate="{{ wird.startPage | surahName }}">
-							</span> {{ wird.startPage }} - {{ wird.endPage }}
+						<span ng-if="wird.id >= 2000" translate="{{ wird.startPage | surahName }}"></span>
+						<span dir="rtl">( {{ 'PAGES' | translate }} {{ wird.startPage }} - {{ wird.endPage }} )</span>
 					</div>
 				</div>
 				<span class="item-note">
