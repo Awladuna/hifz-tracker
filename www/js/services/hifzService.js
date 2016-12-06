@@ -6,8 +6,8 @@
  * Service in the hifzTracker.services
  * Central location for sharedState information.
  */
-app.factory("hifzService", ['$window', '$translate', '$cordovaFile', '$q', 'ionicToast',
-function($window, $translate, $cordovaFile, $q, ionicToast) {
+app.factory("hifzService", ['$rootScope', '$window', '$translate', '$cordovaFile', '$q', 'ionicToast', '$cordovaFileTransfer', '$cordovaZip',
+function($rootScope, $window, $translate, $cordovaFile, $q, ionicToast, $cordovaFileTransfer, $cordovaZip) {
 	return {
 		set: function(key, value) {
 			$window.localStorage[key] = value;
@@ -223,42 +223,19 @@ function($window, $translate, $cordovaFile, $q, ionicToast) {
 
 			$cordovaFile.writeFile(targetPath, 'hifz.bkp', allUsers, true);
 		},
-		checkFiles: function() {
+		checkBackup: function() {
 			var deferred = $q.defer();
-			var fileState = {
-				isMobile: false,
-				bkpExists: false,
-				wirdsDirExists: false
-			}
 
 			if (typeof cordova !== 'undefined') {
-				fileState.isMobile = true;
 				var targetPath = cordova.file.externalRootDirectory + "/hifzTracker/";
 				$cordovaFile.checkFile(targetPath, 'hifz.bkp')
 					.then(function(file) {
-
-						fileState.bkpExists = true;
-						$cordovaFile.checkDir(cordova.file.dataDirectory, "dir/other_dir")
-							.then(function(success) {
-								fileState.wirdsDirExists = true;
-								deferred.resolve(fileState);
-							}, function(error) {
-								deferred.resolve(fileState);
-							});
-
+						deferred.resolve(true);
 					}, function(error) {
-
-						$cordovaFile.checkDir(cordova.file.dataDirectory, "dir/other_dir")
-							.then(function(success) {
-								fileState.wirdsDirExists = true;
-								deferred.resolve(fileState);
-							}, function(error) {
-								deferred.resolve(fileState);
-							});
-
+						deferred.resolve(false);
 					});
 			} else {
-				deferred.resolve(fileState);
+				deferred.resolve(false);
 			}
 
 			return deferred.promise;
@@ -272,20 +249,124 @@ function($window, $translate, $cordovaFile, $q, ionicToast) {
 				$cordovaFile.readAsText(targetPath, 'hifz.bkp')
 					.then(function(usersString) {
 						self._saveUsersFromString(usersString);
-						self.checkFiles().then(function(fileState) {
-							deferred.resolve(fileState);
+						self.checkBackup().then(function(bkpExists) {
+							deferred.resolve(bkpExists);
 						});
 					}, function() {
 						deferred.reject();
 					});
 			} else if (usersString) {
 				self._saveUsersFromString(usersString);
-				self.checkFiles().then(function(fileState) {
-					deferred.resolve(fileState);
+				self.checkBackup().then(function(bkpExists) {
+					deferred.resolve(bkpExists);
 				});
 			} else {
 				deferred.reject();
 			}
+
+			return deferred.promise;
+		},
+		getDownloadStatus: function () {
+			// 0: Not downloaded
+			// 1: Downloaded but not unzipped
+			// 2: Downloaded and unzipped
+			var status = parseInt(this.get('downloadStatus', 0));
+			return status;
+		},
+		downloadOrUnzip: function () {
+			var deferred = $q.defer();
+			var scope = this;
+
+			// Background process information
+			cordova.plugins.backgroundMode.setDefaults({
+					title:  'Hifz Tracker',
+					text:   'Downloading Quran Pages'
+			});
+
+			// Enable background mode
+			cordova.plugins.backgroundMode.enable();
+
+			var status = scope.getDownloadStatus();
+			if (status === 0) {
+				console.log("Not downloaded. Starting download");
+				scope.download().then(function () {
+					cordova.plugins.backgroundMode.disable();
+					deferred.resolve();
+				}, function () {
+					cordova.plugins.backgroundMode.disable();
+					deferred.reject();
+				});
+			} else if (status === 1) {
+				console.log("Not unzipped. Starting unzip");
+				scope.unzip().then(function () {
+					cordova.plugins.backgroundMode.disable();
+					deferred.resolve();
+				}, function () {
+					cordova.plugins.backgroundMode.disable();
+					deferred.reject();
+				});
+			} else {
+				console.log("Already downloaded and unzipped!");
+				cordova.plugins.backgroundMode.disable();
+				deferred.resolve();
+			}
+
+			return deferred.promise;
+		},
+		download: function () {
+			var deferred = $q.defer();
+			var scope = this;
+
+			// File for download
+			var url = "http://android.quran.com/data/zips/images_800.zip";
+
+			// File name only
+			var filename = url.split("/").pop();
+
+			// Save location
+			$cordovaFile.createDir(cordova.file.externalRootDirectory, "hifzTracker", false);
+			var targetPath = cordova.file.externalRootDirectory + "/hifzTracker/" + filename;
+
+			$cordovaFileTransfer.download(url, targetPath, {}, true).then(function (result) {
+				scope.set('downloadStatus', 1);
+				console.log('Download Success... Unzipping');
+				scope.unzip(filename).then(function () {
+					deferred.resolve();
+				}, function () {
+					deferred.reject();
+				});
+			}, function (error) {
+				$cordovaFile.removeRecursively(cordova.file.externalRootDirectory, "hifzTracker");
+				deferred.reject();
+			}, function (progress) {
+				$rootScope.$emit('downloadProgressChanged', Math.floor(100 * progress.loaded / progress.total));
+			});
+
+			return deferred.promise;
+		},
+		unzip: function (filename) {
+			var deferred = $q.defer();
+			var scope = this;
+
+			// Unzip location
+			var targetPath = cordova.file.externalRootDirectory + "/hifzTracker/" + filename;
+
+			$cordovaZip
+				.unzip(
+					targetPath,
+					cordova.file.externalRootDirectory + "/hifzTracker/"
+				).then(function () {
+					console.log('Unzip Success...');
+					scope.set('downloadStatus', 2);
+					$cordovaFile.removeFile(cordova.file.externalRootDirectory + "/hifzTracker/", filename);
+					deferred.resolve();
+				}, function () {
+					// Failed unzip.. probably a corrupt download
+					scope.set('downloadStatus', 0);
+					deferred.reject();
+				}, function (progress) {
+					$rootScope.$emit('unzipProgressChanged', Math.floor(100 * progress.loaded / progress.total));
+				});
 
 			return deferred.promise;
 		},

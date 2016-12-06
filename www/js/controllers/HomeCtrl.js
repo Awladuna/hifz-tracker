@@ -74,7 +74,20 @@ app.controller('HomeCtrl', ['$scope', '$rootScope', '$ionicPopover', '$ionicPopu
 		};
 
 		$scope.openWird = function (wirdId) {
-			$state.go("app.wirds", { "wirdId": wirdId });
+			if ($scope.view.state.ui.downloadStatus == 2) {
+				$state.go("app.wirds", { "wirdId": wirdId });
+			} else {
+				// Images not available, prompt to download
+				var confirmPopup = $ionicPopup.confirm({
+					template: '<span translate="DOWNLOAD_CONFIRMATION"></span>?'
+				});
+
+				confirmPopup.then(function (res) {
+					if (res) {
+						actionCreators.downloadOrUnzip();
+					}
+				});
+			}
 		};
 
 		$scope.loadMore = function (increment) {

@@ -10,7 +10,7 @@ app.service('actionCreators', ['stateService', 'hifzService',
 	function (stateService, hifzService) {
 		return {
 			getInitialState: function () {
-				return hifzService.checkFiles().then(function (fileState) {
+				return hifzService.checkBackup().then(function (bkpExists) {
 					var action = {
 						type: INIT_STATE,
 						payload: {
@@ -18,7 +18,9 @@ app.service('actionCreators', ['stateService', 'hifzService',
 							currentId: hifzService.getCurrentId(),
 							currentLang: hifzService.getCurrentLang(),
 							currentTheme: hifzService.getCurrentTheme(),
-							fileState: fileState
+							bkpExists: bkpExists,
+							downloadStatus: hifzService.getDownloadStatus(),
+							isMobile: (typeof cordova !== 'undefined')
 						}
 					};
 					stateService.reduce(action);
@@ -115,7 +117,7 @@ app.service('actionCreators', ['stateService', 'hifzService',
 				stateService.reduce(action);
 			},
 			restore: function (usersString) {
-				hifzService.restore(usersString).then(function (fileState) {
+				hifzService.restore(usersString).then(function (bkpExists) {
 					var action = {
 						type: RESTORE_BACKUP,
 						payload: {
@@ -123,8 +125,19 @@ app.service('actionCreators', ['stateService', 'hifzService',
 							currentId: hifzService.getCurrentId(),
 							currentLang: hifzService.getCurrentLang(),
 							currentTheme: hifzService.getCurrentTheme(),
-							fileState: fileState
+							bkpExists: bkpExists,
+							downloadStatus: hifzService.getDownloadStatus(),
+							isMobile: (typeof cordova !== 'undefined')
 						}
+					};
+					stateService.reduce(action);
+				});
+			},
+			downloadOrUnzip: function () {
+				hifzService.downloadOrUnzip().then(function () {
+					var action = {
+						type: FILES_DOWNLOADED,
+						payload: {}
 					};
 					stateService.reduce(action);
 				});

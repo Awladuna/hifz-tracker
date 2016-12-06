@@ -1,0 +1,9 @@
+<div class="bar bar-footer bar-dark" ng-if="progress.percent" style="position: fixed; bottom: 0;">
+	<div class="progress">
+		<h4 ng-bind="progress.description" ng-style="{ 'color': progress.color }"></h4>
+		<div class="progress-bar">
+			<div class="progress-section" ng-style="{ 'background-color': progress.color, 'width': progress.percent + '%'}">
+			</div>
+		</div>
+	</div>
+</div>

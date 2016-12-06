@@ -1,5 +1,5 @@
-app.directive('statBar', function () {
-	return {
+app.directive('statBar', function() {
+return {
 		restrict: 'E',
 		template: '<div class="stat-bar"><div class="stat-section" '
 		+ 'ng-repeat="stat in stats | orderBy : \'count\' : true" '
@@ -7,27 +7,34 @@ app.directive('statBar', function () {
 		+ '\'width\': (100 * stat.count / total) + \'%\'}"></div></div>',
 		replace: true,
 		scope: {
-			stats: '=',
-			total: '='
+				stats: '=',
+				total: '='
 		},
-		link: function (scope, element, attr) {
+		link: function(scope, element, attr) {
 		}
-	};
+};
 });
 
-app.directive('progressBar', function () {
-	return {
+app.directive('progressBar', function($rootScope) {
+return {
 		restrict: 'E',
-		template: '<div class="progress" ng-if="progress.percent">'
-		+ '<h4 ng-bind="progress.description" ng-style="{\'color\':progress.color}"></h4>'
-		+ '<div class="progress-bar"><div class="progress-section" '
-		+ 'ng-style="{\'background-color\':progress.color, '
-		+ '\'width\': progress.percent + \'%\'}"></div></div></div>',
+		templateUrl: 'templates/progressBar.html',
 		replace: true,
-		scope: {
-			progress: '='
-		},
-		link: function (scope, element, attr) {
+		scope: true,
+		link: function(scope, element, attr) {
+				scope.progress = {};
+
+				$rootScope.$on('downloadProgressChanged', function (event, percent) {
+						scope.progress.percent = percent < 100 ? percent : undefined;
+						scope.progress.description = 'Downloading';
+						scope.progress.color = '#387ef5';
+				});
+
+				$rootScope.$on('unzipProgressChanged', function (event, percent) {
+						scope.progress.percent = percent < 100 ? percent : undefined;
+						scope.progress.description = 'Expanding';
+						scope.progress.color = '#33cd5f';
+				});
 		}
-	};
+};
 });

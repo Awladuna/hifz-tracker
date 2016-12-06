@@ -97,8 +97,6 @@
 	<stat-bar stats="view.userStats" total="view.state.users.list[view.state.ui.currentId].wirds.length"
 		ng-if="view.state.users.list[view.state.ui.currentId].wirds.length"></stat-bar>
 
-	<div class="bar bar-footer" ng-if="progress.percent" ng-class="'bar-' + view.state.ui.currentTheme.class"
-		style="position: fixed; bottom: 0;">
-		<progress-bar progress="progress"></progress-bar>
-	</div>
+	<progress-bar progress="progress"></progress-bar>
+
 </ion-view>
