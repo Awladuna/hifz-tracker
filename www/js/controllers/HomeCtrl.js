@@ -19,6 +19,10 @@ app.controller('HomeCtrl', ['$scope', '$rootScope', '$ionicPopover', '$ionicPopu
 			actionCreators.restore($scope.view.backupJson);
 		};
 
+		$scope.userDialog = function (userId) {
+			$state.go("app.users", { "userId": userId });
+		};
+
 		$rootScope.$on('stateChanged', function (event, data) {
 			$scope.view.state = data.state;
 			$scope.view.userStats = getStats();

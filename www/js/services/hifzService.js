@@ -50,7 +50,7 @@ function($rootScope, $window, $translate, $cordovaFile, $q, ionicToast, $cordova
 				}
 			} else {
 				// User is new: generate an id and create user
-				var lastId = users.map(function(u) { return u.id; }).sort().pop();
+				var lastId = users.length ? users.map(function(u) { return u.id; }).sort().pop() : 0;
 				user.id = lastId + 1;
 				users.push(user);
 				this.setArray('users', users);
