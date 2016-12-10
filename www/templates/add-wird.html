@@ -15,7 +15,7 @@
 
 		<div ng-if="view.wirdType === 'SURAH'">
 			<ul class="list">
-				<li ng-repeat="surah in allWirds | filter:{type: 'SURAH'} | limitTo:view.wirdLimit | excludeItemsById:view.state.users.list[view.state.ui.currentId].wirds track by surah.id"
+				<li ng-repeat="surah in allWirds | filter:{type: 'SURAH'} | excludeItemsById:view.state.users.list[view.state.ui.currentId].wirds | limitTo:view.wirdLimit track by surah.id"
 					class="item" ng-class="'item-' + view.state.ui.currentTheme.class"
 					ng-click="addWird(surah)" translate="{{ surah.title }}">
 				</li>
@@ -25,7 +25,7 @@
 
 		<div ng-if="view.wirdType === 'QUARTER'">
 			<ul class="list">
-				<li ng-repeat="quarter in allWirds | filter:{type: 'QUARTER'} | limitTo:view.wirdLimit | excludeItemsById:view.state.users.list[view.state.ui.currentId].wirds track by quarter.id"
+				<li ng-repeat="quarter in allWirds | filter:{type: 'QUARTER'} | excludeItemsById:view.state.users.list[view.state.ui.currentId].wirds | limitTo:view.wirdLimit track by quarter.id"
 					class="item" ng-class="'item-' + view.state.ui.currentTheme.class"
 					ng-click="addWird(quarter)" translate="{{ quarter.title }}">
 				</li>
