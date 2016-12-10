@@ -2,7 +2,8 @@ app.controller('AppCtrl', ['$rootScope', '$scope', 'stateService', 'actionCreato
 	function ($rootScope, $scope, stateService, actionCreators, $state) {
 
 		$scope.view = {
-			state: stateService.getState()
+			state: stateService.getState(),
+			editUsers: false
 		};
 
 		$rootScope.$on('stateChanged', function (event, data) {
@@ -10,14 +11,17 @@ app.controller('AppCtrl', ['$rootScope', '$scope', 'stateService', 'actionCreato
 		});
 
 		$scope.userDialog = function (userId) {
+			$scope.view.editUsers = false;
 			$state.go("app.users", { "userId": userId });
 		};
 
 		$scope.settings = function () {
+			$scope.view.editUsers = false;
 			$state.go("app.settings");
 		};
 
 		$scope.switchUser = function (userId) {
+			$scope.view.editUsers = false;
 			actionCreators.switchUser(userId);
 		}
 	}]);

@@ -19,6 +19,10 @@
 			<h1 class="title">
 				{{ 'USERS' | translate }}
 			</h1>
+			<button class="button pull-right" ng-click="view.editUsers = !view.editUsers"
+				ng-class="{ 'active': view.editUsers }">
+				<i class="icon ion-person-stalker"></i>
+			</button>
 		</ion-header-bar>
 		<ion-content ng-class="'content-' + view.state.ui.currentTheme.class">
 			<ion-list>
@@ -26,9 +30,10 @@
 					class="item item-{{view.state.ui.currentTheme.class}}" ng-click="switchUser(userId)"
 					ng-class="{ 'active': userId === view.state.ui.currentId }">
 					{{ view.state.users.list[userId].name }}
-					<ion-option-button menu-close class="button-assertive" ng-click="userDialog(userId)">
+					<button menu-close class="button button-outline button-small button-assertive edit-user"
+						ng-show="view.editUsers" ng-click="userDialog(userId)">
 						<span class="ion-edit"></span>
-					</ion-option-button>
+					</button>
 				</ion-item>
 				<ion-item menu-close ng-click="userDialog()" class="item" ng-class="'item-' + view.state.ui.currentTheme.class">
 					<i class="icon ion-plus-circled"></i> &nbsp; {{ 'ADD_NEW_USER' | translate
