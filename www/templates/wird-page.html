@@ -1,11 +1,16 @@
-<ion-view cache-view="false" view-title="{{ wird.title | translate }}">
+<ion-view cache-view="false">
+	<ion-nav-title>
+		<span translate="{{ wird.title }}"></span>
+		<span class="wird-details pull-right" ng-if="wird.type == 'QUARTER'" translate="{{ wird.startPage | surahName }}"></span>
+	</ion-nav-title>
+
 	<ion-content ng-class="'content-' + view.state.ui.currentTheme.class">
 		<ion-slide-box active-slide="activePage" show-pager="false">
-			<ion-slide ng-repeat="page in wirdPages track by $index">
+			<ion-slide ng-repeat="page in wirdPages track by $index" ng-class="{'translucent': $index === 0 || $index === wirdPages.length - 1 }">
 				<img ng-src="{{ imgRoot }}/page{{ ('00' + (wird.endPage - $index + 1)).slice(-3) }}.png"
-					ng-class="{'translucent': $index === 0 || $index === wirdPages.length - 1 }"
 					class="page page-{{ view.state.ui.currentTheme.class }}" ng-if="($index - activePage) == 1 || (activePage - $index) == 1 || $index == activePage"
 				/>
+				<span class="wird-page-number">{{ wird.endPage - $index + 1 }}</span>
 			</ion-slide>
 		</ion-slide-box>
 	</ion-content>

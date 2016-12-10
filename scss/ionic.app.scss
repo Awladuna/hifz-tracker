@@ -49,6 +49,10 @@ $ionicons-font-path: "../lib/ionic/fonts" !default;
 	width:100%;
 }
 
+.pull-right {
+	float: right;
+}
+
 .scroll, .slider, .slider-slides {
 	min-height: 100%;
 	height: 100%;
@@ -173,4 +177,10 @@ $ionicons-font-path: "../lib/ionic/fonts" !default;
 
 .wird-details {
 	font-size: 50%;
+}
+
+.wird-page-number {
+	position: absolute;
+	bottom: 0;
+	left: 50%;
 }
