@@ -27,7 +27,12 @@
 			<ul class="list">
 				<li ng-repeat="quarter in allWirds | filter:{type: 'QUARTER'} | excludeItemsById:view.state.users.list[view.state.ui.currentId].wirds | limitTo:view.wirdLimit track by quarter.id"
 					class="item" ng-class="'item-' + view.state.ui.currentTheme.class"
-					ng-click="addWird(quarter)" translate="{{ quarter.title }}">
+					ng-click="addWird(quarter)">
+					<span translate="{{ quarter.title }}"></span>
+					<div class="wird-details">
+						<span translate="{{ quarter.startPage | surahName }}"></span>
+						<span dir="rtl">( {{ 'PAGES' | translate }} {{ quarter.startPage }} - {{ quarter.endPage }} )</span>
+					</div>
 				</li>
 			</ul>
 			<ion-infinite-scroll distance="50%" on-infinite="increaseWirdLimit()" ng-if="(allWirds | filter:{type: 'QUARTER'}).length > view.wirdLimit"></ion-infinite-scroll>
